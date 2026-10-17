@@ -2,7 +2,7 @@ name: Kostenlose Marktdaten aktualisieren
 on:
   push:
     branches: [main]
-    paths: [index.html, "data/**", ".github/workflows/update.yml"]
+    paths: [index.html, research.js, update_data.py, scoring.py, requirements.txt, "data/**", "tests/**", ".github/workflows/update.yml"]
   schedule:
     - cron: '35 21 * * 1-5'
   workflow_dispatch:
@@ -10,6 +10,9 @@ permissions:
   contents: write
   pages: write
   id-token: write
+concurrency:
+  group: market-data-pages
+  cancel-in-progress: true
 jobs:
   refresh:
     runs-on: ubuntu-latest
@@ -19,6 +22,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Kostenlose Datenbibliothek installieren
+        run: python -m pip install -r requirements.txt
+      - name: Berechnungen testen
+        run: |
+          python -m unittest discover -s tests -v
+          node tests/test_research.cjs
+          node --check research.js
       - name: Marktdaten abrufen
         run: python update_data.py
       - name: Änderungen sichern
@@ -33,7 +43,7 @@ jobs:
       - name: Website vorbereiten
         run: |
           mkdir -p _site
-          cp index.html _site/
+          cp index.html research.js _site/
           cp -r data _site/data
       - uses: actions/upload-pages-artifact@v3
         with:
