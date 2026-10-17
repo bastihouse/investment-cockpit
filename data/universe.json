@@ -1,0 +1,194 @@
+[
+  {
+    "ticker": "NVDA",
+    "name": "Nvidia",
+    "yahoo": "NVDA",
+    "currency": "USD"
+  },
+  {
+    "ticker": "LLY",
+    "name": "Eli Lilly",
+    "yahoo": "LLY",
+    "currency": "USD"
+  },
+  {
+    "ticker": "MSFT",
+    "name": "Microsoft",
+    "yahoo": "MSFT",
+    "currency": "USD"
+  },
+  {
+    "ticker": "NFLX",
+    "name": "Netflix",
+    "yahoo": "NFLX",
+    "currency": "USD"
+  },
+  {
+    "ticker": "GOOGL",
+    "name": "Alphabet",
+    "yahoo": "GOOGL",
+    "currency": "USD"
+  },
+  {
+    "ticker": "META",
+    "name": "Meta",
+    "yahoo": "META",
+    "currency": "USD"
+  },
+  {
+    "ticker": "005930",
+    "name": "Samsung Electronics",
+    "yahoo": "005930.KS",
+    "currency": "KRW"
+  },
+  {
+    "ticker": "UL",
+    "name": "Unilever",
+    "yahoo": "UL",
+    "currency": "USD"
+  },
+  {
+    "ticker": "AMZN",
+    "name": "Amazon",
+    "yahoo": "AMZN",
+    "currency": "USD"
+  },
+  {
+    "ticker": "JPM",
+    "name": "JPMorgan",
+    "yahoo": "JPM",
+    "currency": "USD"
+  },
+  {
+    "ticker": "BSX",
+    "name": "Boston Scientific",
+    "yahoo": "BSX",
+    "currency": "USD"
+  },
+  {
+    "ticker": "ENR",
+    "name": "Siemens Energy",
+    "yahoo": "ENR.DE",
+    "currency": "EUR"
+  },
+  {
+    "ticker": "MCK",
+    "name": "McKesson",
+    "yahoo": "MCK",
+    "currency": "USD"
+  },
+  {
+    "ticker": "G",
+    "name": "Generali",
+    "yahoo": "G.MI",
+    "currency": "EUR"
+  },
+  {
+    "ticker": "V",
+    "name": "Visa",
+    "yahoo": "V",
+    "currency": "USD"
+  },
+  {
+    "ticker": "MCD",
+    "name": "McDonald's",
+    "yahoo": "MCD",
+    "currency": "USD"
+  },
+  {
+    "ticker": "ALV",
+    "name": "Allianz",
+    "yahoo": "ALV.DE",
+    "currency": "EUR"
+  },
+  {
+    "ticker": "SHEL",
+    "name": "Shell",
+    "yahoo": "SHEL",
+    "currency": "USD"
+  },
+  {
+    "ticker": "O",
+    "name": "Realty Income",
+    "yahoo": "O",
+    "currency": "USD"
+  },
+  {
+    "ticker": "BRK.B",
+    "name": "Berkshire Hathaway B",
+    "yahoo": "BRK-B",
+    "currency": "USD"
+  },
+  {
+    "ticker": "AMD",
+    "name": "AMD",
+    "yahoo": "AMD",
+    "currency": "USD"
+  },
+  {
+    "ticker": "ARCC",
+    "name": "Ares Capital",
+    "yahoo": "ARCC",
+    "currency": "USD"
+  },
+  {
+    "ticker": "KO",
+    "name": "Coca-Cola",
+    "yahoo": "KO",
+    "currency": "USD"
+  },
+  {
+    "ticker": "PEP",
+    "name": "PepsiCo",
+    "yahoo": "PEP",
+    "currency": "USD"
+  },
+  {
+    "ticker": "PG",
+    "name": "Procter & Gamble",
+    "yahoo": "PG",
+    "currency": "USD"
+  },
+  {
+    "ticker": "WMT",
+    "name": "Walmart",
+    "yahoo": "WMT",
+    "currency": "USD"
+  },
+  {
+    "ticker": "MC",
+    "name": "LVMH",
+    "yahoo": "MC.PA",
+    "currency": "EUR"
+  },
+  {
+    "ticker": "ACOMO",
+    "name": "Acomo",
+    "yahoo": "ACOMO.AS",
+    "currency": "EUR"
+  },
+  {
+    "ticker": "CEG",
+    "name": "Constellation Energy",
+    "yahoo": "CEG",
+    "currency": "USD"
+  },
+  {
+    "ticker": "KRP",
+    "name": "Kimbell Royalty",
+    "yahoo": "KRP",
+    "currency": "USD"
+  },
+  {
+    "ticker": "AAPL",
+    "name": "Apple",
+    "yahoo": "AAPL",
+    "currency": "USD"
+  },
+  {
+    "ticker": "TSLA",
+    "name": "Tesla",
+    "yahoo": "TSLA",
+    "currency": "USD"
+  }
+]
