@@ -39,3 +39,13 @@ node --check dashboard.js
 ```
 
 Pages benötigt `index.html`, beide JS-Dateien und `data/`; Python und Tests werden nicht ausgeliefert.
+
+## Monatliche Rückrechnung (separate Modellvariante)
+
+`reconstruct.py` berechnet 60 abgeschlossene Monatsenden. Die Oberfläche unter „Score-Verlauf → Rückrechnung · 5 Jahre“ vergleicht bis zu vier Aktien, einzelne Komponenten und Abdeckung; Monatsdetails zeigen Eingaben und Quellen. CSV und JSON sind exportierbar. Die Rückrechnung wird nicht in das unveränderliche beobachtete Archiv geschrieben.
+
+Startabdeckung: 48 Original-Quartalsmeldungen von Microsoft und Apple ab September 2020 bis Juni 2026, kompakt in `data/historical-reports.json`. Andere Aktien erhalten ausschließlich historische Risikopunkte. Ein Bericht darf erst nach seinem Veröffentlichungstag und vor dem tatsächlichen Kursstichtag genutzt werden. Datumsgleiche Veröffentlichungen werden konservativ ausgeschlossen. Keine späteren Kennzahlen oder Analystenschätzungen werden rückwärts eingesetzt. Finanzdaten verfallen nach 210 Tagen.
+
+Gleiche V7.2-Schwellen, eigene Modellversion `research-v7.2-reconstruction-v1`: quartalsweises Umsatzwachstum, TTM-Marge aus vier zusammenhängenden Quartalen, KGV-Näherung aus der Summe gerundeter diluted Quartals-EPS und historische Volatilität. EPS-Summe ist wegen Rundung und veränderter gewichteter Aktienzahlen kein exaktes TTM-EPS. Für die beiden Emittenten sind seit 2020 keine Aktiensplits im berechneten Fenster einzurechnen. Revisionen fehlen: maximal 85% Abdeckung, kein hochgerechneter Gesamt-Score. Heute geladene Kursreihen und Emittentenseiten können rückwirkend geändert worden sein; Quellenhashes sind keine historischen Zeitstempel. Auswahl-/Survivorship-Bias bleibt bestehen. Kein Rendite-Backtest.
+
+`tools/collect_reconstruction_sources.py` erstellt das Quellenpaket erneut (lxml und Poppler/pdftotext erforderlich; separat von der täglichen CI). Neue Quartalsmeldungen müssen dort ergänzt und geprüft werden. Die CI berechnet monatliche Stände aus dem geprüften Paket und aktuellen historischen Kursreihen neu. Sie archiviert diese Rückrechnung ausdrücklich nicht als damals beobachtete Daten.

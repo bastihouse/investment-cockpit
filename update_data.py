@@ -24,7 +24,7 @@ def write(path, value):
 
 
 def chart(symbol):
-    url = 'https://query1.finance.yahoo.com/v8/finance/chart/' + urllib.parse.quote(symbol, safe='') + '?range=5y&interval=1d&events=div%2Csplits'
+    url = 'https://query1.finance.yahoo.com/v8/finance/chart/' + urllib.parse.quote(symbol, safe='') + f'?period1={int((NOW-dt.timedelta(days=6*366)).timestamp())}&period2={int(NOW.timestamp())}&interval=1d&events=div%2Csplits'
     req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (InvestmentCockpitFree/7.1)', 'Accept': 'application/json'})
     with urllib.request.urlopen(req, timeout=25) as response:
         payload = json.load(response)
