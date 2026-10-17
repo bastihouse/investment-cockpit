@@ -1,0 +1,14 @@
+const assert=require('node:assert/strict');
+const {cutoff,windowPoints,comparison}=require('../research.js');
+assert.equal(cutoff('2026-03-31','1M'),'2026-02-28');
+assert.equal(cutoff('2026-10-16','YTD'),'2025-12-31');
+const a=[{date:'2025-12-30',close:100},{date:'2026-01-02',close:110},{date:'2026-01-05',close:120}];
+const b=[{date:'2026-01-02',close:200},{date:'2026-01-05',close:220}];
+const c=comparison([{ticker:'A',data:a},{ticker:'B',data:b}],'YTD');
+assert.equal(c[0].data[0].date,'2026-01-02');
+assert.equal(c[0].data[0].close,0);
+assert.ok(Math.abs(c[0].data[1].close-9.090909)<.00001);
+assert.ok(Math.abs(c[1].data[1].close-10)<.00001);
+assert.deepEqual(comparison([{ticker:'A',data:a},{ticker:'B',data:[]}],'YTD'),[]);
+assert.equal(windowPoints(a,'YTD')[0].date,'2025-12-30');
+console.log('Period, YTD anchor, common-date comparison and missing data tests passed');
