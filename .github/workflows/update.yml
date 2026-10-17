@@ -1,10 +1,15 @@
 name: Kostenlose Marktdaten aktualisieren
 on:
+  push:
+    branches: [main]
+    paths: [index.html, "data/**", ".github/workflows/update.yml"]
   schedule:
     - cron: '35 21 * * 1-5'
   workflow_dispatch:
 permissions:
   contents: write
+  pages: write
+  id-token: write
 jobs:
   refresh:
     runs-on: ubuntu-latest
@@ -17,7 +22,6 @@ jobs:
       - name: Marktdaten abrufen
         run: python update_data.py
       - name: Änderungen sichern
-        if: success()
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -26,3 +30,21 @@ jobs:
             git commit -m 'chore: update market data'
             git push
           fi
+      - name: Website vorbereiten
+        run: |
+          mkdir -p _site
+          cp index.html _site/
+          cp -r data _site/data
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    needs: refresh
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Website veröffentlichen
+        id: deployment
+        uses: actions/deploy-pages@v4
