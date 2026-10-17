@@ -2,7 +2,7 @@ name: Kostenlose Marktdaten aktualisieren
 on:
   push:
     branches: [main]
-    paths: [index.html, research.js, update_data.py, scoring.py, requirements.txt, "data/**", "tests/**", ".github/workflows/update.yml"]
+    paths: [index.html, research.js, dashboard.js, update_data.py, scoring.py, validation.py, archive.py, requirements.txt, "data/**", "tests/**", ".github/workflows/update.yml"]
   schedule:
     - cron: '35 21 * * 1-5'
   workflow_dispatch:
@@ -28,7 +28,9 @@ jobs:
         run: |
           python -m unittest discover -s tests -v
           node tests/test_research.cjs
+          node tests/test_history.cjs
           node --check research.js
+          node --check dashboard.js
       - name: Marktdaten abrufen
         run: python update_data.py
       - name: Änderungen sichern
@@ -43,10 +45,12 @@ jobs:
       - name: Website vorbereiten
         run: |
           mkdir -p _site
-          cp index.html research.js _site/
+          cp index.html research.js dashboard.js _site/
           asset_hash=$(sha256sum research.js | cut -c1-12)
           cp research.js "_site/research.$asset_hash.js"
-          sed "s|src=\"research.js\"|src=\"research.$asset_hash.js\"|" index.html > _site/index.html
+          dashboard_hash=$(sha256sum dashboard.js | cut -c1-12)
+          cp dashboard.js "_site/dashboard.$dashboard_hash.js"
+          sed -e 's|src="research.js"|src="research.'"$asset_hash"'.js"|' -e 's|src="dashboard.js"|src="dashboard.'"$dashboard_hash"'.js"|' index.html > _site/index.html
           cp -r data _site/data
       - uses: actions/upload-pages-artifact@v3
         with:
