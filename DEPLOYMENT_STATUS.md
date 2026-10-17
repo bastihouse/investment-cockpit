@@ -1,9 +1,9 @@
-# Status – V7.0 kostenlose Webversion
+# V7.1 Bereitstellung
 
-- Statisches Hosting vorbereitet: **ja**.
-- Datenjobs vorbereitet: **ja**.
-- Provider-Live-Zugriff für alle 32 Titel bestätigt: **nein**.
-- GitHub Pages bereits veröffentlicht: **nein – benötigt dein eigenes GitHub-Repository**.
-- Ausfallschutz: fehlende Kurse null, vorherige Kurse als stale.
-- Garantie auf 0 €: innerhalb kostenloser Github-Pages-/Actions-Grenzen; keine kostenpflichtigen Services konfiguriert.
-- Live-100-Punkte-Score: nein. Historisches Forschungsarchiv ist nicht verifiziert.
+- Hosting: GitHub Pages; öffentliches Repository bastihouse/investment-cockpit.
+- Keine privaten Depotdaten oder API-Schlüssel.
+- Datenjobs: Kursreihen plus optionale Kennzahlen/EPS-Schätzungen; getrennte Statusdiagnose.
+- Automatisches Deployment nach erfolgreichem Datenjob.
+- Scores: aktuelles heuristisches Momentbild mit expliziter Abdeckung; keine rückwirkende Validierung.
+- Provider-Abdeckung ist im veröffentlichten Snapshot und in der Website ablesbar; keine statische Vollständigkeitsbehauptung.
+- Kosten: nur kostenlose GitHub-Standardfunktionen und kostenlose Best-Effort-Marktdatenzugriffe.

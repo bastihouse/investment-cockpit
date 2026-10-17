@@ -1,30 +1,41 @@
-# Investment Cockpit – kostenlose Webversion V7.0 (Bereitstellungspaket)
+# Investment Cockpit V7.1
 
-**Kein Hosting- oder Datenanbieter-Abo erforderlich.** Die Preise und Analystendaten im historischen Archiv sind nicht unabhängig verifiziert und dürfen nicht als aktuelle Live-Daten interpretiert werden.
+Kostenlose persönliche Research-Webversion auf GitHub Pages. Öffentliche Marktdaten, keine Depotbestände oder Zugangsdaten. Keine kostenpflichtigen Dienste konfiguriert.
 
-## Veröffentlichung über GitHub Pages (einfachster kostenloser Weg)
+## Neue Funktionen
 
-1. Bei GitHub kostenlos anmelden, ein neues **öffentliches** Repository (z. B. `investment-cockpit`) erstellen.
-2. Sämtliche Dateien dieses Pakets in die **Wurzel** des Repositorys hochladen – auch den Ordner `.github/workflows` (beim Entpacken versteckte Ordner anzeigen).
-3. Repository → **Settings → Pages → Build and deployment → Deploy from a branch → main → /(root) → Save**.
-4. Repository → **Actions → Kostenlose Marktdaten aktualisieren → Run workflow** ausführen.
-5. Nach der Veröffentlichung die Website öffnen: `https://DEIN-GITHUB-NAME.github.io/investment-cockpit/`.
-6. Unter **Aktienanalyse → Live-Marktdaten** prüfen, ob Preise mit echtem Zeitstempel geladen wurden; Fehlversuche erscheinen unter **Daten & Einstellungen → Provider-Status**.
+- Fünf Jahre Kurshistorie, soweit vorhanden; Ansichten 1M, 6M, YTD, 1J und 5J.
+- Vergleich von bis zu vier Aktien auf gemeinsamen Handelstagen, Kursrendite in jeweiliger Handelswährung, ohne Dividenden und ohne FX-Konvertierung.
+- TTM-P/E und Forward-P/E direkt von Yahoo Finance über yfinance, sofern vorhanden. Forward-P/E ist ein Anbieterwert, kein unabhängig bestätigtes FY1-/NTM-P/E.
+- Transparent Research V7.1: Bewertung 30, Wachstum 25, Qualität 20, EPS-Revisionen 15, Risiko 10 Punkte. Jede Komponente hat nachvollziehbare Eingaben und Grenzen.
+- Fehlende Kategorien werden nicht hochgerechnet. Gesamtwert nur bei 100% Abdeckung. Sonderprofile erhalten keine operativen Fundamental-Scores.
+- Abrufzeit und jüngstes Berichtsdatum separat. Erfolgreicher Abruf bedeutet keine unabhängige Verifizierung.
 
-**Privatheit:** Ein öffentliches GitHub-Repository und GitHub Pages sind öffentlich. Das Dashboard enthält keine Zugangsdaten. Für rein private Nutzung bitte noch keinen Depotbestand, Kaufpreise oder andere persönliche Informationen hochladen. Ohne Cloud-Anmeldung läuft der aktuelle Build auch offline als historische HTML-Vorschau, aber `index.html` direkt lokal geöffnet kann JSON-Daten wegen Browser-Sicherheit nicht abrufen.
+## Datenlauf
 
-## Aktualisierung
+GitHub Actions aktualisiert werktags um 21:35 UTC und nach Änderungen an Daten-/Programmdateien. Neue Daten werden in einem eigenen Pages-Job veröffentlicht. Quellen sind inoffizielle, kostenlose Best-Effort-Zugriffe auf Yahoo Finance, kein Verfügbarkeitsversprechen. Der Workflow installiert die unter requirements.txt festgelegte Bibliothek. Keine API-Schlüssel notwendig.
 
-GitHub Actions läuft werktags 21:35 UTC nach Marktschluss der USA. Das ist ein Best-Effort-Zeitplan, keine garantierte Datenaktualisierung. Workflow kann manuell gestartet werden. GitHub Free für öffentliche Standard-Repositories und GitHub Pages haben Nutzungsgrenzen/Verfügbarkeitsbedingungen. Wenn Yahoo den inoffiziellen Chart-Zugang sperrt, bleiben Daten als alt gekennzeichnet; es gibt keine garantierte kostenlose API-Verfügbarkeit. TTM-P/E, historisches Forward-P/E, Analystenrevisionen und Gesamt-Score werden ohne belegbare Daten **nicht** als live ausgewiesen.
+TTM-P/E und Forward-P/E sind direkt gelieferte Anbieterquotienten. Verlust-/Null-Quotienten bleiben leer. Ein Bericht unbekannten Alters oder älter als 210 Tage verhindert fundamentale Score-Punkte. Stale-Fundamentaldaten bleiben nur in der Diagnose und werden nicht als aktuelle P/E-Werte ausgegeben. Alle Kurse fehlgeschlagen: Veröffentlichung wird abgebrochen.
 
-## Datenintegrität
+## Score-Methodik
 
-- Kein API-Key im Browser, kein lokaler Python-Server.
-- Unadjusted Tages-Schlusskurse. YTD ist reine Preisentwicklung, **kein** Total Return.
-- Kein belegter vollständiger Point-in-Time-Backtest. Bestehende Forschungsansichten unverändert, aber als unvalidiert zu verstehen.
-- Bei Datenfehlern keine erfundenen Werte; bereits erfolgreich publizierte Werte nur als `stale` gekennzeichnet.
-- Automatischer GitHub-Workflow benötigt `contents: write` und ggf. Repository Actions-Schreibrechte.
+Zwischen den Grenzen wird linear skaliert und an 0 bzw. Maximalpunkten gedeckelt:
 
-## Lokaler technischer Test
+| Kategorie | 0 Punkte | Maximale Punkte |
+| --- | --- | --- |
+| TTM-P/E /30 | ≥40× | ≤10×, nur positiv |
+| Umsatzwachstum /25 | ≤−5% | ≥25% |
+| Operative Marge /20 | ≤0% | ≥30% |
+| +1y EPS-Konsensrevision ggü. 30 Tagen /15 | ≤−10% | ≥+10%, mindestens 3 Analysten |
+| Annualisierte Tagesvolatilität /10 | ≥60% | ≤15%, mindestens 201 adjustierte Schlusskurse |
 
-`python -m http.server 8000` im entpackten Ordner, dann `http://localhost:8000/` aufrufen. `python update_data.py` ist optional und braucht Internetzugang.
+Das ist ein heuristisches Momentbild, keine Bewertung des inneren Unternehmenswertes. Nur ähnliche Branchen und gleiche Profile vergleichen. Banken, Versicherer, REIT, BDC, Holding und Royalty erhalten keine ersatzweise berechneten operativen Punkte. Keine Kaufempfehlung. Kein historischer Backtest dieses Modells. Historische Archivansichten bleiben ausdrücklich unvalidierte Forschungsdaten.
+
+## Entwicklung und Prüfung
+
+- python -m unittest discover -s tests -v
+- node tests/test_research.cjs
+- node --check research.js
+- python update_data.py (Internet und requirements.txt erforderlich)
+
+Die statische Website benötigt nur index.html, research.js und data/. Python-Programme und Tests werden nicht im Pages-Artefakt ausgeliefert.
