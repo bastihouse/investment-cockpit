@@ -44,6 +44,9 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html research.js _site/
+          asset_hash=$(sha256sum research.js | cut -c1-12)
+          cp research.js "_site/research.$asset_hash.js"
+          sed "s|src=\"research.js\"|src=\"research.$asset_hash.js\"|" index.html > _site/index.html
           cp -r data _site/data
       - uses: actions/upload-pages-artifact@v3
         with:
