@@ -23,7 +23,7 @@ class ScoreTests(unittest.TestCase):
     def test_special_profiles_do_not_use_operating_model(self):
         q={**self.quote,'ticker':'JPM'}
         s=score(q,self.history,self.facts,self.revision)
-        self.assertEqual(s['coveragePoints'],10)
+        self.assertEqual(s['coveragePoints'],25)
         self.assertIsNone(s['parts']['valuation'])
     def test_stale_inputs_cannot_get_fundamental_points(self):
         s=score(self.quote,self.history,{**self.facts,'status':'stale'},self.revision)
