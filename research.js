@@ -161,7 +161,8 @@
   }
   el('r71ScoreSearch').oninput=lsRender;el('r71ScoreProfile').onchange=lsRender;
   const observer=new MutationObserver(()=>{if(compare.classList.contains('active')){syncCompare();renderComparison();}});observer.observe(compare,{attributes:true,attributeFilter:['class']});
-  if(location.hash==='#compare')show('compare',false);
+  const initialView=location.hash.slice(1);
+  if(NAV_FOR_VIEW[initialView])show(initialView,false);
   lsRender();
   if(lmState.data){lmRender();lmDetail();lmChart();}
 })();
