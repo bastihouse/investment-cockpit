@@ -124,7 +124,7 @@
     el('r71ScoreStatus').textContent=`${rows.length} von ${all.length} Aktien · Stand ${date(lmState.data?.generatedAt)} · Keine Hochrechnung fehlender Daten.`;
     el('r71ScoreRows').innerHTML=rows.map(q=>{const r=q.researchScore||{};return `<tr><td><b>${esc(q.name)}</b><div class="muted">${esc(q.ticker)} · ${esc(q.sectorLabel||'—')}</div></td><td>${r.complete?'<b>'+num(r.total)+'/100</b>':'Teilbewertung'}</td><td>${num(r.partialPoints)} / ${num(r.coveragePoints)} P.<div class="r71-caption">${num(r.coveragePoints)}% Datenabdeckung</div></td>${Object.keys(weights).map(k=>`<td>${num(r.parts?.[k])}</td>`).join('')}<td><button type="button" data-score="${esc(q.ticker)}" aria-label="Score-Details ${esc(q.name)}">Details</button></td></tr>`;}).join('')||'<tr><td colspan="9">Keine Aktien für diese Auswahl.</td></tr>';
     el('r71ScoreRows').querySelectorAll('button[data-score]').forEach(b=>b.onclick=()=>{lsSelected=b.dataset.score;lsDetails();el('r71ScoreDetail').scrollIntoView({behavior:'smooth',block:'start'});});
-    if(!all.some(q=>q.ticker===lsSelected)&&all.length)lsSelected=all[0].ticker;
+    if(!rows.some(q=>q.ticker===lsSelected)&&rows.length)lsSelected=rows[0].ticker;
     lsDetails();syncCompare();
   };
   lsDetails=function(){
@@ -145,4 +145,5 @@
   const observer=new MutationObserver(()=>{if(compare.classList.contains('active')){syncCompare();renderComparison();}});observer.observe(compare,{attributes:true,attributeFilter:['class']});
   if(location.hash==='#compare')show('compare',false);
   lsRender();
+  if(lmState.data){lmDetail();lmChart();}
 })();
