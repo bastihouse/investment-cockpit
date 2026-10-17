@@ -31,13 +31,31 @@
     if (dates.length < 2) return [];
     return series.map((s,i) => ({ticker:s.ticker, currency:s.currency, data:dates.map(d => ({date:d, close:(maps[i].get(d)/maps[i].get(dates[0])-1)*100}))}));
   }
-  const core = {cutoff, windowPoints, comparison};
+  function expire(snapshot, now=Date.now()) {
+    if(!snapshot?.quotes)return snapshot;
+    const expired=s=>!s||!Number.isFinite(Date.parse(s))||now-Date.parse(s)>7*86400000||Date.parse(s)>now+86400000;
+    return {...snapshot, quotes:snapshot.quotes.map(q=>{
+      const priceOld=expired(q.marketDate), fundamentalOld=expired(q.fundamentals?.fetchedAt);
+      if(!priceOld&&!fundamentalOld)return q;
+      const r=q.researchScore||{},parts={...(r.parts||{})},reasons={...(r.missingReasons||{})};
+      Object.keys(parts).forEach(k=>{if(priceOld||k!=='risk'){parts[k]=null;reasons[k]='Veröffentlichte Eingaben sind älter als sieben Tage oder haben keinen gültigen Zeitstempel.';}});
+      const max={valuation:30,growth:25,quality:20,revisions:15,risk:10};
+      return {...q,status:priceOld&&q.price!=null?'stale':q.status,peTTM:null,forwardPE:null,
+        fundamentals:{...(q.fundamentals||{}),status:'stale'},researchScore:{...r,parts,missingReasons:reasons,complete:false,total:null,
+          partialPoints:Math.round(Object.values(parts).reduce((n,v)=>n+(v??0),0)*100)/100,
+          coveragePoints:Object.entries(parts).reduce((n,[k,v])=>n+(v==null?0:max[k]),0)}};
+    })};
+  }
+  const core = {cutoff, windowPoints, comparison, expire};
   if (typeof module !== 'undefined' && module.exports) module.exports = core;
   if (typeof document === 'undefined') return;
   const el = id => document.getElementById(id);
   const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const num = (v,d=2) => Number.isFinite(v) ? v.toLocaleString('de-DE',{maximumFractionDigits:d}) : '—';
   const date = s => s ? new Date(s).toLocaleString('de-AT',{timeZone:'Europe/Vienna'}) : '—';
+  const previousMarketRender=lmRender;
+  lmRender=function(){lmState.data=expire(lmState.data);previousMarketRender();};
+  lmState.data=expire(lmState.data);
   const quotes = () => lmState.data?.quotes || [];
   const find = ticker => quotes().find(q => q.ticker === ticker);
   const cache = new Map();
@@ -145,5 +163,5 @@
   const observer=new MutationObserver(()=>{if(compare.classList.contains('active')){syncCompare();renderComparison();}});observer.observe(compare,{attributes:true,attributeFilter:['class']});
   if(location.hash==='#compare')show('compare',false);
   lsRender();
-  if(lmState.data){lmDetail();lmChart();}
+  if(lmState.data){lmRender();lmDetail();lmChart();}
 })();
