@@ -7,6 +7,8 @@ import time
 import urllib.parse
 import urllib.request
 from scoring import number, score, SPECIAL, LABELS
+from validation import primary_checks, check_quote
+from archive import record_snapshot
 
 ROOT = pathlib.Path(__file__).resolve().parent
 UTC = dt.timezone.utc
@@ -65,13 +67,16 @@ def collect_fundamentals(symbol, price_date):
     # Retrieval time is not a financial reporting date. Old/undated reports cannot receive score points.
     age = (TODAY-report_date).days if report_date else None
     status = 'fresh' if age is not None and 0 <= age <= 210 else 'unverified'
-    facts = {k: number(info.get(k)) for k in ('trailingPE', 'forwardPE', 'trailingEps', 'forwardEps', 'revenueGrowth', 'operatingMargins', 'returnOnEquity', 'profitMargins')}
+    facts = {k: number(info.get(k)) for k in ('trailingPE', 'forwardPE', 'trailingEps', 'forwardEps', 'revenueGrowth', 'operatingMargins', 'returnOnEquity', 'profitMargins', 'priceToBook', 'bookValue', 'returnOnAssets', 'earningsGrowth', 'regularMarketPrice')}
     facts.update(status=status, fetchedAt=STAMP, reportDate=report_date.isoformat() if report_date else None,
                  financialCurrency=info.get('financialCurrency'), quoteCurrency=info.get('currency'),
                  sector=info.get('sector'), industry=info.get('industry'), source=SOURCE,
                  sourceUrl='https://finance.yahoo.com/quote/'+urllib.parse.quote(symbol, safe='')+'/key-statistics/',
                  forwardBasis='Anbieterwert; FY1/NTM nicht unabhängig bestätigt',
                  periodNote='Umsatzwachstum und operative Marge nach Anbieterdefinition; jüngstes Berichtsdatum separat ausgewiesen.')
+    market_time=number(info.get('regularMarketTime'))
+    facts['providerPrice']=number(info.get('regularMarketPrice'))
+    facts['providerPriceDate']=dt.datetime.fromtimestamp(market_time,UTC).date().isoformat() if market_time else None
     revision = {'status': 'missing', 'period': '+1y', 'fetchedAt': STAMP, 'source': SOURCE}
     try:
         trend = stock.get_eps_trend()
@@ -89,6 +94,10 @@ def main():
     universe = json.loads((ROOT/'data/universe.json').read_text())
     old_snapshot = json.loads((ROOT/'data/snapshot.json').read_text())
     previous = {q['ticker']: q for q in old_snapshot['quotes']}
+    record_snapshot(ROOT,old_snapshot)
+    primaries=primary_checks(TODAY)
+    sector_path=ROOT/'data/sector-inputs.json'
+    specialist_inputs=json.loads(sector_path.read_text()) if sector_path.exists() else {}
     quotes, errors, successes = [], [], 0
     for stock in universe:
         ticker = stock['ticker']
@@ -140,14 +149,31 @@ def main():
             if old.get('fundamentals', {}).get('fetchedAt'):
                 item['fundamentals'] = {**old['fundamentals'], 'status': 'stale'}
                 # Stale values remain only inside diagnostics; current displayed P/E is deliberately blank.
+        special=specialist_inputs.get(ticker)
+        if special:
+            report=dt.date.fromisoformat(special['periodEnd'])
+            published=dt.date.fromisoformat(special['publishedAt'])
+            status='fresh' if 0<=(TODAY-report).days<=210 and published<=TODAY else 'stale'
+            item['fundamentals']['specialist']={**special,'status':status,'maintenance':'Kuratierte Primärquelle; keine automatische Aktualisierung bei neuen Quartalsberichten.'}
+        item['validation']=check_quote(item,primaries.get(ticker))
+        if special:
+            item['validation']['checks'].append({'name':'Emittenten-Spezialkennzahlen','state':'primary-reference' if status=='fresh' else 'unavailable','source':special['source'],'url':special['url'],'period':special['periodEnd'],'note':'Rohwerte manuell aus diesem Bericht geprüft; Aktualität neuerer Berichte nicht automatisch bestätigt.'})
         item['researchScore'] = score(item, history, item['fundamentals'], item['revision'])
         quotes.append(item)
         print(f"{ticker}: Kurs={item['status']} | P/E={item['peTTM']} | Forward={item['forwardPE']} | Abdeckung={item['researchScore']['coveragePoints']}/100", flush=True)
         time.sleep(.35)
-    snapshot = {'schemaVersion': 2, 'generatedAt': STAMP, 'providerMode': 'GitHub Actions · Yahoo Chart + yfinance (kostenlos, inoffiziell)',
+    snapshot = {'schemaVersion': 3, 'scoreModelVersion':'research-v7.2.0', 'generatedAt': STAMP, 'providerMode': 'GitHub Actions · Yahoo Chart + yfinance (kostenlos, inoffiziell)',
                 'fmpConfigured': False, 'refresh': {'running': False, 'finishedAt': dt.datetime.now(UTC).isoformat(),
                 'processed': len(quotes), 'total': len(universe), 'lastError': '; '.join(errors[:5]) if errors else None}, 'quotes': quotes}
+    snapshot['validationSummary']={
+      'primaryEPSConfirmed':sum(q['validation']['independentEPSConfirmed'] for q in quotes),
+      'warnings':sum(q['validation']['state']=='warning' for q in quotes),
+      'consistent':sum(q['validation']['state']=='consistent' for q in quotes),
+      'primarySample':len(primaries),
+      'curatedPrimaryReports':sum(q['fundamentals'].get('specialist',{}).get('status')=='fresh' for q in quotes)}
     write(ROOT/'data/snapshot.json', snapshot)
+    if successes:
+        record_snapshot(ROOT,snapshot)
     providers = []
     categories = ['history', 'quote', 'ratios', 'income', 'estimates', 'key_metrics']
     for q in quotes:

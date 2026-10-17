@@ -1,41 +1,41 @@
-# Investment Cockpit V7.1
+# Investment Cockpit V7.2
 
-Kostenlose persönliche Research-Webversion auf GitHub Pages. Öffentliche Marktdaten, keine Depotbestände oder Zugangsdaten. Keine kostenpflichtigen Dienste konfiguriert.
+Kostenloses öffentliches Research-Dashboard auf GitHub Pages. Keine Depotbestände, Zugangsdaten oder kostenpflichtigen Dienste.
 
-## Neue Funktionen
+## Dashboard und Vergleich
 
-- Fünf Jahre Kurshistorie, soweit vorhanden; Ansichten 1M, 6M, YTD, 1J und 5J.
-- Vergleich von bis zu vier Aktien auf gemeinsamen Handelstagen, Kursrendite in jeweiliger Handelswährung, ohne Dividenden und ohne FX-Konvertierung.
-- TTM-P/E und Forward-P/E direkt von Yahoo Finance über yfinance, sofern vorhanden. Forward-P/E ist ein Anbieterwert, kein unabhängig bestätigtes FY1-/NTM-P/E.
-- Transparent Research V7.1: Bewertung 30, Wachstum 25, Qualität 20, EPS-Revisionen 15, Risiko 10 Punkte. Jede Komponente hat nachvollziehbare Eingaben und Grenzen.
-- Fehlende Kategorien werden nicht hochgerechnet. Gesamtwert nur bei 100% Abdeckung. Sonderprofile erhalten keine operativen Fundamental-Scores.
-- Abrufzeit und jüngstes Berichtsdatum separat. Erfolgreicher Abruf bedeutet keine unabhängige Verifizierung.
+Übersicht mit Datenabdeckung, vollständigen Scores, Befunden, Profilfilter und durchsuchbarer Aktienliste. Score-Verlauf vergleicht bis zu vier Aktien auf fixer 0–100-Skala; vollständige Scores, Teilpunkte und Abdeckung sind getrennte Ansichten. Kurse bleiben separat über bis zu fünf Jahre vergleichbar.
 
-## Datenlauf
+## Unveränderliche beobachtete Historie
 
-GitHub Actions aktualisiert werktags um 21:35 UTC und nach Änderungen an Daten-/Programmdateien. Neue Daten werden in einem eigenen Pages-Job veröffentlicht. Quellen sind inoffizielle, kostenlose Best-Effort-Zugriffe auf Yahoo Finance, kein Verfügbarkeitsversprechen. Der Workflow installiert die unter requirements.txt festgelegte Bibliothek. Keine API-Schlüssel notwendig.
+Der erste tatsächlich vorhandene Snapshot pro Wiener Kalendertag und Modellversion wird unter `data/snapshots/` gespeichert. `data/score-history.json` enthält die Zusammenfassung und SHA-256-Prüfsummen. Intraday-Läufe überschreiben den ersten Stand nicht. V7.1 und V7.2 bleiben getrennt; kein rückwirkend erfundener Verlauf, keine Interpolation fehlender Punkte. CSV-Export und Original-JSON stehen im Verlauf bereit. Dies ist ein öffentliches Git-Archiv, kein manipulationssicherer externer Zeitstempeldienst.
 
-TTM-P/E und Forward-P/E sind direkt gelieferte Anbieterquotienten. Verlust-/Null-Quotienten bleiben leer. Ein Bericht unbekannten Alters oder älter als 210 Tage verhindert fundamentale Score-Punkte. Stale-Fundamentaldaten bleiben nur in der Diagnose und werden nicht als aktuelle P/E-Werte ausgegeben. Alle Kurse fehlgeschlagen: Veröffentlichung wird abgebrochen.
+## Datenprüfung
 
-## Score-Methodik
+Kursabgleich am identischen Handelstag (2%) und TTM-P/E gegen Kurs/TTM-EPS bei identischer Währung (8%) prüfen Konsistenz innerhalb desselben Anbieters. Eine SEC-Stichprobe für MSFT, AAPL, NVDA und JPM prüft vier gemeldete Quartals-EPS bei gleichem Berichtsende (15%). Summe der Quartals-EPS kann wegen Verwässerung und Splits vom TTM-EPS abweichen. Nicht verfügbare SEC-Daten bleiben ungeprüft. Auffällige Werte sperren die Bewertungs-Komponente. Forward-P/E bleibt ein nicht unabhängig bestätigter Anbieterquotient.
 
-Zwischen den Grenzen wird linear skaliert und an 0 bzw. Maximalpunkten gedeckelt:
+## Branchenmodelle
 
-| Kategorie | 0 Punkte | Maximale Punkte |
-| --- | --- | --- |
-| TTM-P/E /30 | ≥40× | ≤10×, nur positiv |
-| Umsatzwachstum /25 | ≤−5% | ≥25% |
-| Operative Marge /20 | ≤0% | ≥30% |
-| +1y EPS-Konsensrevision ggü. 30 Tagen /15 | ≤−10% | ≥+10%, mindestens 3 Analysten |
-| Annualisierte Tagesvolatilität /10 | ≥60% | ≤15%, mindestens 201 adjustierte Schlusskurse |
+Bewertung 30, Wachstum 25, Qualität 20, Revisionen 15, Marktrisiko 10 Punkte. Fehlende Kategorien werden nicht hochgerechnet; Gesamtwert nur bei 100% Abdeckung. Unterschiedliche Profile nicht als gemeinsame Rangliste interpretieren.
 
-Das ist ein heuristisches Momentbild, keine Bewertung des inneren Unternehmenswertes. Nur ähnliche Branchen und gleiche Profile vergleichen. Banken, Versicherer, REIT, BDC, Holding und Royalty erhalten keine ersatzweise berechneten operativen Punkte. Keine Kaufempfehlung. Kein historischer Backtest dieses Modells. Historische Archivansichten bleiben ausdrücklich unvalidierte Forschungsdaten.
+- Operativ: P/E, Umsatzwachstum, operative Marge, EPS-Konsensrevisionen.
+- Banken/Versicherer: Kurs/Buchwert, Gewinnwachstum, ROE, EPS-Konsensrevisionen. Kein CET1-/Solvenzmodell.
+- REIT: AFFO-Multiple, AFFO-Wachstum, Ausschüttungsdeckung und Emittenten-Guidance-Revision.
+- BDC: Kurs/NAV, NAV-Entwicklung, NII-Deckung und Verschuldung. Keine GAAP-EPS als NII-Ersatz.
+- Holding: Buchwert als ausdrücklich begrenzter Proxy; fehlende Look-through-Daten bleiben offen.
+- Royalty: annualisierter Quartals-Cashflow und Ausschüttungsdeckung; keine unterstellte TTM-Zeitreihe.
 
-## Entwicklung und Prüfung
+Die genauen linearen Schwellen und Quellen sind in „Branchenmodelle“ und den Einzeltiteln sichtbar. Primärdaten für O, ARCC und KRP in `data/sector-inputs.json` wurden anhand verlinkter Berichte erfasst und müssen bei neuen Berichten gepflegt werden; nach 210 Tagen verfallen sie. Fehlende Spezialkennzahlen werden nicht ersetzt. Keine Kaufempfehlung und kein historischer Backtest.
 
-- python -m unittest discover -s tests -v
-- node tests/test_research.cjs
-- node --check research.js
-- python update_data.py (Internet und requirements.txt erforderlich)
+## Datenlauf und Tests
 
-Die statische Website benötigt nur index.html, research.js und data/. Python-Programme und Tests werden nicht im Pages-Artefakt ausgeliefert.
+GitHub Actions läuft werktags 21:35 UTC, manuell und bei relevanten Quelländerungen. Yahoo Finance via yfinance ist kostenloser Best-Effort-Zugriff ohne Verfügbarkeitsgarantie. SHA-fingerprinted Browserassets verhindern veraltete Skriptkopien. Bei komplett fehlgeschlagenem Kursabruf wird nicht veröffentlicht.
+
+```
+python -m unittest discover -s tests -v
+node tests/test_research.cjs
+node tests/test_history.cjs
+node --check dashboard.js
+```
+
+Pages benötigt `index.html`, beide JS-Dateien und `data/`; Python und Tests werden nicht ausgeliefert.
