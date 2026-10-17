@@ -1,0 +1,28 @@
+name: Kostenlose Marktdaten aktualisieren
+on:
+  schedule:
+    - cron: '35 21 * * 1-5'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Marktdaten abrufen
+        run: python update_data.py
+      - name: Änderungen sichern
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/
+          if ! git diff --cached --quiet; then
+            git commit -m 'chore: update market data'
+            git push
+          fi
