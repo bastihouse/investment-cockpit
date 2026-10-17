@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "maintenance": "Kuratierte Primärquellen: Berichte und unveränderte Rohwerte manuell geprüft am 2026-10-17. Keine automatische Behauptung neuerer Berichte. Verfallen nach 210 Tagen ab Berichtsende; neue Berichte müssen geprüft ergänzt werden.",
+  "O": {
+    "periodEnd": "2026-06-30",
+    "publishedAt": "2026-08-05",
+    "reviewedAt": "2026-10-17",
+    "currency": "USD",
+    "source": "Realty Income Q2 2026 Supplemental, Seiten 13, 14, 41",
+    "url": "https://www.sec.gov/Archives/edgar/data/726728/000072672826000044/realtyincomeq22026supple.htm",
+    "raw": {
+      "affoQuarterPerShare": [
+        1.08,
+        1.08,
+        1.13,
+        1.09
+      ],
+      "affoQuarterPerShareYearAgo": 1.05,
+      "affoAvailableThousands": 1022120,
+      "dividendsPaidThousands": 756779,
+      "guidanceCurrentLow": 4.44,
+      "guidanceCurrentHigh": 4.45,
+      "guidancePreviousLow": 4.41,
+      "guidancePreviousHigh": 4.44,
+      "guidanceFiscalYear": 2026
+    }
+  },
+  "ARCC": {
+    "periodEnd": "2026-06-30",
+    "publishedAt": "2026-07-29",
+    "reviewedAt": "2026-10-17",
+    "currency": "USD",
+    "source": "Ares Capital Q2 2026 earnings release, NAV / NII / distributions",
+    "url": "https://www.sec.gov/Archives/edgar/data/1287750/000162828026050303/arccq2-2026exhibit991.htm",
+    "raw": {
+      "navPerShare": 19.35,
+      "navPreviousPerShare": 19.94,
+      "navPreviousDate": "2025-12-31",
+      "niiQuarterPerShare": 0.5,
+      "dividendQuarterPerShare": 0.48,
+      "debtToEquity": 1.15
+    }
+  },
+  "KRP": {
+    "periodEnd": "2026-06-30",
+    "publishedAt": "2026-08-07",
+    "reviewedAt": "2026-10-17",
+    "currency": "USD",
+    "source": "Kimbell Royalty Partners Q2 2026, Supplemental cash available for distribution per common unit",
+    "url": "https://kimbellrp.investorroom.com/2026-08-07-Kimbell-Royalty-Partners-Announces-Record-Second-Quarter-2026-Results",
+    "raw": {
+      "cashAvailableQuarterPerUnit": 0.59,
+      "distributionQuarterPerUnit": 0.47
+    }
+  }
+}
