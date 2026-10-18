@@ -37,6 +37,25 @@ class ReconstructionTests(unittest.TestCase):
   start=dt.date(2022,1,1);h=[dict(date=(start+dt.timedelta(days=i)).isoformat(),close=160,adjustedClose=160) for i in range(577)]
   p=reconstruct_point(dict(ticker='MSFT',name='Microsoft',currency='USD'),h,rows,'2023-07-31')
   self.assertEqual(p['coveragePoints'],85);self.assertIsNone(p['total']);self.assertEqual(p['inputs']['peApprox'],20);self.assertEqual(len(p['sources']),4)
+ def test_split_adjustment_preserves_raw_eps(self):
+  rows=[report('2022-09-30','2022-10-25'),report('2022-12-31','2023-01-25'),report('2023-03-31','2023-04-25'),report('2023-06-30','2023-07-25')]
+  for r in rows:r.update(ticker='NVDA',priceBasis='',priceBasisVerified=True,epsToPriceBasisFactor=10)
+  self.assertAlmostEqual(inputs_at(rows,'NVDA','2023-07-31')[1],.8)
+  self.assertTrue(all(r['epsDiluted']==2 for r in rows))
+  rows[0]['priceBasisVerified']=False
+  self.assertIsNone(inputs_at(rows,'NVDA','2023-07-31')[1])
+
+ def test_original_release_sample_values_and_latest_coverage(self):
+  import json
+  rows=json.loads((pathlib.Path(__file__).resolve().parents[1]/'data/historical-reports.json').read_text())['reports']
+  samples={('NVDA','2024-04-28'):(26044,16909,5.98),('META','2023-03-31'):(28645,7227,2.20),('AMZN','2023-09-30'):(143083,11188,.94),('GOOGL','2024-03-31'):(80539,25472,1.89)}
+  for key,expected in samples.items():
+   row=next(r for r in rows if (r['ticker'],r['periodEnd'])==key)
+   self.assertEqual((row['revenue'],row['operatingIncome'],row['epsDiluted']),expected)
+  for ticker in ['MSFT','AAPL','NVDA','META','AMZN','GOOGL']:
+   facts,eps,used=inputs_at(rows,ticker,'2026-09-30')
+   self.assertEqual(facts['status'],'fresh');self.assertGreater(eps,0);self.assertEqual(len(used),4)
+
  def test_source_bundle_has_unique_quarters_and_consistent_values(self):
   import json
   rows=json.loads((pathlib.Path(__file__).resolve().parents[1]/'data/historical-reports.json').read_text())['reports']

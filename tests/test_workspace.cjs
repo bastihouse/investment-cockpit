@@ -1,0 +1,11 @@
+const assert=require('node:assert/strict');
+const {nearest,changes}=require('../workspace.js');
+assert.equal(nearest([],Date.now()),-1);
+assert.equal(nearest(['2023-01-31','2023-02-28','2023-03-31'],Date.parse('2023-03-01')),1);
+const quote=(ticker,total,reportDate)=>({ticker,name:ticker,sector:'operating',fundamentals:{reportDate},researchScore:{modelVersion:'same',weights:{valuation:30,growth:25,quality:20,revisions:15,risk:10},parts:{valuation:total-70,growth:25,quality:20,revisions:15,risk:10},total,coveragePoints:100,complete:true}});
+const before={scoreModelVersion:'same',quotes:[quote('A',75,'2023-03-31')]};
+const after={scoreModelVersion:'same',quotes:[quote('A',76,'2023-06-30'),quote('B',80,'2023-06-30')]};
+const r=changes(before,after);assert.equal(r.length,2);assert.equal(r[0].diff.totalDelta,1);assert.equal(r[0].diff.changed,true);assert.equal(r[0].reportBefore,'2023-03-31');assert.equal(r[1].diff,null);
+assert.equal(changes(before,{...after,scoreModelVersion:'new'})[0].diff.totalDelta,null);
+assert.equal(changes(before,before)[0].diff.changed,false);
+console.log('Workspace: nearest dates, source changes, model boundary and absent baseline checked.');
