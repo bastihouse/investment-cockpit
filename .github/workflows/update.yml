@@ -2,7 +2,7 @@ name: Kostenlose Marktdaten aktualisieren
 on:
   push:
     branches: [main]
-    paths: [index.html, insights.js, research.js, dashboard.js, reconstruction.js, workspace.js, reconstruct.py, update_data.py, scoring.py, validation.py, archive.py, requirements.txt, "data/**", "tests/**", ".github/workflows/update.yml"]
+    paths: [index.html, insights.js, research.js, dashboard.js, reconstruction.js, workspace.js, research_next.js, evaluation.py, monitor_reports.py, reconstruct.py, update_data.py, scoring.py, validation.py, archive.py, requirements.txt, "data/**", "tests/**", ".github/workflows/update.yml"]
   schedule:
     - cron: '35 21 * * 1-5'
   workflow_dispatch:
@@ -31,6 +31,8 @@ jobs:
           node tests/test_history.cjs
           node tests/test_insights.cjs
           node tests/test_workspace.cjs
+          node tests/test_research_next.cjs
+          node --check research_next.js
           node --check workspace.js
           node --check insights.js
           node --check research.js
@@ -41,6 +43,8 @@ jobs:
         run: |
           python update_data.py
           python reconstruct.py
+          python monitor_reports.py
+          python evaluation.py
       - name: Änderungen sichern
         if: success()
         run: |
@@ -55,7 +59,7 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html _site/index.html
-          for asset in insights research dashboard reconstruction workspace; do
+          for asset in insights research dashboard reconstruction workspace research_next; do
             asset_hash=$(sha256sum "$asset.js" | cut -c1-12)
             cp "$asset.js" "_site/$asset.js"
             cp "$asset.js" "_site/$asset.$asset_hash.js"
