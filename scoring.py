@@ -90,10 +90,14 @@ def score(quote, history, fundamental, revision):
             if len(qs)==4 and all(number(v) is not None and v>0 for v in qs):
                 affo=sum(qs)
                 put('valuation',quote['price']/affo,25,12,'Preis / gemeldetes AFFO je Aktie (Summe vier Quartale)')
-                previous=number(raw.get('affoQuarterPerShareYearAgo'))
-                if previous and previous>0: put('growth',qs[-1]/previous-1,-.02,.10,'AFFO je Aktie, Quartal ggü. Vorjahr, Anteil')
+            current_affo=number(raw.get('affoQuarterPerShareValue'))
+            if current_affo is None and len(qs)==4:current_affo=number(qs[-1])
+            previous=number(raw.get('affoQuarterPerShareYearAgo'))
+            if current_affo is not None and previous and previous>0:put('growth',current_affo/previous-1,-.02,.10,'AFFO je Aktie, Quartal ggü. Vorjahr, Anteil')
             div=number(raw.get('dividendsPaidThousands')); cash=number(raw.get('affoAvailableThousands'))
             if div and div>0 and cash is not None: put('quality',cash/div,.9,1.5,'AFFO / gezahlte Ausschüttungen im Quartal')
+            per_share_div=number(raw.get('cashDividendsQuarterPerShare'))
+            if current_affo is not None and per_share_div and per_share_div>0:put('quality',current_affo/per_share_div,.9,1.5,'Quartals-AFFO je Aktie / gezahlte Quartalsdividende je Aktie; historische Variante, keine Gesamtbetragsquote')
             cur=[number(raw.get('guidanceCurrentLow')),number(raw.get('guidanceCurrentHigh'))]
             old=[number(raw.get('guidancePreviousLow')),number(raw.get('guidancePreviousHigh'))]
             if all(x is not None and x>0 for x in cur+old):
@@ -128,13 +132,16 @@ def score(quote, history, fundamental, revision):
         parts['valuation']=None
         details.pop('valuation',None)
         reasons['valuation']='Datenprüfung meldet Abweichung: Bewertungs-Komponente bis zur Klärung gesperrt.'
+    for key,checks in quote.get('validation',{}).get('blockedCategories',{}).items():
+        if key in parts:
+            parts[key]=None;details.pop(key,None);reasons[key]='Eingabe gesperrt: '+', '.join(checks)+'. Keine Ersatzwerte.'
     for key in list(reasons):
         if parts[key] is not None: reasons.pop(key,None)
 
     coverage = sum(WEIGHTS[k] for k, v in parts.items() if v is not None)
     partial = round(sum(v for v in parts.values() if v is not None), 2)
     complete = coverage == 100
-    return {'model': 'Transparent Research V7.2', 'modelVersion':'research-v7.2.0', 'sectorLabel': LABELS[profile],
+    return {'model': 'Transparent Research V7.5', 'modelVersion':'research-v7.5.0', 'sectorLabel': LABELS[profile],
             'profile': profile, 'parts': parts, 'weights': WEIGHTS, 'explanation': details,
             'missingReasons': {k: v for k, v in reasons.items() if parts[k] is None},
             'coveragePoints': coverage, 'partialPoints': partial, 'complete': complete,
