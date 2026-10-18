@@ -7,7 +7,7 @@ import time
 import urllib.parse
 import urllib.request
 from scoring import number, score, SPECIAL, LABELS
-from validation import primary_checks, check_quote
+from validation import primary_checks, check_quote, issuer_reference
 from archive import record_snapshot
 
 ROOT = pathlib.Path(__file__).resolve().parent
@@ -74,6 +74,7 @@ def collect_fundamentals(symbol, price_date):
                  sourceUrl='https://finance.yahoo.com/quote/'+urllib.parse.quote(symbol, safe='')+'/key-statistics/',
                  forwardBasis='Anbieterwert; FY1/NTM nicht unabhängig bestätigt',
                  periodNote='Umsatzwachstum und operative Marge nach Anbieterdefinition; jüngstes Berichtsdatum separat ausgewiesen.')
+    facts.update(responseSymbol=info.get('symbol'),quoteType=info.get('quoteType'),sharesOutstanding=number(info.get('sharesOutstanding')),marketCap=number(info.get('marketCap')))
     market_time=number(info.get('regularMarketTime'))
     facts['providerPrice']=number(info.get('regularMarketPrice'))
     facts['providerPriceDate']=dt.datetime.fromtimestamp(market_time,UTC).date().isoformat() if market_time else None
@@ -96,6 +97,7 @@ def main():
     previous = {q['ticker']: q for q in old_snapshot['quotes']}
     record_snapshot(ROOT,old_snapshot)
     primaries=primary_checks(TODAY)
+    report_bundle=json.loads((ROOT/'data/historical-reports.json').read_text())
     sector_path=ROOT/'data/sector-inputs.json'
     specialist_inputs=json.loads(sector_path.read_text()) if sector_path.exists() else {}
     quotes, errors, successes = [], [], 0
@@ -155,21 +157,22 @@ def main():
             published=dt.date.fromisoformat(special['publishedAt'])
             status='fresh' if 0<=(TODAY-report).days<=210 and published<=TODAY else 'stale'
             item['fundamentals']['specialist']={**special,'status':status,'maintenance':'Kuratierte Primärquelle; keine automatische Aktualisierung bei neuen Quartalsberichten.'}
-        item['validation']=check_quote(item,primaries.get(ticker))
+        item['validation']=check_quote(item,primaries.get(ticker),issuer_reference(ticker,report_bundle,TODAY),history)
         if special:
             item['validation']['checks'].append({'name':'Emittenten-Spezialkennzahlen','state':'primary-reference' if status=='fresh' else 'unavailable','source':special['source'],'url':special['url'],'period':special['periodEnd'],'note':'Rohwerte manuell aus diesem Bericht geprüft; Aktualität neuerer Berichte nicht automatisch bestätigt.'})
         item['researchScore'] = score(item, history, item['fundamentals'], item['revision'])
         quotes.append(item)
         print(f"{ticker}: Kurs={item['status']} | P/E={item['peTTM']} | Forward={item['forwardPE']} | Abdeckung={item['researchScore']['coveragePoints']}/100", flush=True)
         time.sleep(.35)
-    snapshot = {'schemaVersion': 3, 'scoreModelVersion':'research-v7.2.0', 'generatedAt': STAMP, 'providerMode': 'GitHub Actions · Yahoo Chart + yfinance (kostenlos, inoffiziell)',
+    snapshot = {'schemaVersion': 3, 'scoreModelVersion':'research-v7.5.0', 'generatedAt': STAMP, 'providerMode': 'GitHub Actions · Yahoo Chart + yfinance (kostenlos, inoffiziell)',
                 'fmpConfigured': False, 'refresh': {'running': False, 'finishedAt': dt.datetime.now(UTC).isoformat(),
                 'processed': len(quotes), 'total': len(universe), 'lastError': '; '.join(errors[:5]) if errors else None}, 'quotes': quotes}
     snapshot['validationSummary']={
       'primaryEPSConfirmed':sum(q['validation']['independentEPSConfirmed'] for q in quotes),
       'warnings':sum(q['validation']['state']=='warning' for q in quotes),
       'consistent':sum(q['validation']['state']=='consistent' for q in quotes),
-      'primarySample':len(primaries),
+      'primarySample':len(set(primaries)|{r['ticker'] for r in report_bundle.get('reports',[]) if r.get('epsDiluted') is not None}),
+      'secSample':len(primaries),
       'curatedPrimaryReports':sum(q['fundamentals'].get('specialist',{}).get('status')=='fresh' for q in quotes)}
     write(ROOT/'data/snapshot.json', snapshot)
     if successes:
