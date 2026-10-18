@@ -1,0 +1,26 @@
+const assert=require('node:assert/strict');
+const {scoreLabel,evidence,sectorMetrics,diffQuotes,modelOf}=require('../insights.js');
+const weights={valuation:30,growth:25,quality:20,revisions:15,risk:10};
+const q=(ticker='MSFT',profile='operating')=>({ticker,name:ticker,sector:profile,price:100,currency:'USD',status:'cached',marketDate:'2026-10-16',peTTM:20,fundamentals:{status:'fresh',fetchedAt:'2026-10-18T10:00:00Z',reportDate:'2026-06-30',revenueGrowth:.1,operatingMargins:.2,priceToBook:1.5,earningsGrowth:.12,returnOnEquity:.15,source:'Yahoo'},revision:{status:'fresh',current:10,'30daysAgo':9,numberOfAnalysts:5},validation:{independentEPSConfirmed:false,checks:[{state:'pass',source:'Yahoo'}]},researchScore:{modelVersion:'v2',profile,weights,parts:{valuation:20,growth:10,quality:10,revisions:5,risk:5},partialPoints:50,coveragePoints:100,complete:true,total:50,riskMetrics:{volatilityPct:30,observations:252}}});
+const now=Date.parse('2026-10-18T12:00:00Z');
+assert.equal(scoreLabel({partialPoints:40,coveragePoints:40}),'40 belegte Punkte · 40% Abdeckung');
+assert.equal(scoreLabel({partialPoints:0,coveragePoints:0}),'Nicht berechenbar · 0% Abdeckung');
+assert.equal(scoreLabel(q().researchScore),'50 / 100');
+let state=evidence(q(),now);assert.equal(state.priceFresh,true);assert.equal(state.financialFresh,true);assert.equal(state.hasPrimary,false);assert.equal(state.plausibility,'Konsistenz geprüft');
+let stale=q();stale.marketDate='2026-09-01';assert.equal(evidence(stale,now).priceFresh,false);
+let b=q('JPM','bank');let m=sectorMetrics(b);assert.equal(m.valuation.value,1.5);assert.equal(m.quality.value,15);assert.equal(m.growth.value,12);
+let reit=q('O','reit');reit.fundamentals.specialist={status:'fresh',currency:'USD',periodEnd:'2026-06-30',publishedAt:'2026-08-01',raw:{affoQuarterPerShare:[1,1,1,1],affoQuarterPerShareYearAgo:1,affoAvailableThousands:130,dividendsPaidThousands:100,guidanceCurrentLow:4.2,guidanceCurrentHigh:4.2,guidancePreviousLow:4,guidancePreviousHigh:4}};
+m=sectorMetrics(reit);assert.equal(m.valuation.value,25);assert.equal(m.quality.value,1.3);assert.ok(Math.abs(m.revisions.value-5)<.001);assert.equal(evidence(reit,now).hasPrimary,true);assert.match(evidence(reit,now).primaryScope,/übrige Anbieterwerte nicht unabhängig/);
+reit.fundamentals.specialist.status='stale';assert.equal(sectorMetrics(reit).valuation.value,null);
+let bdc=q('ARCC','bdc');bdc.fundamentals.specialist={status:'fresh',currency:'USD',raw:{navPerShare:20,navPreviousPerShare:20,navPreviousDate:'2025-12-31',niiQuarterPerShare:.5,dividendQuarterPerShare:.4,debtToEquity:1}};m=sectorMetrics(bdc);assert.equal(m.valuation.value,5);assert.equal(m.quality.value,1.25);assert.equal(m.quality.secondary.value,1);assert.equal(m.revisions.value,null);
+for(const profile of ['holding','royalty']){m=sectorMetrics(q('X',profile));assert.equal(m.growth.value,null);assert.equal(m.revisions.value,null);}
+let a=q(),after=structuredClone(a);after.price=110;after.peTTM=22;after.researchScore.parts.valuation=18;after.researchScore.total=48;after.researchScore.partialPoints=48;
+let d=diffQuotes(a,after,'v2','v2');assert.equal(d.totalDelta,-2);assert.equal(d.rows[0].delta,-2);assert.ok(d.rows[0].inputs.some(x=>x.label==='Schlusskurs'));assert.equal(d.coverageChanged,false);
+assert.equal(diffQuotes(a,after,'v1','v2').totalDelta,null);assert.equal(diffQuotes(a,after,'v1','v2').comparable,false);
+let added=structuredClone(a);added.researchScore.parts.valuation=null;added.researchScore.coveragePoints=70;added.researchScore.complete=false;added.researchScore.total=null;
+d=diffQuotes(added,a,'v2','v2');assert.equal(d.rows[0].state,'coverage-added');assert.equal(d.rows[0].delta,null);assert.equal(d.totalDelta,null);assert.equal(d.sharedDelta,0);
+d=diffQuotes(a,added,'v2','v2');assert.equal(d.rows[0].state,'coverage-lost');assert.equal(d.totalDelta,null);
+let changedProfile=structuredClone(a);changedProfile.sector='bank';assert.equal(diffQuotes(a,changedProfile,'v2','v2').comparable,false);
+let changedWeights=structuredClone(a);changedWeights.researchScore.weights.quality=25;assert.equal(diffQuotes(a,changedWeights,'v2','v2').comparable,false);
+assert.equal(diffQuotes(a,a,'v2','v2').changed,false);assert.equal(modelOf({scoreModelVersion:'v2'}),'v2');assert.equal(modelOf({quotes:[]}),null);
+console.log('Evidence scope, stale data, sector metrics, model/weight separation, shared changes and coverage changes passed.');
