@@ -68,7 +68,7 @@
   function chart(svg, series, percent) {
     const W=900,H=300,L=70,R=22,T=22,B=40;
     const values=series.flatMap(s=>s.data.map(p=>p.close));
-    if (!values.length) {svg.innerHTML='';return;}
+    if (!values.length) {document.getElementById(svg.id+'Inspect')?.remove();svg.innerHTML='';return;}
     let lo=Math.min(...values),hi=Math.max(...values);
     const pad=(hi-lo||Math.max(1,hi*.02))*.09;lo-=pad;hi+=pad;
     const dates=series[0].data.map(p=>p.date),t0=Date.parse(dates[0]),span=Date.parse(dates.at(-1))-t0||1;
@@ -77,7 +77,7 @@
     if(percent&&lo<0&&hi>0)html+=`<line x1="${L}" x2="${W-R}" y1="${y(0)}" y2="${y(0)}" stroke="#93a2b7" stroke-dasharray="5 4"/>`;
     html+=series.map((s,i)=>`<path d="${s.data.map((p,k)=>(k?'L':'M')+x(p.date).toFixed(2)+' '+y(p.close).toFixed(2)).join(' ')}" fill="none" stroke="${palette[i]}" stroke-width="2.5"><title>${esc(s.ticker)}</title></path>`).join('');
     [dates[0],dates[Math.floor(dates.length/2)],dates.at(-1)].forEach((d,i)=>{html+=`<text x="${x(d)}" y="${H-12}" text-anchor="${i===0?'start':i===2?'end':'middle'}" fill="#b1bfd2" font-size="12">${esc(d)}</text>`;});
-    svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.innerHTML=html;
+    svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.innerHTML=html;window.CockpitCharts?.bind(svg,series.map(s=>({ticker:s.ticker,points:s.data.map(p=>({date:p.date,value:p.close}))})),{x,unit:percent?"%":""});
   }
   const style=document.createElement('style');style.textContent=`
   .periods{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}.periods button[aria-pressed=true]{background:#36547c;border-color:#87adff;color:#fff}.r71-note{font-size:13px;color:#b9c6d8;line-height:1.6}.r71-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}.r71-metric{background:#101a28;padding:14px;border-radius:12px;border:1px solid #304058}.r71-metric strong{display:block;font-size:23px;margin:7px 0}.r71-line{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:10px 0;border-bottom:1px solid #2d3848}.r71-bar{display:flex;gap:2px;height:16px;width:100%;margin:9px 0}.r71-bar span{border:1px solid #50617a;background:#1a2637;border-radius:3px;position:relative;overflow:hidden}.r71-bar i{display:block;height:100%;background:#8eb8ff}.r71-bar span[data-missing=true]{background:repeating-linear-gradient(135deg,#263242,#263242 4px,#17202c 4px,#17202c 8px)}.r71-tickers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0}.r71-table th{text-align:left;white-space:nowrap}.r71-table button{padding:5px 7px;min-width:55px}.r71-legend{display:flex;gap:18px;flex-wrap:wrap;margin:14px 0}.r71-legend span{border-left:4px solid;padding-left:8px}.r71-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}.r71-caption{font-size:12px;color:#aab8cc;margin-top:8px}@media(max-width:760px){.r71-tickers,.r71-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.r71-grid{grid-template-columns:1fr}}@media(max-width:440px){.r71-metrics{grid-template-columns:1fr}}`;

@@ -92,12 +92,12 @@ function historyDefaults(){
 function drawHistory(series,metric){
   const svg=$('scoreHistoryChart'),dates=[...new Set(series.flatMap(s=>s.points.map(p=>p.date)))].sort(),values=series.flatMap(s=>s.points.filter(p=>p.value!=null));
   const W=1000,H=310,L=55,R=30,T=22,B=40;
-  if(!dates.length||!values.length){svg.innerHTML='<text x="500" y="145" text-anchor="middle" class="history-empty">Keine belegten Werte für diese Auswahl.</text>';return;}
+  if(!dates.length||!values.length){document.getElementById(svg.id+'Inspect')?.remove();svg.innerHTML='<text x="500" y="145" text-anchor="middle" class="history-empty">Keine belegten Werte für diese Auswahl.</text>';return;}
   const t0=Date.parse(dates[0]),span=Date.parse(dates.at(-1))-t0;
   const x=d=>span?L+(Date.parse(d)-t0)/span*(W-L-R):W/2,y=v=>T+(100-v)/100*(H-T-B);
   let html=[0,25,50,75,100].map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#2c434f"/><text x="${L-12}" y="${y(v)+4}" text-anchor="end" fill="#93afbd" font-size="12">${v}${metric==='coverage'?'%':''}</text>`).join('');
   series.forEach((s,i)=>{let path='',pen=false;s.points.forEach(p=>{if(p.value==null){pen=false;return;}path+=(pen?'L':'M')+x(p.date).toFixed(2)+' '+y(p.value).toFixed(2)+' ';pen=true;});html+=`<path d="${path}" fill="none" stroke="${colors[i]}" stroke-width="2.5"/>`;s.points.filter(p=>p.value!=null).forEach(p=>{html+=`<circle cx="${x(p.date)}" cy="${y(p.value)}" r="${dates.length===1?5:3}" fill="${colors[i]}"><title>${esc(s.ticker)} · ${esc(p.date)} · ${n(p.value,2)} · Abdeckung ${n(p.coverage)}%</title></circle>`;});});
-  [...new Set([dates[0],dates.at(-1)])].forEach(d=>{html+=`<text x="${x(d)}" y="${H-12}" text-anchor="${dates.length===1?'middle':d===dates[0]?'start':'end'}" fill="#9db8c5" font-size="12">${d}</text>`;});svg.innerHTML=html;
+  [...new Set([dates[0],dates.at(-1)])].forEach(d=>{html+=`<text x="${x(d)}" y="${H-12}" text-anchor="${dates.length===1?'middle':d===dates[0]?'start':'end'}" fill="#9db8c5" font-size="12">${d}</text>`;});svg.innerHTML=html;window.CockpitCharts?.bind(svg,series,{x,unit:metric==="coverage"?"%":" P."});
 }
 function selectedSeries(){
   const tickers=[...new Set([...$('historyTickers').querySelectorAll('select')].map(s=>s.value).filter(Boolean))];

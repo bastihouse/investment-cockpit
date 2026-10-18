@@ -7,7 +7,7 @@ import hashlib
 import json
 from pathlib import Path
 from scoring import score
-MODEL='research-v7.2-reconstruction-v1'
+MODEL='research-v7.2-reconstruction-v2'
 
 def month_ends(today, count=60):
     # Exclude the incomplete current month, never project a month-end into the future.
@@ -34,9 +34,10 @@ def inputs_at(reports, ticker, cutoff):
     if contiguous:
         used=latest
         facts['operatingMargins']=sum(r['operatingIncome'] for r in latest)/sum(r['revenue'] for r in latest)
-        # Explicit approximation, not exact weighted diluted TTM EPS. Only verified no-split issuers.
-        if ticker in ('MSFT','AAPL') and all(r.get('priceBasis')=='No stock split after 2020' for r in latest):
-            pe_eps=sum(r['epsDiluted'] for r in latest)
+        # Match publication-date reported EPS to today's split-adjusted price units.
+        # Split events change units only; financial values are still restricted by publication.
+        if all(r.get('priceBasis')=='No stock split after 2020' or (r.get('priceBasisVerified') and isinstance(r.get('epsToPriceBasisFactor'),(int,float)) and r['epsToPriceBasisFactor']>=1) for r in latest):
+            pe_eps=sum(r['epsDiluted']/r.get('epsToPriceBasisFactor',1) for r in latest)
     return facts,pe_eps,used
 
 def reconstruct_point(stock,history,reports,month):
@@ -60,7 +61,9 @@ def reconstruct_point(stock,history,reports,month):
                       'risk':r['riskMetrics'],'reportEnd':facts.get('reportDate')},
             'explanation':r['explanation'],'missingReasons':r['missingReasons'],
             'sources':[{'publishedAt':r['publishedAt'],'periodEnd':r['periodEnd'],'url':r['sourceUrl'],
-                        'statementUrl':r.get('statementUrl'),'documentSha256':r['documentSha256']} for r in used]}
+                        'statementUrl':r.get('statementUrl'),'documentSha256':r['documentSha256'],
+                        'epsDilutedReported':r['epsDiluted'],'epsToPriceBasisFactor':r.get('epsToPriceBasisFactor',1),
+                        'splitEvents':r.get('splitEvents',[]),'priceBasisAsOf':r.get('priceBasisAsOf')} for r in used]}
 
 def build(root,today=None):
     root=Path(root);today=today or dt.date.today()
@@ -81,10 +84,10 @@ def build(root,today=None):
             'method':'V7.2 thresholds; quarterly reported YoY revenue growth, sum-of-four-quarter operating margin, positive quarterly diluted EPS sum as TTM approximation, trailing adjusted daily volatility. No analyst revisions. Release must precede actual trading cutoff; fundamentals expire 210 days after period end.',
             'limitations':['No historical consensus revisions or forward P/E. No normalized total score.',
                           'Not a contemporaneously archived vendor dataset; issuer web pages can change retrospectively. Document hash identifies the retrieved source, not a historical attestation.',
-                          'Quarterly EPS sum differs from exact diluted TTM EPS due to rounding and weighted-share changes.',
+                          'Quarterly EPS sum differs from exact diluted TTM EPS due to rounding and weighted-share changes. Originally reported EPS are divided by documented later split factors to match price units; raw EPS and split sources remain attached.',
                           'Yahoo adjusted histories are retrieved today and can be revised. No return-backtest or predictive validation.',
                           'Universe selected today: survivorship/selection bias; missing reports and prices remain gaps.',
-                          'Report seed covers MSFT/AAPL. Other stocks have only historical market-risk points. New issuer releases must be added to the report bundle.'],
+                          'Issuer coverage is listed in issuerTickers. Other stocks have only historical market-risk points. New issuer releases and split events must be added to the source bundle.'],
             'stocks':stocks}
     path=root/'data/reconstruction.json';path.write_text(json.dumps(output,ensure_ascii=False,allow_nan=False,separators=(',',':'))+'\n')
     print(f'Rekonstruktion: {len(months)} Monatsenden, {len(stocks)} Aktien, {len(bundle["reports"])} Primärberichte; kein vollständiger Gesamt-Score ohne Revisionen.')
