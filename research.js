@@ -77,7 +77,7 @@
     if(percent&&lo<0&&hi>0)html+=`<line x1="${L}" x2="${W-R}" y1="${y(0)}" y2="${y(0)}" stroke="#93a2b7" stroke-dasharray="5 4"/>`;
     html+=series.map((s,i)=>`<path d="${s.data.map((p,k)=>(k?'L':'M')+x(p.date).toFixed(2)+' '+y(p.close).toFixed(2)).join(' ')}" fill="none" stroke="${palette[i]}" stroke-width="2.5"><title>${esc(s.ticker)}</title></path>`).join('');
     [dates[0],dates[Math.floor(dates.length/2)],dates.at(-1)].forEach((d,i)=>{html+=`<text x="${x(d)}" y="${H-12}" text-anchor="${i===0?'start':i===2?'end':'middle'}" fill="#b1bfd2" font-size="12">${esc(d)}</text>`;});
-    svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.innerHTML=html;window.CockpitCharts?.bind(svg,series.map(s=>({ticker:s.ticker,points:s.data.map(p=>({date:p.date,value:p.close}))})),{x,unit:percent?"%":""});
+    svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.innerHTML=html;window.CockpitCharts?.bind(svg,series.map(s=>({ticker:s.ticker,points:s.data.map(p=>({date:p.date,value:p.close}))})),{x,colors:palette,unit:percent?"%":""});
   }
   const style=document.createElement('style');style.textContent=`
   .periods{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}.periods button[aria-pressed=true]{background:#36547c;border-color:#87adff;color:#fff}.r71-note{font-size:13px;color:#b9c6d8;line-height:1.6}.r71-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}.r71-metric{background:#101a28;padding:14px;border-radius:12px;border:1px solid #304058}.r71-metric strong{display:block;font-size:23px;margin:7px 0}.r71-line{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:10px 0;border-bottom:1px solid #2d3848}.r71-bar{display:flex;gap:2px;height:16px;width:100%;margin:9px 0}.r71-bar span{border:1px solid #50617a;background:#1a2637;border-radius:3px;position:relative;overflow:hidden}.r71-bar i{display:block;height:100%;background:#8eb8ff}.r71-bar span[data-missing=true]{background:repeating-linear-gradient(135deg,#263242,#263242 4px,#17202c 4px,#17202c 8px)}.r71-tickers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0}.r71-table th{text-align:left;white-space:nowrap}.r71-table button{padding:5px 7px;min-width:55px}.r71-legend{display:flex;gap:18px;flex-wrap:wrap;margin:14px 0}.r71-legend span{border-left:4px solid;padding-left:8px}.r71-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}.r71-caption{font-size:12px;color:#aab8cc;margin-top:8px}@media(max-width:760px){.r71-tickers,.r71-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.r71-grid{grid-template-columns:1fr}}@media(max-width:440px){.r71-metrics{grid-template-columns:1fr}}`;
@@ -91,7 +91,7 @@
   periodControls('r71Periods',p=>{activePeriod=p;lmChart();});
   lmChart=async function(){
     const ticket=++sequence,ticker=lmState.selected;
-    el('lmChartStatus').textContent='Lade veröffentlichte Kursreihe …';
+    el('lmChartStatus').textContent='Lade veröffentlichte Kursreihe …';el('lmChartInspect')?.remove();
     try {
       const j=await history(ticker);if(ticket!==sequence||ticker!==lmState.selected)return;
       const points=windowPoints(j.data||[],activePeriod);
@@ -118,19 +118,19 @@
     const ticket=++compareSequence;
     const tickers=[...new Set([...el('r71CompareTickers').querySelectorAll('select')].map(s=>s.value).filter(Boolean))];
     el('r71CompareStatus').textContent='Lade und gleiche Handelstage ab …';
-    el('r71CompareChart').innerHTML='';el('r71CompareLegend').innerHTML='';
+    el('r71CompareChart').innerHTML='';el('r71CompareLegend').innerHTML='';el('r71CompareChartInspect')?.remove();
     const selected=tickers.map(find).filter(Boolean),profiles=new Set(selected.map(q=>q.sector)),coverage=new Set(selected.map(q=>q.researchScore?.coveragePoints));
     el('r71CompareNotice').innerHTML=profiles.size>1?'<strong>Unterschiedliche Branchenprofile ausgewählt.</strong><br>Die Kennzahlen und Scores beruhen auf unterschiedlichen Regeln und bilden keine gemeinsame Rangliste.':'<strong>Profilabhängige Kennzahlen.</strong><br>Auch innerhalb eines Profils nur ähnliche Branchen vergleichen.';
     if(coverage.size>1)el('r71CompareNotice').insertAdjacentHTML('beforeend','<br>Unterschiedliche Modellabdeckung: Teilpunkte sind nicht unmittelbar vergleichbar.');
     const metric=m=>`<b>${esc(m.label)}</b><div>${num(m.value)}${m.value!=null?' '+esc(m.unit):''}</div>${m.secondary?'<small>'+esc(m.secondary.label)+': '+num(m.secondary.value)+' '+esc(m.secondary.unit)+'</small>':''}<div class="r71-caption">${m.points==null?'Keine Score-Punkte freigegeben':num(m.points)+' belegte Punkte'}${m.blocked?' · Datenabweichung, Bewertung gesperrt':''}</div>`;
     el('r71CompareRows').innerHTML=selected.map(q=>{const f=q.fundamentals||{},r=q.researchScore||{},m=window.CockpitInsights.sectorMetrics(q),sp=f.specialist,source=sp?.status==='fresh'?sp:null;return `<tr><td><b>${esc(q.name)} · ${esc(q.ticker)}</b><div class="muted">${esc(q.sectorLabel)} · ${esc(f.industry||f.sector||'Branche unbekannt')}</div><small>Modell ${esc(r.modelVersion||r.model)}</small><br><a href="${esc(source?.url||f.sourceUrl||'https://finance.yahoo.com/')}" target="_blank" rel="noopener noreferrer">${source?'Emittentenbericht':'Anbieterquelle'} ↗</a><small>Berichtsende ${esc(source?.periodEnd||f.reportDate||'unbekannt')}</small></td><td>${num(q.price)} ${esc(q.currency)}<small>${esc(q.marketDate)}</small><details><summary>Zusätzliche Anbieterquotienten</summary><p>TTM-P/E ${num(q.peTTM)}× · Forward-P/E ${num(q.forwardPE)}×. Forward-Zeitraum FY1/NTM nicht bestätigt. Diese Quotienten ersetzen keine Branchenkennzahl.</p></details></td>${['valuation','growth','quality','revisions','risk'].map(k=>'<td>'+metric(m[k])+'</td>').join('')}<td>${esc(scoreText(r))}<div class="muted">${esc(r.modelVersion||r.model||'Modell unbekannt')}</div></td></tr>`;}).join('');
-    if(tickers.length<2){el('r71CompareStatus').textContent='Wähle mindestens zwei unterschiedliche Aktien.';el('r71CompareChart').innerHTML='';el('r71CompareLegend').innerHTML='';return;}
+    if(tickers.length<2){el('r71CompareStatus').textContent='Wähle mindestens zwei unterschiedliche Aktien.';el('r71CompareChart').innerHTML='';el('r71CompareLegend').innerHTML='';el('r71CompareChartInspect')?.remove();return;}
     const loaded=await Promise.all(tickers.map(async t=>{try{return{ticker:t,currency:find(t)?.currency,data:(await history(t)).data||[]};}catch(e){return{ticker:t,data:[],error:e.message};}}));
     if(ticket!==compareSequence)return;
     const failed=loaded.filter(s=>!s.data.length);
-    if(failed.length){el('r71CompareChart').innerHTML='';el('r71CompareLegend').innerHTML='';el('r71CompareStatus').textContent='Keine vergleichbaren Kursdaten für '+failed.map(s=>s.ticker).join(', ')+'. Passe die Auswahl an.';return;}
+    if(failed.length){el('r71CompareChart').innerHTML='';el('r71CompareLegend').innerHTML='';el('r71CompareChartInspect')?.remove();el('r71CompareStatus').textContent='Keine vergleichbaren Kursdaten für '+failed.map(s=>s.ticker).join(', ')+'. Passe die Auswahl an.';return;}
     const aligned=comparison(loaded,comparePeriod);
-    if(!aligned.length){el('r71CompareChart').innerHTML='';el('r71CompareLegend').innerHTML='';el('r71CompareStatus').textContent='Keine ausreichenden gemeinsamen Handelstage.';return;}
+    if(!aligned.length){el('r71CompareChart').innerHTML='';el('r71CompareLegend').innerHTML='';el('r71CompareChartInspect')?.remove();el('r71CompareStatus').textContent='Keine ausreichenden gemeinsamen Handelstage.';return;}
     chart(el('r71CompareChart'),aligned,true);
     el('r71CompareLegend').innerHTML=aligned.map((s,i)=>`<span style="border-color:${palette[i]}">${esc(s.ticker)} (${esc(s.currency)}) <b>${num(s.data.at(-1).close)}%</b></span>`).join('');
     const a=aligned[0].data;
