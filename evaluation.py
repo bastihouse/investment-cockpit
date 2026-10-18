@@ -64,6 +64,12 @@ def sample(point,history,horizon,asof,kind,model):
     result,reason=outcome(history,point['date'],horizon,asof)
     if result is None:return None,reason
     basis=point.get('inputs',{}).get('growthBasis') or ('observed-live-profile' if kind=='observed' else 'quarterly-yoy')
+    if basis=='nav-since-comparison-date':
+        inputs=point.get('inputs',{});previous=(inputs.get('specialist') or {}).get('navPreviousDate');end=inputs.get('reportEnd')
+        if previous and end:
+            a,b=dt.date.fromisoformat(previous),dt.date.fromisoformat(end);months=(b.year-a.year)*12+b.month-a.month
+            basis+='-'+str(months)+'m'
+        else:basis+='-unknown'
     return {'ticker':point['ticker'],'signalDate':point['date'],'score':value,'coverage':point['coveragePoints'],
             'components':component_key(point),'profile':point.get('profile'),'growthBasis':basis,
             'modelVersion':model,'kind':kind,'horizonMonths':horizon,**result},None
