@@ -1,4 +1,4 @@
-# Investment Cockpit V7.3
+# Investment Cockpit V7.4
 
 Kostenloses öffentliches Research-Dashboard auf GitHub Pages. Keine Depotbestände, Zugangsdaten oder kostenpflichtigen Dienste.
 
@@ -38,15 +38,15 @@ node tests/test_history.cjs
 node --check dashboard.js
 ```
 
-Pages benötigt `index.html`, beide JS-Dateien und `data/`; Python und Tests werden nicht ausgeliefert.
+Pages benötigt `index.html`, die fünf JS-Dateien (`insights`, `research`, `dashboard`, `reconstruction`, `workspace`) und `data/`; Python und Tests werden nicht ausgeliefert.
 
 ## Monatliche Rückrechnung (separate Modellvariante)
 
 `reconstruct.py` berechnet 60 abgeschlossene Monatsenden. Die Oberfläche unter „Score-Verlauf → Rückrechnung · 5 Jahre“ vergleicht bis zu vier Aktien, einzelne Komponenten und Abdeckung; Monatsdetails zeigen Eingaben und Quellen. CSV und JSON sind exportierbar. Die Rückrechnung wird nicht in das unveränderliche beobachtete Archiv geschrieben.
 
-Startabdeckung: 48 Original-Quartalsmeldungen von Microsoft und Apple ab September 2020 bis Juni 2026, kompakt in `data/historical-reports.json`. Andere Aktien erhalten ausschließlich historische Risikopunkte. Ein Bericht darf erst nach seinem Veröffentlichungstag und vor dem tatsächlichen Kursstichtag genutzt werden. Datumsgleiche Veröffentlichungen werden konservativ ausgeschlossen. Keine späteren Kennzahlen oder Analystenschätzungen werden rückwärts eingesetzt. Finanzdaten verfallen nach 210 Tagen.
+Abdeckung: 140 Original-Quartalsmeldungen von Microsoft, Apple, NVIDIA, Alphabet, Meta und Amazon ab 2020/2021 bis Juni/Juli 2026, kompakt in `data/historical-reports.json`. Andere Aktien erhalten ausschließlich historische Risikopunkte. Ein Bericht darf erst nach seinem Veröffentlichungstag und vor dem tatsächlichen Kursstichtag genutzt werden. Datumsgleiche Veröffentlichungen werden konservativ ausgeschlossen. Keine späteren Kennzahlen oder Analystenschätzungen werden rückwärts eingesetzt. Finanzdaten verfallen nach 210 Tagen.
 
-Gleiche V7.2-Schwellen, eigene Modellversion `research-v7.2-reconstruction-v1`: quartalsweises Umsatzwachstum, TTM-Marge aus vier zusammenhängenden Quartalen, KGV-Näherung aus der Summe gerundeter diluted Quartals-EPS und historische Volatilität. EPS-Summe ist wegen Rundung und veränderter gewichteter Aktienzahlen kein exaktes TTM-EPS. Für die beiden Emittenten sind seit 2020 keine Aktiensplits im berechneten Fenster einzurechnen. Revisionen fehlen: maximal 85% Abdeckung, kein hochgerechneter Gesamt-Score. Heute geladene Kursreihen und Emittentenseiten können rückwirkend geändert worden sein; Quellenhashes sind keine historischen Zeitstempel. Auswahl-/Survivorship-Bias bleibt bestehen. Kein Rendite-Backtest.
+Gleiche V7.2-Schwellen, eigene Modellversion `research-v7.2-reconstruction-v2`: quartalsweises Umsatzwachstum, TTM-Marge aus vier zusammenhängenden Quartalen, KGV-Näherung aus der Summe gerundeter diluted Quartals-EPS und historische Volatilität. EPS-Summe ist wegen Rundung und veränderter gewichteter Aktienzahlen kein exaktes TTM-EPS. Gemeldete EPS bleiben unverändert im Quellenpaket. Ein belegter späterer Splitfaktor normalisiert die EPS auf dieselbe Aktienbasis wie die splitbereinigten historischen Kurse (NVIDIA 4:1/10:1, Alphabet und Amazon 20:1). Publication-Date statt Berichtsende bestimmt die ursprüngliche Aktienbasis. Unbelegte Basis sperrt die KGV-Näherung. Revisionen fehlen: maximal 85% Abdeckung, kein hochgerechneter Gesamt-Score. Heute geladene Kursreihen und Emittentenseiten können rückwirkend geändert worden sein; Quellenhashes sind keine historischen Zeitstempel. Auswahl-/Survivorship-Bias bleibt bestehen. Kein Rendite-Backtest.
 
 `tools/collect_reconstruction_sources.py` erstellt das Quellenpaket erneut (lxml und Poppler/pdftotext erforderlich; separat von der täglichen CI). Neue Quartalsmeldungen müssen dort ergänzt und geprüft werden. Die CI berechnet monatliche Stände aus dem geprüften Paket und aktuellen historischen Kursreihen neu. Sie archiviert diese Rückrechnung ausdrücklich nicht als damals beobachtete Daten.
 
@@ -61,3 +61,14 @@ Der Aktienvergleich verwendet die Kennzahlen des jeweiligen Profils (P/B, ROE, A
 „Score-Veränderungen“ vergleicht zwei vollständige Original-Snapshots aus dem beobachteten Archiv. Nur bei identischer Modellversion, Profil und Gewichten werden gemeinsam belegte Komponenten subtrahiert. Hinzugekommene/verlorene Abdeckung erhält keine scheinbare Punktedifferenz. Gesamtänderungen gibt es nur bei vollständigen vergleichbaren Scores; Modellwechsel werden nebeneinander ohne numerischen Delta gezeigt. Eingabeänderungen und gespeicherte Regeln sind keine kausale Attribution. Gleiches Kursdatum an mehreren Archivdaten wird ausdrücklich genannt. Die Score-Methodik selbst bleibt research-v7.2.0.
 
 Zusätzlicher Check: `node tests/test_insights.cjs`.
+
+
+## V7.4: Aktienansicht, Änderungen und Chartbedienung
+
+`workspace.js` bündelt Kursverlauf, profilabhängige Kennzahlen, fünf Score-Komponenten, Rückrechnung und Quellen in „Aktienanalyse → Aktien im Detail“. Dashboard-Details führen direkt zum gewählten Unternehmen. Historische Monatsdetails zeigen Komponenten und verwendete Quartalsmeldungen. Der aktuelle vollständige Research-Score wird weiterhin getrennt von rekonstruierten Teilpunkten gezeigt.
+
+„Was ist neu?“ nutzt die letzten beiden archivierten Stände derselben Modellversion: veränderte Punkte/Eingaben, neueres Berichtsende im Anbieterbestand und offene Primärprüfungen. Neue Berichtsstände sind keine vollständige Earnings-Erkennung oder unabhängige Quellenbestätigung. Bei identischen Kursstichtagen werden keine neuen Marktereignisse behauptet.
+
+Kurs-, beobachtete Score- und Rückrechnungs-Charts besitzen eine gemeinsame Stichtagsanzeige für alle ausgewählten Linien. Maus, Berührung, Links/Rechts, Home/End und ein natives Datums-Auswahlfeld werden unterstützt. Im Rückrechnungsvergleich öffnet ein Klick oder Enter den Monat für Details. Auf schmalen Bildschirmen zeigt das Dashboard Aktienkarten; Navigation und Bedienelemente bleiben per Touch bedienbar.
+
+Die Ergänzung erfolgt mit `tools/extend_reconstruction_sources.py` und `tools/collect_alphabet_sources.py` (lxml/Poppler). Beide ergänzen das geprüfte Quellenpaket, statt beim einzelnen Abruffehler bestehende Berichte zu löschen. Neue Meldungen und Splits müssen weiterhin geprüft ergänzt werden. Zusätzliche Regression: `node tests/test_workspace.cjs`.
