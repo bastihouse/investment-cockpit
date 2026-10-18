@@ -51,6 +51,8 @@ def reconstruct_point(stock,history,reports,month):
     q={'ticker':stock['ticker'],'price':last['close'] if valid else None,'status':'cached' if valid else 'missing','peTTM':pe}
     r=score(q,known,facts,{'status':'missing'})
     r.update(model='V7.2 thresholds · historical reconstruction',modelVersion=MODEL)
+    for key in ('valuation','growth','quality'):
+        r['explanation'][key]=r['explanation'].get(key,'').replace('(Anbieter)','(veröffentlichte Quartalsmeldung)').replace('TTM-P/E','KGV-Näherung aus Quartals-EPS')
     r['missingReasons']['revisions']='Historischer Analystenkonsens nicht verfügbar; keine heutigen Schätzungen eingesetzt.'
     r['scope']='Rückrechnung mit heutigen V7.2-Schwellen. Quartals-EPS-Summe als TTM-Näherung; kein damals gespeicherter Score und kein exakter historischer Anbieterquotient.'
     return {'date':month,'priceDate':last['date'] if valid else None,'ticker':stock['ticker'],'name':stock['name'],
