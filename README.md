@@ -38,7 +38,7 @@ node tests/test_history.cjs
 node --check dashboard.js
 ```
 
-Pages benötigt `index.html`, die fünf JS-Dateien (`insights`, `research`, `dashboard`, `reconstruction`, `workspace`) und `data/`; Python und Tests werden nicht ausgeliefert.
+Pages benötigt `index.html`, die sechs JS-Dateien (`insights`, `research`, `dashboard`, `reconstruction`, `workspace`, `research_next`) und `data/`; Python und Tests werden nicht ausgeliefert.
 
 ## Monatliche Rückrechnung (separate Modellvariante)
 
@@ -72,3 +72,22 @@ Zusätzlicher Check: `node tests/test_insights.cjs`.
 Kurs-, beobachtete Score- und Rückrechnungs-Charts besitzen eine gemeinsame Stichtagsanzeige für alle ausgewählten Linien. Maus, Berührung, Links/Rechts, Home/End und ein natives Datums-Auswahlfeld werden unterstützt. Im Rückrechnungsvergleich öffnet ein Klick oder Enter den Monat für Details. Auf schmalen Bildschirmen zeigt das Dashboard Aktienkarten; Navigation und Bedienelemente bleiben per Touch bedienbar.
 
 Die Ergänzung erfolgt mit `tools/extend_reconstruction_sources.py` und `tools/collect_alphabet_sources.py` (lxml/Poppler). Beide ergänzen das geprüfte Quellenpaket, statt beim einzelnen Abruffehler bestehende Berichte zu löschen. Neue Meldungen und Splits müssen weiterhin geprüft ergänzt werden. Zusätzliche Regression: `node tests/test_workspace.cjs`.
+
+
+## V7.5: Eingabeprüfung, zusätzliche Originalberichte, Monitor und Score-Diagnostik
+
+Das Live-Modell heißt jetzt `research-v7.5.0`, die Rückrechnung `research-v7.5-reconstruction-v1`. Gewichte und Skalen bleiben gleich; neue Sperrregeln und historische Branchenmethoden begründen eigene Versionen. Frühere beobachtete Stände bleiben unverändert. Modellwechsel erhalten keine scheinbare Score-Differenz.
+
+`validation.py` prüft Antwortsymbol, Berichts-/Handelswährung, P/B gegen Kurs/Buchwert und extreme Buchwertquotienten. Berkshire B braucht eine ausdrücklich belegte B-Buchwertbasis; es gibt keine automatische A/B-Skalierung. Große Sprünge in adjustierten Kursreihen sperren das Marktrisiko zur Prüfung. Sperren gelten je Kategorie. Vier belegte Original-Quartals-EPS können als begrenzte Primärreferenz dienen, ausschließlich bei passender Periode, Währung und dokumentierter Splitbasis. Dies bestätigt weder Kurs noch Konsens oder Fair Value.
+
+`data/historical-extensions.json` ergänzt 129 Originalberichte: JPM 27, Allianz 25, Siemens Energy 24, Realty Income 27, Ares Capital 15 und LVMH 11. Zusammen mit den bisherigen 140 Meldungen sind 269 Originalberichte von zwölf Emittenten hinterlegt. Jedes Dokument hat Veröffentlichung, Periode, Original-URL und SHA256. Halbjahres-/Jahresperioden bleiben so gekennzeichnet. Operative TTM-Marge: vier Quartale, ein FY oder H1 + vorheriges FY − vorheriges H1. LVMH-Halbjahresvergleiche verwenden die Vorjahres-H1-Spalte, nicht die benachbarte FY-Spalte. Fehlende Berichte erzeugen Lücken. Europäische EPS-Bewertungen bleiben ohne belegte historische Aktienbasis gesperrt.
+
+JPM nutzt berichteten Gewinn, Buchwert und annualisierte Quartals-ROE (keine ROTCE). Allianz nutzt berichteten Anteilseignergewinn; Core-EPS/ROE werden nicht als GAAP-Kennzahlen ersetzt. IFRS17/IFRS9 ist gekennzeichnet. Siemens Energy nutzt keinen bereinigten Gewinn als operativen IFRS-Gewinn; fehlende Q4-Margen bleiben offen. REITs nutzen originales AFFO und historische Ausschüttungsdeckung je Aktie, eine ausdrücklich andere Variante als die aktuelle Gesamtbetragsdeckung. BDCs nutzen NAV, GAAP-NII, Ausschüttung und Verschuldung; Core-EPS ist kein NII-Ersatz. Weitere Unternehmen und fehlende Kennzahlen bleiben sichtbar unvollständig.
+
+`tools/collect_expanded_sources.py` ist ein separater, manuell zu prüfender Sammler (lxml/Poppler); die gespeicherte SEC-Exhibit-Auswahl liegt unter `tools/sec-report-links.json`. Er aktualisiert das Quellenpaket, ohne fehlgeschlagene Dokumente durch geschätzte Werte zu ersetzen. Vier dokumentierte Sammlerfehler betreffen drei fehlende Perioden und eine nicht passende Sondermeldung. Neue Exhibit-Links müssen nach unabhängiger Quellenprüfung ergänzt werden.
+
+`monitor_reports.py` läuft täglich mit dem Datenjob. Unter „Daten → Quartalsberichte“ stehen Anbieter-Berichtswechsel für alle 32 Aktien sowie konfigurierte offizielle RSS-/SEC-Prüfungen. Die Oberfläche unterscheidet neue Anbieterperiode, spätere Fundstelle, fehlende erste Quelle und hinterlegte Referenz. Nicht erreichbare Quellen bleiben unbekannt. Weder ein Treffer noch kein Treffer bestätigt geprüfte Zahlen oder vollständige Earnings-Abdeckung. Kandidaten aktualisieren keine kuratierten Eingaben automatisch; es werden keine externen Nachrichten versandt.
+
+`evaluation.py` erstellt „Aktienanalyse → Score-Auswertung“: feste Regeln, 6/12 Kalendermonate, Einstieg erst zum nächsten verfügbaren adjustierten Schlusskurs nach dem Signal; nur gereifte Ergebnisse. Vor 2024 liegt der Entwicklungszeitraum, ab 2024 der Prüfzeitraum. Entwicklungsfenster über der Grenze werden entfernt. Feste Januar-/Juli- beziehungsweise Januar-Anker und zusätzliche Überlappungsprüfung verhindern überlappende Fenster je Aktie/Horizont. Kein Fit und keine Gewichtsoptimierung. Vergleichbare Segmente halten Modell, Profil, Abdeckung, Komponenten und Wachstumsperiode getrennt; Rangkorrelation braucht mindestens vier Aktien derselben Stichtagskohorte. Rückrechnung und beobachtetes Archiv werden separat ausgewertet. Noch unreife beobachtete Horizonte bleiben offen. CSV/JSON und Einzelbeobachtungen legen Grenzen und Kurstage offen.
+
+Die Zeitteilung ist rückblickend und kein damals versiegelter Holdout. Heutiges Universum, nachträglich geladene Kursreihen, kleine Stichproben, fehlende Kosten und FX begrenzen die Aussage. Die Diagnose belegt keine Prognosekraft oder Überrendite.
