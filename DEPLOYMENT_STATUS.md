@@ -1,5 +1,9 @@
-# V7.2
+# Investment Cockpit V7.5
 
-Implementiert: neues Dashboard, Branchenmodelle, sichtbare Datenprüfungen, tägliches versionsgetrenntes Snapshot-Archiv, Scorevergleich, Original-JSON-Prüfsummen und CSV-Export.
+Live-Modell: research-v7.5.0. Rückrechnung: research-v7.5-reconstruction-v1. Unveränderte Gewichte; neue Eingabesperren und historische Branchenvarianten bleiben durch Modellversionen getrennt.
 
-Veröffentlichung ausschließlich mit bestehenden kostenlosen GitHub Actions/Pages. Keine Zugangsdaten oder privaten Depotwerte enthalten. Primärdatenabdeckung ist sichtbar begrenzt; O/ARCC/KRP-Berichte müssen bei neuen Veröffentlichungen aktualisiert werden. Beobachtete Historie beginnt mit vorhandenen echten Snapshots und wächst mit erfolgreichen Datenläufen.
+Enthalten: kategorieweise Aktienklasse-/Währungs-/Kursbasisprüfung; 269 Originalberichte von zwölf Emittenten; offizielle Berichts-Prüfqueue; 6-/12-Monats-Score-Diagnostik mit zeitlicher Trennung und gereiften Ergebnissen.
+
+Lokale Prüfung: 39 Python-Regressionsprüfungen, sieben Node-Prüfdateien und DOM-Integration der neuen Ansichten. Echte vorhandene Kursreihen: 60 Monatsenden, 32 Aktien, 88 retrospektive Ergebnisfälle, keine gereiften beobachteten Ergebnisse. Fehlende Kennzahlen bleiben offen. Keine nachgewiesene Prognosekraft.
+
+Die Veröffentlichung erfolgt über den bestehenden GitHub-Pages-Workflow. Generierte lokale Platzhalter werden nicht hochgeladen; CI erstellt die aktuellen Daten.
