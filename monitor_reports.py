@@ -112,7 +112,7 @@ def build(root,today=None,fetch=True):
     rows=review_rows(snapshot,bundle['reports'],special,previous,list(merged.values()))
     result={'schemaVersion':1,'checkedAt':dt.datetime.now(dt.timezone.utc).isoformat(),
             'policy':'Review queue only. Provider period advances are not independently verified earnings. Official feed hits never update curated raw financial inputs automatically.',
-            'coverage':'Provider reporting-period comparison for all universe stocks; official dated feed / SEC checks only for the explicitly listed issuers. RSS feeds may be incomplete; unavailable feeds remain unknown.',
+            'coverage':'Vergleich der Anbieter-Berichtsperioden für alle Aktien; datierte offizielle Feed-/SEC-Prüfungen nur für ausdrücklich aufgeführte Emittenten. RSS-Feeds können unvollständig sein; nicht erreichbare Quellen bleiben unbekannt.',
             'feedChecks':checks,'stocks':rows,'candidates':sorted(merged.values(),key=lambda c:(c['publishedAt'],c['ticker']),reverse=True),
             'summary':{'stocks':len(rows),'newProviderPeriods':sum(r['providerAdvanced'] for r in rows),
                        'reviewRequired':sum(r['state'] in ('new-period','review-required') for r in rows),
