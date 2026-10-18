@@ -8,7 +8,7 @@ sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]))
 from validation import check_quote,issuer_reference
 from scoring import score
 from reconstruct import inputs_at,reconstruct_point
-from evaluation import add_months,outcome,rank_ic,summarize,build as evaluate
+from evaluation import add_months,outcome,rank_ic,summarize,sample,build as evaluate
 from monitor_reports import parse_feed,review_rows
 
 class QualityTests(unittest.TestCase):
@@ -59,6 +59,8 @@ class EvaluationTests(unittest.TestCase):
   self.assertIsNone(rank_ic([{'score':1,'returnPct':1}]*4))
   self.assertAlmostEqual(rank_ic([{'score':i,'returnPct':i} for i in range(4)]),1)
  def test_profile_and_coverage_cohorts_not_pooled_for_ic(self):
+  point={'ticker':'X','date':'2022-01-31','profile':'bdc','coveragePoints':85,'partialPoints':50,'parts':{'valuation':20,'growth':10,'quality':15,'risk':5},'inputs':{'growthBasis':'nav-since-comparison-date','reportEnd':'2021-09-30','specialist':{'navPreviousDate':'2020-12-31'}}}
+  row,_=sample(point,self.history(),6,'2023-01-01','retrospective','test-v1');self.assertEqual(row['growthBasis'],'nav-since-comparison-date-9m')
   rs=[{'ticker':str(i),'signalDate':'2022-01-31','score':i*20,'returnPct':i,'coverage':85 if i<2 else 55,'components':'g|q|r','profile':'operating','growthBasis':'quarterly','maxDrawdownPct':-10,'volatilityPct':20} for i in range(4)]
   self.assertEqual(summarize(rs)['rankICCohorts'],0)
 
