@@ -6,7 +6,7 @@ sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]))
 from reconstruct import month_ends,inputs_at,reconstruct_point
 
 def report(end,published,eps=2):
- return dict(ticker='MSFT',periodEnd=end,publishedAt=published,revenue=100,revenueYearAgo=80,operatingIncome=30,epsDiluted=eps,sourceUrl='https://example.test/report',documentSha256='abc',priceBasis='No stock split after 2020')
+ return dict(ticker='MSFT',currency='USD',periodEnd=end,publishedAt=published,revenue=100,revenueYearAgo=80,operatingIncome=30,epsDiluted=eps,sourceUrl='https://example.test/report',documentSha256='abc',priceBasis='No stock split after 2020')
 class ReconstructionTests(unittest.TestCase):
  def test_month_ends_exclude_incomplete_month(self):
   values=month_ends(dt.date(2026,10,17));self.assertEqual(len(values),60);self.assertEqual(values[0],'2021-10-31');self.assertEqual(values[-1],'2026-09-30')
