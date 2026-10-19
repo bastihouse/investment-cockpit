@@ -13,6 +13,7 @@ import xml.etree.ElementTree as ET
 import calendar
 from html.parser import HTMLParser
 from pathlib import Path
+from historical_sources import load_reports
 
 FEEDS={
  'AAPL':'https://www.apple.com/newsroom/rss-feed.rss',
@@ -161,9 +162,7 @@ def review_rows(snapshot,reports,specialists,previous,candidates):
 def build(root,today=None,fetch=True):
     root=Path(root);today=today or dt.date.today();path=root/'data/report-monitor.json'
     previous=json.loads(path.read_text()) if path.exists() else {}
-    snapshot=json.loads((root/'data/snapshot.json').read_text());bundle=json.loads((root/'data/historical-reports.json').read_text())
-    extension=root/'data/historical-extensions.json'
-    if extension.exists():bundle['reports']+=json.loads(extension.read_text())['reports']
+    snapshot=json.loads((root/'data/snapshot.json').read_text());reports,_,_=load_reports(root)
     special=json.loads((root/'data/sector-inputs.json').read_text());checks=[];candidates=[]
     if fetch:
         with cf.ThreadPoolExecutor(max_workers=3) as pool:
@@ -178,7 +177,7 @@ def build(root,today=None,fetch=True):
         c['firstDetectedAt']=old.get('firstDetectedAt',dt.datetime.now(dt.timezone.utc).isoformat())
         if not c.get('publishedAt') and old.get('publishedAt'):c['publishedAt']=old['publishedAt']
         merged[c['id']]=c
-    rows=review_rows(snapshot,bundle['reports'],special,previous,list(merged.values()))
+    rows=review_rows(snapshot,reports,special,previous,list(merged.values()))
     result={'schemaVersion':1,'checkedAt':dt.datetime.now(dt.timezone.utc).isoformat(),
             'policy':'Review queue only. Provider period advances are not independently verified earnings. Official feed hits never update curated raw financial inputs automatically.',
             'coverage':'Vergleich der Anbieter-Berichtsperioden für alle Aktien; offizielle Feed-/SEC-Prüfungen und zusätzliche Emittentenkataloge nur für ausdrücklich aufgeführte Unternehmen. Katalogperioden sind keine Veröffentlichungsdaten. Quellen können unvollständig sein; nicht erreichbare Quellen bleiben unbekannt.',
