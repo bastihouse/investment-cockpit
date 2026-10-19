@@ -1,5 +1,15 @@
 # Research-Erweiterung 19.10.2026
 
+## Folgeauftrag: EPS-/Splitbasis, verbleibende Historien und Score-Vergleich
+
+Umgesetzt: 133 zusätzliche EPS-Basisprüfungen für AMD/AVGO/WMT/QCOM/COST, 51 internationale Kennzahlenperioden für UL/SHEL/005930/ACOMO sowie 43 belegte Vorgängerperioden für XOM/BLK. Insgesamt 2.893 Perioden für 114 Positionen aus 2.416 verknüpften Dokumenten. EPS-Overlays bleiben vom Rohpaket getrennt und sind an dessen genaue Quellenidentität gebunden. Kein pauschales Freischalten unreviewter Instrumente. Operanden werden im selben Filing gegen Gewinn/Aktienzahl abgeglichen, spätestens zur Originalveröffentlichung verfügbar; spätere Vergleichsperioden werden nicht zurückdatiert. Berichtete FY-/YTD-EPS sind eine TTM-Näherung und ersetzen keine fehlenden Quartals-EPS.
+
+Lokal ergeben sich 297 zusätzliche Monatsbewertungen mit EPS-Näherung bei den fünf ergänzten Instrumenten. Alle vier bisher fehlenden internationalen Titel haben Kennzahlenperioden, aber keine erfundene lückenlose Quartals-/Bewertungsabdeckung. Internationale ADR-, Währungs- und sonstige ungeklärte EPS-Basen bleiben gesperrt. Börsennotierungen von GEV/SNDK werden nicht vor ihren eigenständigen Handelsbeginn verlängert.
+
+Erweiterter Vier-Aktien-Vergleich: gemeinsam belegte Kategorien je Monat als Standard, originale Abdeckung separat, Kategoriebeiträge am ausgewählten Stichtag, Abdeckungsverlauf, Wechsel der Vergleichsbasis, CSV mit Komponenten und Maximalpunkten sowie direkte Übergabe aus Peer-Gruppen. Profilübergreifend ist nur Marktrisiko gemeinsam; Verbindungslinien werden bei Basiswechseln unterbrochen. Rückrechnung v2, beobachtetes Archiv unverändert.
+
+58 Python-Prüfungen und acht Node-Prüfdateien bestanden; Quellenhashbindung, Publikationsgrenzen, Splitabweichungen, EPS-/Aktienzahlkonflikte, YTD-Arithmetik, internationale Einheiten und Vorgängergrenzen geprüft. Die folgenden Abschnitte dokumentieren den vorherigen Ausbau und dessen damaligen Datenstand.
+
 Angeforderte Reihenfolge: 1 Historische Kennzahlen, 4 Datenlücken, 2 Branchenvergleich, 3 Opportunity-Scanner. Alle vier Funktionen sind implementiert.
 
 ## Daten und Methodik
