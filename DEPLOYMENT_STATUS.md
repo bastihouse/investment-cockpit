@@ -1,5 +1,17 @@
 # Investment Cockpit V7.5
 
+## Benchmarkvergleich, Watchlists und Vergleichsansicht (19.10.2026)
+
+Drei integrierte Ansichten unter Aktienanalyse: bis zu vier Aktien gegen SPY beziehungsweise elf US-Sektor-ETF-Proxies, historische Umrechnung nach USD/EUR, gemeinsame abgeschlossene Handelstage, Kursrendite oder dividendenbereinigte Anbieternäherung, Renditeabstand in Prozentpunkten, Drawdown und CSV. Kein offizieller Index-Total-Return und kein risikobereinigtes Alpha. Fehlende/veraltete Daten, längere Lücken und auffällige Basissprünge sperren die Darstellung.
+
+Mehrere lokale Watchlists mit Notizen, Suche, Sortierung, direkter Vergleichsübergabe, Wiederherstellung entfernter Einträge sowie validierter JSON-Sicherung. Watchlists, Notizen und gespeicherte Vergleiche bleiben im Browserprofil; kein Servertransfer und keine automatische Gerätesynchronisation. Schreibfehler und beschädigte Sicherungen erzeugen keine falsche Erfolgsmeldung.
+
+Historische Vergleichsansicht mit bis zu vier Aktien, Punkte- und Auswahlrangverlauf, Kategorien-Heatmap, Unterschieden zur Referenzaktie, Quellenübergabe, CSV und benannten Einstellungen. Gemeinsame Kategorien und Profile werden beachtet; fehlende Revisionen bleiben offen, keine Hochrechnung auf 100. Gespeicherte Einstellungen verwenden beim erneuten Öffnen die jeweils veröffentlichten Daten.
+
+61 Python-Tests, neun Node-Prüfdateien und Integration mit echten Daten bestanden. Integration deckt EUR/USD/KRW, gemeinsame Handelstage, Watchlist-Notizen, gespeicherte Ansichten, Ranggrenzen und Rückgängig ab; keine JavaScript-Fehler.
+
+Finale Veröffentlichung erfolgreich: https://github.com/bastihouse/investment-cockpit/actions/runs/39307078064 (Refresh 77 Sekunden, Deployment 24 Sekunden). Live-Abnahme: MSFT/NVDA gegen SPY über 250 gemeinsame abgeschlossene Handelstage vom 20.10.2025 bis 16.10.2026, USD/EUR, Kurs-/dividendenbereinigte Basis, XLK-Branchenproxy und CSV; Watchlist mit zwei Aktien, gespeicherter Notiz nach Neuladen, Umbenennen, Vergleichsübergabe und Rückgängig. Benannte Rangansicht nach Neuladen wieder geöffnet; gemischte Profile MSFT/JPM erhalten keinen gemeinsamen Rang; Quellenübergabe bestätigt. Smartphone 390px: Benchmark, Rangchart, Heatmap und Notizspeicherung ohne horizontale Überbreite, adaptiver 320×300-Chart; Tablet 768px: Benchmark und Vergleich ohne horizontale Überbreite. Temporäre QA-Listen und Vergleich entfernt. Keine Prüfung auf physischer Hardware.
+
 ## EPS-Basis, internationale Historien und historischer Vier-Aktien-Vergleich (19.10.2026)
 
 Folgeauftrag 1–3 umgesetzt und veröffentlicht. 133 zusätzliche EPS-Basisprüfungen für AMD/AVGO/WMT/QCOM/COST; lokal 297 zusätzliche Monatsbewertungen mit belegter EPS-Näherung. Belegte Splits, verwässerte Aktienzahlen, Gewinn und EPS derselben Einreichung bleiben nachvollziehbar. Direkte FY-EPS beziehungsweise vier Quartale oder YTD + vorheriges FY − vorheriges YTD sind ausdrücklich TTM-Näherungen. Abweichende Split-Ereignisse der Kursreihe sperren die Bewertung. Andere unbestätigte Instrumente erhalten keine automatische Freigabe.
