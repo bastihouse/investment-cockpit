@@ -91,8 +91,8 @@ function historyDefaults(){
 }
 function drawHistory(series,metric){
   const svg=$('scoreHistoryChart'),dates=[...new Set(series.flatMap(s=>s.points.map(p=>p.date)))].sort(),values=series.flatMap(s=>s.points.filter(p=>p.value!=null));
-  const W=1000,H=310,L=55,R=30,T=22,B=40;
-  if(!dates.length||!values.length){document.getElementById(svg.id+'Inspect')?.remove();svg.innerHTML='<text x="500" y="145" text-anchor="middle" class="history-empty">Keine belegten Werte für diese Auswahl.</text>';return;}
+  const W=Math.max(320,Math.round(svg.getBoundingClientRect().width||1000)),H=310,L=48,R=22,T=22,B=40;svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  if(!dates.length||!values.length){document.getElementById(svg.id+'Inspect')?.remove();svg.innerHTML=`<text x="${W/2}" y="145" text-anchor="middle" class="history-empty">Keine belegten Werte für diese Auswahl.</text>`;return;}
   const t0=Date.parse(dates[0]),span=Date.parse(dates.at(-1))-t0;
   const x=d=>span?L+(Date.parse(d)-t0)/span*(W-L-R):W/2,y=v=>T+(100-v)/100*(H-T-B);
   let html=[0,25,50,75,100].map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#2c434f"/><text x="${L-12}" y="${y(v)+4}" text-anchor="end" fill="#93afbd" font-size="12">${v}${metric==='coverage'?'%':''}</text>`).join('');
