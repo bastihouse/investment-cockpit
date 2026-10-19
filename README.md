@@ -2,6 +2,8 @@
 
 Kostenloses öffentliches Research-Dashboard auf GitHub Pages. Keine Depotbestände, Zugangsdaten oder kostenpflichtigen Dienste.
 
+Aktuelle Erweiterung (19.10.2026): feste Top-100-Auswahl nach Indexgewichts-Näherung aus den offiziellen täglichen SPY-Beständen vom 16.10.2026. 100 Aktienpositionen einschließlich getrennter Aktienklassen; 18 Überschneidungen mit den bisherigen 32 Aktien ergeben 114 eindeutige Positionen und 82 Ergänzungen. Keine automatische Rotation. `data/sp500-selection.json` enthält Ränge, Fondsgewichte, Quell-URL, Datenstand und SHA256; Fondsgewichte sind ausdrücklich keine unabhängig bestätigten Original-S&P-Gewichte. Die bisherigen Aktien bleiben enthalten. Filter für Übersicht, aktuelle Scores und Kurstabelle sind synchronisiert; historische Vergleiche behalten ihre eigene Aktienauswahl. Aktuelle Kurs- und Kennzahlenabrufe erfolgen mit maximal drei parallelen Aufgaben. Die Tagesarchive bleiben unverändert; neue Aktien werden erst in künftigen Archivständen beobachtet. Historische Originalkennzahlen wachsen schrittweise, fehlende Eingaben werden nicht ersetzt. Banken, Versicherer und REITs der Erweiterung verwenden passende Sonderprofile.
+
 ## Dashboard und Vergleich
 
 Übersicht mit Datenabdeckung, vollständigen Scores, Befunden, Profilfilter und durchsuchbarer Aktienliste. Score-Verlauf vergleicht bis zu vier Aktien auf fixer 0–100-Skala; vollständige Scores, Teilpunkte und Abdeckung sind getrennte Ansichten. Kurse bleiben separat über bis zu fünf Jahre vergleichbar.
