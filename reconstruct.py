@@ -7,6 +7,7 @@ import hashlib
 import json
 from pathlib import Path
 from scoring import score
+from historical_sources import load_reports
 MODEL='research-v7.5-reconstruction-v1'
 
 def month_ends(today, count=60):
@@ -33,7 +34,7 @@ def inputs_at(reports, ticker, cutoff):
     latest=[r for r in ordered if r.get('periodMonths',3)==3][-4:]
     contiguous=len(latest)==4 and all(70<=(dt.date.fromisoformat(b['periodEnd'])-dt.date.fromisoformat(a['periodEnd'])).days<=110 for a,b in zip(latest,latest[1:]))
     used=[last];eps=None
-    if kind in ('bank','insurance'):
+    if kind in ('bank','insurance','holding'):
         prior=last.get('netIncomeYearAgo');value=last.get('netIncome')
         if prior and prior>0 and value is not None:facts['earningsGrowth']=value/prior-1
         facts.update(bookValuePerShare=last.get('bookValuePerShare'),returnOnEquity=last.get('returnOnEquity'))
@@ -91,17 +92,12 @@ def reconstruct_point(stock,history,reports,month):
             'sources':[{'publishedAt':r['publishedAt'],'periodEnd':r['periodEnd'],'url':r['sourceUrl'],
                         'statementUrl':r.get('statementUrl'),'documentSha256':r['documentSha256'],
                         'epsDilutedReported':r.get('epsDiluted'),'epsToPriceBasisFactor':r.get('epsToPriceBasisFactor',1),
+                        'sourceType':r.get('sourceType'),'accession':r.get('accession'),'derivation':r.get('derivation'),
                         'splitEvents':r.get('splitEvents',[]),'priceBasisAsOf':r.get('priceBasisAsOf')} for r in used]}
 
 def build(root,today=None):
     root=Path(root);today=today or dt.date.today()
-    bundle_path=root/'data/historical-reports.json'
-    bundle=json.loads(bundle_path.read_text())
-    extension_path=root/'data/historical-extensions.json'
-    extensions=json.loads(extension_path.read_text()) if extension_path.exists() else {'reports':[]}
-    source_bundles={'historical-reports.json':hashlib.sha256(bundle_path.read_bytes()).hexdigest()}
-    if extension_path.exists():source_bundles['historical-extensions.json']=hashlib.sha256(extension_path.read_bytes()).hexdigest()
-    bundle['reports']=bundle['reports']+extensions['reports']
+    reports,source_bundles,_=load_reports(root);bundle={'reports':reports}
     universe=json.loads((root/'data/universe.json').read_text())
     months=month_ends(today);stocks=[]
     for s in universe:
@@ -113,7 +109,7 @@ def build(root,today=None):
                        'firstPriceDate':history[0]['date'] if history else None,'points':points})
     output={'schemaVersion':1,'modelVersion':MODEL,'calculatedAt':dt.datetime.now(dt.timezone.utc).isoformat(),
             'kind':'retrospective-reconstruction','monthEnds':months,'sourceBundles':source_bundles,'reportBundleSha256':hashlib.sha256(json.dumps(source_bundles,sort_keys=True).encode()).hexdigest(),
-            'reportCount':len(bundle['reports']),'issuerTickers':sorted(set(r['ticker'] for r in bundle['reports'])),
+            'reportCount':len(bundle['reports']),'sourceDocumentCount':len({r['sourceUrl'] for r in bundle['reports']}),'issuerTickers':sorted(set(r['ticker'] for r in bundle['reports'])),
             'method':'Fixed thresholds; original issuer quarterly/half-year/annual reporting periods remain labelled. Operating TTM uses four quarters, one annual statement, or current H1 + prior FY - prior H1. Verified same-currency EPS basis only. Bank/insurance reported profit/book/ROE and REIT/BDC specialist fields never replaced by operating-model metrics. Historical revisions missing. Release must precede actual trading cutoff; fundamentals expire 210 days after period end.',
             'limitations':['No historical consensus revisions or forward P/E. No normalized total score.',
                           'Not a contemporaneously archived vendor dataset; issuer web pages can change retrospectively. Document hash identifies the retrieved source, not a historical attestation.',
@@ -123,6 +119,6 @@ def build(root,today=None):
                           'Issuer coverage is listed in issuerTickers. Other stocks have only historical market-risk points. New issuer releases and split events must be added to the source bundle.'],
             'stocks':stocks}
     path=root/'data/reconstruction.json';path.write_text(json.dumps(output,ensure_ascii=False,allow_nan=False,separators=(',',':'))+'\n')
-    print(f'Rekonstruktion: {len(months)} Monatsenden, {len(stocks)} Aktien, {len(bundle["reports"])} Primärberichte; kein vollständiger Gesamt-Score ohne Revisionen.')
+    print(f'Rekonstruktion: {len(months)} Monatsenden, {len(stocks)} Aktien, {len(bundle["reports"])} Kennzahlenperioden; kein vollständiger Gesamt-Score ohne Revisionen.')
     return output
 if __name__=='__main__':build(Path(__file__).resolve().parent)
