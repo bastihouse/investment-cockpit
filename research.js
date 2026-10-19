@@ -66,7 +66,7 @@
     return cache.get(ticker);
   }
   function chart(svg, series, percent) {
-    const W=900,H=300,L=70,R=22,T=22,B=40;
+    const W=Math.max(320,Math.round(svg.getBoundingClientRect().width||900)),H=300,L=60,R=22,T=22,B=40;
     const values=series.flatMap(s=>s.data.map(p=>p.close));
     if (!values.length) {document.getElementById(svg.id+'Inspect')?.remove();svg.innerHTML='';return;}
     let lo=Math.min(...values),hi=Math.max(...values);
