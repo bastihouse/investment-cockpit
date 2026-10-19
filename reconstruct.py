@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 from scoring import score
 from historical_sources import load_reports
-MODEL='research-v7.5-reconstruction-v1'
+MODEL='research-v7.5-reconstruction-v2'
 
 def month_ends(today, count=60):
     # Exclude the incomplete current month, never project a month-end into the future.
@@ -58,15 +58,31 @@ def inputs_at(reports, ticker, cutoff):
         if revenue>0 and all(r.get('operatingIncome') is not None for r,_ in coefficients):facts['operatingMargins']=sum(r['operatingIncome']*c for r,c in coefficients)/revenue
         verified=all(r.get('epsDiluted') is not None and (r.get('priceBasis')=='No stock split after 2020' or (r.get('priceBasisVerified') and isinstance(r.get('epsToPriceBasisFactor'),(int,float)) and r['epsToPriceBasisFactor']>=1)) for r,_ in coefficients)
         if verified:eps=sum(r['epsDiluted']/r.get('epsToPriceBasisFactor',1)*c for r,c in coefficients)
+    audit=last.get('epsBasisAudit',{})
+    operands=last.get('epsTtmInputs',[])
+    value=last.get('epsTtmApprox')
+    if (kind=='operating' and audit.get('status')=='reviewed' and audit.get('instrument')==ticker
+        and audit.get('currency')==last.get('currency') and isinstance(value,(int,float))
+        and operands and all(r.get('filed','9999')<=last['publishedAt'] and r.get('end','9999')<=last['periodEnd'] for r in operands)
+        and abs(sum(r['normalized']*r['coefficient'] for r in operands)-value)<1e-8):
+        eps=value
+        facts['epsBasis']=last['epsTtmBasis'];facts['epsBasisAudit']=audit;facts['epsTtmInputs']=operands
+        if last not in used:used.append(last)
     return facts,eps,used
 
-def reconstruct_point(stock,history,reports,month):
+def reconstruct_point(stock,history,reports,month,price_splits=None):
     known=[p for p in history if p['date']<=month]
     last=known[-1] if known else None
     # A missing monthly price cannot be replaced with an arbitrarily old close.
     valid=last is not None and 0<=(dt.date.fromisoformat(month)-dt.date.fromisoformat(last['date'])).days<=7
     cutoff=last['date'] if valid else month
     facts,eps,used=inputs_at(reports,stock['ticker'],cutoff) if valid else ({'status':'missing'},None,[])
+    audit=facts.get('epsBasisAudit')
+    if audit and price_splits is not None:
+        expected={(e['tradingDate'],float(e['ratio'])) for e in audit.get('splitEvents',[])}
+        actual={(e['tradingDate'],float(e['ratio'])) for e in price_splits if e['tradingDate']>='2020-01-01'}
+        if actual!=expected:
+            eps=None;facts['epsBasis']='Split-Ereignisse der Kursreihe weichen vom geprüften Quellenpaket ab; Bewertung gesperrt.'
     pe=last['close']/eps if valid and eps and eps>0 and facts.get('currency')==stock['currency'] else None
     book=facts.get('bookValuePerShare')
     if valid and book and book>0 and facts.get('currency')==stock['currency']:facts['priceToBook']=last['close']/book
@@ -76,12 +92,14 @@ def reconstruct_point(stock,history,reports,month):
     for key in ('valuation','growth','quality'):
         r['explanation'][key]=r['explanation'].get(key,'').replace('(Anbieter)','(veröffentlichte Quartalsmeldung)').replace('TTM-P/E','KGV-Näherung aus Quartals-EPS')
     if r['parts']['revisions'] is None:r['missingReasons']['revisions']='Geeignete historische Analysten- bzw. Emittentenrevisionen fehlen; keine heutigen Schätzungen eingesetzt.'
+    if audit and eps is None:r['missingReasons']['valuation']=facts.get('epsBasis','Aktienbasis offen.')
     if facts.get('qualityBasis') and r['parts']['quality'] is not None:r['explanation']['quality']+=' Basis: '+facts['qualityBasis']
-    r['scope']='Rückrechnung mit heutigen Regeln und unveränderten Schwellen. Quartals-EPS-Summe als TTM-Näherung; kein damals gespeicherter Score und kein exakter historischer Anbieterquotient.'
+    r['scope']='Rückrechnung mit heutigen Regeln und unveränderten Schwellen. Belegte Jahres-/Quartals-/YTD-EPS als TTM-Näherung; kein damals gespeicherter Score und kein exakter historischer Anbieterquotient.'
     return {'date':month,'priceDate':last['date'] if valid else None,'ticker':stock['ticker'],'name':stock['name'],
             'profile':r['profile'],'price':q['price'],'currency':stock['currency'],'parts':r['parts'],
             'total':r['total'],'partialPoints':r['partialPoints'],'coveragePoints':r['coveragePoints'],
             'inputs':{'peApprox':round(pe,6) if pe else None,'epsQuarterSum':round(eps,6) if eps is not None else None,
+                      'epsBasis':facts.get('epsBasis'),'epsBasisAudit':facts.get('epsBasisAudit'),
                       'quarterRevenueGrowth':facts.get('revenueGrowth'),'operatingMarginTTM':facts.get('operatingMargins'),
                       'growthBasis':facts.get('growthBasis'),'growthPeriodMonths':facts.get('growthPeriodMonths'),
                       'earningsGrowth':facts.get('earningsGrowth'),'priceToBook':facts.get('priceToBook'),
@@ -93,7 +111,9 @@ def reconstruct_point(stock,history,reports,month):
                         'statementUrl':r.get('statementUrl'),'documentSha256':r['documentSha256'],
                         'epsDilutedReported':r.get('epsDiluted'),'epsToPriceBasisFactor':r.get('epsToPriceBasisFactor',1),
                         'sourceType':r.get('sourceType'),'accession':r.get('accession'),'derivation':r.get('derivation'),
-                        'splitEvents':r.get('splitEvents',[]),'priceBasisAsOf':r.get('priceBasisAsOf')} for r in used]}
+                        'splitEvents':r.get('splitEvents',[]),'priceBasisAsOf':r.get('priceBasisAsOf'),
+                        'epsBasisAudit':r.get('epsBasisAudit'),'epsTtmBasis':r.get('epsTtmBasis'),'epsTtmInputs':r.get('epsTtmInputs'),
+                        'releasePage':r.get('releasePage'),'entityContinuity':r.get('entityContinuity')} for r in used]}
 
 def build(root,today=None):
     root=Path(root);today=today or dt.date.today()
@@ -102,15 +122,16 @@ def build(root,today=None):
     months=month_ends(today);stocks=[]
     for s in universe:
         p=root/'data/history'/(s['ticker']+'.json')
-        data=json.loads(p.read_text()).get('data',[]) if p.exists() else []
+        history_bundle=json.loads(p.read_text()) if p.exists() else {}
+        data=history_bundle.get('data',[])
         history=sorted(data,key=lambda r:r['date'])
-        points=[reconstruct_point(s,history,bundle['reports'],m) for m in months]
+        points=[reconstruct_point(s,history,bundle['reports'],m,history_bundle.get('splitEvents')) for m in months]
         stocks.append({'ticker':s['ticker'],'name':s['name'],'hasIssuerReports':any(r['ticker']==s['ticker'] for r in bundle['reports']),
                        'firstPriceDate':history[0]['date'] if history else None,'points':points})
     output={'schemaVersion':1,'modelVersion':MODEL,'calculatedAt':dt.datetime.now(dt.timezone.utc).isoformat(),
             'kind':'retrospective-reconstruction','monthEnds':months,'sourceBundles':source_bundles,'reportBundleSha256':hashlib.sha256(json.dumps(source_bundles,sort_keys=True).encode()).hexdigest(),
             'reportCount':len(bundle['reports']),'sourceDocumentCount':len({r['sourceUrl'] for r in bundle['reports']}),'issuerTickers':sorted(set(r['ticker'] for r in bundle['reports'])),
-            'method':'Fixed thresholds; original issuer quarterly/half-year/annual reporting periods remain labelled. Operating TTM uses four quarters, one annual statement, or current H1 + prior FY - prior H1. Verified same-currency EPS basis only. Bank/insurance reported profit/book/ROE and REIT/BDC specialist fields never replaced by operating-model metrics. Historical revisions missing. Release must precede actual trading cutoff; fundamentals expire 210 days after period end.',
+            'method':'Fixed thresholds; original issuer quarterly/half-year/annual reporting periods remain labelled. Operating TTM uses four quarters, one annual statement, or current H1 + prior FY - prior H1. Reviewed same-instrument/currency EPS uses reported FY, four quarters or YTD + prior FY - prior YTD; same-accession income/share reconciliation and explicit later split factors. No fabricated Q4 EPS. Bank/insurance reported profit/book/ROE and REIT/BDC specialist fields never replaced by operating-model metrics. Historical revisions missing. Release must precede actual trading cutoff; fundamentals expire 210 days after period end.',
             'limitations':['No historical consensus revisions or forward P/E. No normalized total score.',
                           'Not a contemporaneously archived vendor dataset; issuer web pages can change retrospectively. Document hash identifies the retrieved source, not a historical attestation.',
                           'EPS-sum approximations differ from exact diluted TTM EPS due to rounding and weighted-share changes. Originally reported EPS are divided by documented later split factors to match price units; raw EPS and split sources remain attached.',
