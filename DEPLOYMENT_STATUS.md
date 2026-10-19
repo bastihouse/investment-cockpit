@@ -1,5 +1,15 @@
 # Investment Cockpit V7.5
 
+## Erweiterung um S&P-500-Top-100 (19.10.2026)
+
+Fester Auswahlstand 16.10.2026, anhand der offiziellen täglichen SPY-Bestände nach Fondsgewicht absteigend. Die Gewichte sind eine offengelegte Näherung für streubesitzbereinigte Indexgewichte; Original-S&P-Gewichte sind nicht unabhängig bestätigt. 100 Aktienpositionen, getrennte Aktienklassen, 18 Überschneidungen, 82 Ergänzungen, insgesamt 114 Aktien. Bisherige 32 Titel bleiben erhalten. Auswahl, Quelle und SHA256 sind in `data/sp500-selection.json` gespeichert. Keine automatische Rotation.
+
+Umgesetzt: synchronisierte Filter für Übersicht, Kurstabelle und aktuelle Scores; Rang-/Gewichtshinweise; Quelldetails im Dialog; dynamische Größenprüfung und Datenqualitätszähler; begrenzter paralleler Datenabruf (3 Aufgaben); passende Profile für neue Banken, Versicherer und REITs. Historische Originalkennzahlen bleiben separat belegt, Tagesarchive werden nicht rückwirkend um neue Aktien ergänzt. Lokale Prüfung: 46 Python-Tests, sieben Node-Prüfdateien, DOM-Integration mit 114→100→32→114 und synchronisierten Filterzuständen ohne JavaScript-Fehler.
+
+Produktiver Datenjob: https://github.com/bastihouse/investment-cockpit/actions/runs/39256149942. Datenabruf erfolgreich in 61 Sekunden: 114 aktuelle Kursreihen, alle 82 neuen Aktien mit Kurs, 102 vollständige Modell-Scores, zwölf Teilbewertungen. Vollständigkeit des Modells ist keine unabhängige Bestätigung der Kennzahlen.
+
+Finale Veröffentlichung erfolgreich: https://github.com/bastihouse/investment-cockpit/actions/runs/39256671721 (Refresh 63 Sekunden, Deployment 97 Sekunden). Live-Abnahme: Filter 114/100/32, synchronisierte Kurs-/Score-Auswahl, konsistente globale Übersichtszähler 114 Kurse und 102 vollständige Modell-Scores, Broadcom als neue Aktie mit YTD-Kurschart (199 Handelstage), Quellen-/Auswahldetails. Smartphone 390px und Tablet 768px geprüft; keine horizontale Überbreite, auch bei geöffneten Quellenhinweisen und Top-100-Auswahl. Der Vergleich historischer Scores benötigt weiterhin je Aktie belegte historische Eingaben; keine Übertragung heutiger Kennzahlen in frühere Monate.
+
 Live-Modell: research-v7.5.0. Rückrechnung: research-v7.5-reconstruction-v1. Unveränderte Gewichte; neue Eingabesperren und historische Branchenvarianten bleiben durch Modellversionen getrennt.
 
 Enthalten: kategorieweise Aktienklasse-/Währungs-/Kursbasisprüfung; 269 Originalberichte von zwölf Emittenten; offizielle Berichts-Prüfqueue; 6-/12-Monats-Score-Diagnostik mit zeitlicher Trennung und gereiften Ergebnissen.
