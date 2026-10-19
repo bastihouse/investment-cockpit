@@ -87,6 +87,8 @@ def fetch_catalog(ticker,url,today):
 
 def parse_feed(body,ticker,url,today):
     root=ET.fromstring(body);out=[]
+    if root.tag not in ('rss','{http://www.w3.org/2005/Atom}feed'):
+        raise ValueError('Expected RSS/Atom feed, received a different document')
     for item in [*root.findall('.//item'),*root.findall('.//{http://www.w3.org/2005/Atom}entry')]:
         value=lambda k:next((c.text or '' for c in item if c.tag.split('}')[-1]==k),'').strip()
         title=value('title')
