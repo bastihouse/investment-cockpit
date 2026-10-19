@@ -1,0 +1,15 @@
+const assert=require('node:assert/strict');
+const {explainChange}=require('../experience.js');
+const make=()=>({ticker:'MSFT',name:'Microsoft',sector:'operating',currency:'USD',price:100,peTTM:20,marketDate:'2026-10-16',fundamentals:{status:'fresh',quoteCurrency:'USD',financialCurrency:'USD',reportDate:'2026-06-30',trailingEps:5,revenueGrowth:.1,operatingMargins:.3},researchScore:{profile:'operating',modelVersion:'same',weights:{valuation:30,growth:25,quality:20,revisions:15,risk:10},parts:{valuation:20,growth:12.5,quality:20,revisions:10,risk:8},complete:true,coveragePoints:100,total:70.5,partialPoints:70.5,riskMetrics:{volatilityPct:24,observations:252}}});
+let a=make(),b=make();b.price=110;b.peTTM=22;b.researchScore.parts.valuation=18;b.researchScore.total=68.5;
+let d=explainChange(a,b,'same','same');assert.equal(d.totalDelta,-2);assert.equal(d.drivers[0].title,'Kursbewegung bei gleicher Kennzahl');assert.equal(d.sameMarketDate,true);
+b.fundamentals.trailingEps=5.5;d=explainChange(a,b,'same','same');assert.equal(d.drivers[0].title,'Kurs und Bewertungsdaten verändert');assert(d.drivers[0].inputs.some(x=>x.label==='TTM-EPS'));
+b=make();b.fundamentals.revenueGrowth=.2;b.researchScore.parts.growth=20.83;b.fundamentals.reportDate='2026-09-30';d=explainChange(a,b,'same','same');assert(d.reportChanged);assert.equal(d.drivers[1].kind,'metric');
+b=make();b.validation={blockedCategories:{valuation:['Aktienklasse ungeprüft']}};b.researchScore.parts.valuation=null;b.researchScore.complete=false;b.researchScore.total=null;b.researchScore.coveragePoints=70;b.researchScore.missingReasons={valuation:'Aktienklasse nicht belegt.'};d=explainChange(a,b,'same','same');assert.equal(d.drivers[0].kind,'gap');assert.equal(d.drivers[0].title,'Eingabe gesperrt');assert.equal(d.totalDelta,null);assert.equal(d.drivers[0].delta,null);
+d=explainChange(b,a,'same','same');assert.equal(d.drivers[0].kind,'coverage');assert.equal(d.totalDelta,null);
+d=explainChange(a,b,'old','new');assert(d.drivers.every(r=>r.kind==='model'&&r.delta===null));
+d=explainChange(null,a,null,'same');assert.equal(d.drivers[0].title,'Erste Beobachtung');assert.equal(d.pricePct,null);
+b=make();b.researchScore.parts.valuation=19;d=explainChange(a,b,'same','same');assert.equal(d.drivers[0].kind,'unresolved');
+b=make();b.currency='EUR';b.price=110;b.peTTM=22;d=explainChange(a,b,'same','same');assert.equal(d.pricePct,null);assert.notEqual(d.drivers[0].title,'Kursbewegung bei gleicher Kennzahl');
+assert.equal(explainChange(a,a,'same','same').changed,false);
+console.log('Observed drivers: price basis, changed EPS, reports, data gates, missing coverage and model boundaries passed.');
