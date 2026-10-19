@@ -9,7 +9,7 @@ import math
 from pathlib import Path
 import sys
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from collect_reconstruction_sources import ROOT,get
+ROOT=Path(__file__).resolve().parents[1]
 
 REVIEWED={
  'AMD':('https://ir.amd.com/stock-data/stock-split-history',[]),
@@ -74,6 +74,7 @@ def ttm_at(obs,end,filed):
     return None,[],None
 
 def main():
+    from collect_reconstruction_sources import get
     from historical_sources import load_reports
     reports,_,_=load_reports(ROOT,apply_audit=False)
     mapping=json.loads(get('https://www.sec.gov/files/company_tickers.json'))
