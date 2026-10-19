@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Investment Cockpit V7.2 · Kostenlose Webversion · Navigation & UX</title>
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Investment Cockpit</title><script>try{document.documentElement.dataset.theme=localStorage.getItem("cockpit-theme")||((matchMedia("(prefers-color-scheme: light)").matches)?"light":"dark");}catch{document.documentElement.dataset.theme="dark";}</script>
 <style>
 body{margin:0;background:#0b0d10;color:#eef2f6;font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.app{max-width:1500px;margin:auto;padding:16px}.muted{color:#9ba7b4}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}button{background:#14181d;color:#eef2f6;border:1px solid #2b333d;border-radius:10px;padding:10px 14px}button.active{border-color:#79a7ff;background:#18243a}.view{display:none}.view.active{display:block}.panel,.card{background:#13171c;border:1px solid #2b333d;border-radius:14px;padding:14px}.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}.big{font-size:26px;font-weight:700}.grid{display:grid;grid-template-columns:1.55fr .8fr;gap:12px}.controls{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:10px;margin-bottom:10px}input,select{width:100%;padding:10px;border-radius:10px;border:1px solid #2b333d;background:#191f25;color:#eef2f6}.tbl{overflow:auto;max-height:650px}table{width:100%;border-collapse:collapse;min-width:980px}th,td{padding:9px;border-bottom:1px solid #2b333d;text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}th{position:sticky;top:0;background:#13171c}tr{cursor:pointer}tr.sel{background:#18243a}.pill{border:1px solid #2b333d;border-radius:999px;padding:4px 7px;font-size:11px}.pos{color:#66c892}.neg{color:#e67f7f}.bar{display:flex;height:14px;border-radius:99px;overflow:hidden;background:#252c34;margin:12px 0}.c1{background:#6f89d8}.c2{background:#7abf97}.c3{background:#c4a76c}.c4{background:#b987c9}.c5{background:#8d9cac}.qgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.placeholder{min-height:180px;display:flex;align-items:center;justify-content:center;border:1px dashed #2b333d;border-radius:12px;color:#9ba7b4;padding:20px;text-align:center}
 @media(max-width:900px){#historyCharts,#btCharts{grid-template-columns:1fr!important}.kpis{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.controls{grid-template-columns:1fr 1fr}}@media(max-width:600px){.kpis,.controls,.qgrid{grid-template-columns:1fr}}
@@ -69,14 +69,145 @@ input,select{box-sizing:border-box;min-width:0}
 @media(max-width:700px){#backtest>.panel>div[style*="display:flex"]>div[style*="display:grid"]{grid-template-columns:minmax(0,1fr)!important;width:100%;max-width:100%}#backtest>.panel>div[style*="display:flex"]>div[style*="display:grid"] label{min-width:0}#backtest>.panel>div[style*="display:flex"]>div[style*="display:grid"] select{max-width:100%}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
+/* Theme tokens override legacy module colours without changing the score model. */
+html[data-theme]{--page:#0a131c;--surface:#13222e;--raised:#182d39;--ink:#edf5f7;--muted:#a8bfcb;--line:#34515f;--accent:#71ddc0;--tint:#173e36;--focus:#9cdfff;color-scheme:dark;background:var(--page)}
+html[data-theme=light]{--page:#f1f5f7;--surface:#ffffff;--raised:#eaf0f3;--ink:#183341;--muted:#4c6573;--line:#c4d3dc;--accent:#087869;--tint:#e0f1e9;--focus:#165eb1;color-scheme:light}
+html[data-theme] [hidden]{display:none!important}
+html[data-theme] body{background:var(--page);color:var(--ink)}
+html[data-theme] :is(.panel,.card,.company-kpis article,.change-card,.mobile-company article,.dashboard-stat,.evidence-cell,.r71-metric,.next-card,.next-source-list article,.mobile-data-card,.driver-card){background:var(--surface);border-color:var(--line);color:var(--ink);box-shadow:none}
+html[data-theme] :is(.navigation-panel,.shared-tooltip,.history-chart,.next-hero,.dashboard-note,.next-review-strip,.research-note,.placeholder){background:var(--raised);border-color:var(--line);color:var(--ink)}
+html[data-theme] :is(input,select,button,.history-controls select,.history-selectors select,.dashboard-controls input,.dashboard-controls select){background:var(--surface);border-color:var(--line);color:var(--ink)}
+html[data-theme] :is(button:hover,button.active,#tabs button.active,button[aria-pressed=true],.menu-item[aria-current=page]){background:var(--tint);border-color:var(--accent);color:var(--ink)}
+html[data-theme] :is(button,a,input,select,summary,[tabindex]):focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+html[data-theme] :is(.muted,.dashboard-muted,.r71-note,.r71-caption,.next-meta,.delta-meta,.delta-input,.brand-subtitle,.subnav-description,.company-part p,.company-kpis small,.change-card small,.mobile-company p,.history-heading p,.history-chips small,.dashboard-stat label,.dashboard-stat small,.dashboard-score-row small,.model-card p,.evidence-details p,.evidence-cell small,.evidence-check small,.dashboard-table td small,.next-card small,.history-controls label,.history-selectors label,.next-controls label,.dashboard-hero p,.dashboard-panel-head p,.dashboard-footer){color:var(--muted)}
+html[data-theme] :is(.evidence-details summary,.dashboard-note strong,.model-card h3,.company-part header,.evidence-check b,.driver-card strong,.quick-card h3){color:var(--ink)}
+html[data-theme] :is(a,.dashboard-link,.dashboard-eyebrow,.brand-eyebrow){color:var(--accent)}
+html[data-theme] :is(th,#tabs button,.primary-navigation button,.status-pill){background:var(--surface);color:var(--muted);border-color:var(--line)}
+html[data-theme] :is(.primary-navigation button.active,.periods button[aria-pressed=true],#tabs button.active){background:var(--tint);color:var(--ink);border-color:var(--accent)}
+html[data-theme] :is(.dashboard-actions button:not(.secondary),.mint-button){background:var(--accent);color:var(--page);border-color:var(--accent)}
+html[data-theme] .dashboard-actions button.secondary{background:var(--surface);color:var(--ink);border-color:var(--line)}
+html[data-theme] :is(td,th,.company-part,.model-card,.evidence-check,.r71-line,.dashboard-score-row,.subnav-shell){border-color:var(--line)}
+html[data-theme=light] :is(.pos,.delta-pos){color:#08713f}
+html[data-theme=light] :is(.neg,.delta-neg){color:#b2323c}
+html[data-theme=light] :is(.status-label,.observed-badge,.ticker-icon){background:#def0e6;color:#185b40}
+html[data-theme=light] :is(.status-label.warning,.next-status.pending,.archive-banner){background:#fff0d5;color:#714810;border-color:#ddb97d}
+html[data-theme=light] :is(.status-label.unverified,.next-status){background:#e4edf4;color:#304f65}
+html[data-theme=light] .brand-mark{background:#e0f1eb;color:#146b57;border-color:#a8cbbc;box-shadow:none}
+html[data-theme=light] .quick-card{background:var(--surface);border-color:var(--line)}
+html[data-theme=light] .quick-card p{color:var(--muted)}
+html[data-theme=light] .coverage-track{background:#e0e8eb}
+html[data-theme=light] svg text{fill:var(--muted)}
+html[data-theme=light] svg line[stroke]{stroke:#c4d3dc}
+html[data-theme=light] svg line[stroke-dasharray]{stroke:#667f8e}
+html[data-theme=light] svg :is(path,circle)[stroke="#63e3c3"],html[data-theme=light] svg path[stroke="#70dcc5"],html[data-theme=light] svg path[stroke="#62d6b5"]{stroke:#087b6d}
+html[data-theme=light] svg path[stroke="#8eb9ff"],html[data-theme=light] svg path[stroke="#9fbaff"],html[data-theme=light] svg path[stroke="#8eb8ff"]{stroke:#3d62bd}
+html[data-theme=light] svg path[stroke="#f4c47a"],html[data-theme=light] svg path[stroke="#f0c879"],html[data-theme=light] svg path[stroke="#f2c778"]{stroke:#996416}
+html[data-theme=light] svg path[stroke="#cdabff"],html[data-theme=light] svg path[stroke="#dfa3f5"],html[data-theme=light] svg path[stroke="#df9bf3"]{stroke:#8850b6}
+html[data-theme=light] svg circle[fill="#77dbc1"]{fill:#087b6d}
+html[data-theme] .brand-subtitle{font-size:12px}
+html[data-theme] .masthead{gap:12px;flex-wrap:wrap;padding:8px 0 18px}
+html[data-theme] .header-status{gap:8px}
+.theme-toggle,.header-help,.menu-toggle{min-height:44px;display:inline-flex;gap:7px;align-items:center;justify-content:center}
+.menu-toggle{display:none!important}
+.header-help{font-size:13px}
+.cockpit-dialog{width:min(680px,calc(100% - 28px));max-height:85dvh;overflow:auto;margin:auto;padding:22px;border:1px solid var(--line);border-radius:20px;background:var(--surface);color:var(--ink);box-shadow:0 24px 90px #0005;overscroll-behavior:contain}
+.cockpit-dialog::backdrop{background:#03131db8;backdrop-filter:blur(3px)}
+.cockpit-dialog>header{display:flex;align-items:start;justify-content:space-between;gap:18px;position:sticky;top:-22px;z-index:2;background:var(--surface);padding:4px 0 12px}
+.cockpit-dialog h2{font-size:21px;margin:4px 0;line-height:1.35}
+.dialog-close{min-width:44px;min-height:44px;flex:none}
+#infoBody{line-height:1.7;overflow-wrap:anywhere;font-size:14px}
+#infoBody .tbl{max-height:none}
+#infoBody p{color:var(--muted)}
+#infoBody details{border:0;padding:0;margin:0}
+html:has(dialog[open]){overflow:hidden}
+.compact-copy{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin:12px 0;font-size:13px;color:var(--muted)}
+.info-button{display:inline-flex;gap:5px;padding:6px 9px;border-radius:8px;font-size:12px;line-height:1.4;color:var(--accent)!important;background:transparent!important;border:1px solid var(--line);cursor:pointer}
+.info-summary{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:32px;list-style:none}
+.info-summary::-webkit-details-marker{display:none}
+.info-summary::after{content:'ⓘ';font-size:18px;color:var(--accent)}
+.compact-notice{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.compact-notice strong{font-size:13px}
+.driver-summary{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:16px 0}
+.driver-summary strong{font-size:19px;flex-basis:100%}
+.driver-summary span,.driver-tag{font-size:12px;background:var(--raised);border:1px solid var(--line);border-radius:7px;padding:5px 8px}
+.driver-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.driver-card{border:1px solid var(--line);border-radius:13px;padding:15px}
+.driver-card header{display:flex;justify-content:space-between;gap:10px;margin-bottom:12px}
+.driver-tag{display:inline-block;color:var(--accent);margin-bottom:4px}
+.driver-card p,.driver-footnote{font-size:12px;color:var(--muted);line-height:1.6}
+.driver-card dl{font-size:12px;margin:8px 0 0}
+.driver-card dl>div{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:7px 0;border-top:1px solid var(--line)}
+.driver-card dt{color:var(--muted)}
+.driver-card dd{margin:0;text-align:right;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.delta-raw{margin-top:16px;padding:13px;border:1px solid var(--line);border-radius:12px}
+.delta-raw>summary{cursor:pointer;color:var(--muted);font-size:13px}
+.mobile-quicknav,.mobile-table-cards{display:none}
+.menu-dialog{width:min(430px,calc(100% - 20px));max-height:90dvh}
+.menu-dialog section{margin:12px 0 18px}
+.menu-dialog h3{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:14px 6px 8px}
+html[data-theme] .menu-item{display:block;text-align:left;width:100%;min-height:44px;margin:5px 0}
+@media(max-width:760px){
+ html[data-theme] .app{width:100%;padding:12px 12px calc(94px + env(safe-area-inset-bottom));overflow:clip}
+ html[data-theme] .brand-row{gap:10px;min-width:0}
+ html[data-theme] .masthead{align-items:center;padding-bottom:12px}
+ html[data-theme] .masthead h1{font-size:24px}
+ html[data-theme] .brand-eyebrow{font-size:9px;letter-spacing:.09em}
+ html[data-theme] .brand-subtitle{font-size:11px}
+ html[data-theme] .brand-mark{width:38px;height:38px}
+ html[data-theme] .header-status{width:100%;justify-content:space-between;display:flex;flex-wrap:wrap}
+ html[data-theme] #navDataStatus{display:none}
+ .theme-toggle span{font-size:12px}
+ .header-help{padding:8px;font-size:12px}
+ .menu-toggle{display:inline-flex!important}
+ html[data-theme] .navigation-panel{display:none}
+ html[data-theme] .subnav-description{display:none}
+ html[data-theme] .subnav-shell{padding-bottom:9px;margin-bottom:14px}
+ html[data-theme] .subnav-title{font-size:14px}
+ html[data-theme] #tabs{gap:6px;scroll-snap-type:x proximity}
+ html[data-theme] #tabs button{min-height:44px;scroll-snap-align:nearest;font-size:12px;padding:8px 11px}
+ html[data-theme] :is(select,input){font-size:16px!important;min-height:44px;max-width:100%}
+ html[data-theme] button:not(.dashboard-link){min-height:44px}
+ html[data-theme] .dashboard-controls{display:grid;grid-template-columns:1fr 1fr}
+ html[data-theme] .dashboard-controls input{grid-column:1/-1}
+ html[data-theme] :is(.history-controls,.history-selectors,.r71-tickers,.next-controls){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ html[data-theme] :is(.history-controls label:first-child,.next-controls .wide){grid-column:1/-1}
+ html[data-theme] .history-selectors label{width:100%;min-width:0}
+ html[data-theme] .driver-grid{grid-template-columns:1fr}
+ html[data-theme] .company-kpis{gap:8px}
+ html[data-theme] .company-kpis strong{font-size:21px}
+ html[data-theme] :is(.next-cards,.dashboard-stats){gap:8px}
+ html[data-theme] :is(.next-card,.dashboard-stat){padding:13px}
+ html[data-theme] :is(.history-chart,.company-layout svg,#r71CompareChart,#evaluationChart,#lmChart){height:auto;min-height:240px;max-height:none;width:100%}
+ html[data-theme] .chart-inspect{margin:10px 0 16px}
+ html[data-theme] .chart-inspect label{display:flex;flex-direction:column;gap:6px}
+ html[data-theme] .chart-inspect select{margin:0}
+ html[data-theme] .shared-tooltip{padding:10px;gap:8px;font-size:12px}
+ html[data-theme] .has-mobile-cards{display:none}
+ .mobile-table-cards{display:grid;gap:10px;margin-top:14px}
+ .mobile-data-card{border:1px solid var(--line);border-radius:14px;padding:15px;min-width:0}
+ .mobile-data-card h3{font-size:16px;margin:0 0 12px}
+ .mobile-data-card dl{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 12px;font-size:13px}
+ .mobile-data-card dl>div{min-width:0;border-top:1px solid var(--line);padding-top:8px}
+ .mobile-data-card dt{color:var(--muted);font-size:11px}
+ .mobile-data-card dd{margin:5px 0 0;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+ .mobile-data-card button{width:100%}
+ .mobile-quicknav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--line);padding:7px 8px calc(7px + env(safe-area-inset-bottom));z-index:50;box-shadow:0 -4px 24px #0001}
+ html[data-theme] .mobile-quicknav button{border:0;font-size:12px;padding:9px 4px;min-height:44px}
+ html[data-theme] .mobile-quicknav button[aria-current=page]{background:var(--tint);color:var(--accent)}
+ .cockpit-dialog{padding:16px;max-height:88dvh}
+ .cockpit-dialog>header{top:-16px}
+ #infoBody .grid,#infoBody .evidence-grid{display:block}
+ .info-button{min-height:44px}
+}
+@media(prefers-reduced-motion:reduce){html[data-theme] *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
 </style></head><body>
-<div style="position:sticky;top:0;z-index:3000;text-align:center;background:#0b3150;color:#dcf3ff;padding:7px 12px;font-size:12px;border-bottom:1px solid #3680a1">KOSTENLOSE WEBVERSION · Kurse nur nach erfolgreichem täglichem Datenlauf · Kennzahlen und Scores mit sichtbarer Datenabdeckung · Historische Research-Zahlen nicht unabhängig verifiziert</div><div class="app">
+<div id="serviceBanner" hidden></div><div class="app">
 <header class="masthead">
  <div class="brand-row">
   <div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M5 23h23" opacity=".3"/><path d="m5 22 8-9 5 4 9-12"/><path d="M21 5h6v6"/></svg></div>
-  <div><div class="brand-eyebrow">Investment Research · 32 Unternehmen</div><h1>Investment Cockpit</h1><div class="brand-subtitle">V7.2 · Kostenlose Webversion · Übersicht, Analyse, Bewertungen und Backtesting</div></div>
+  <div><div class="brand-eyebrow">Investment Research · 32 Unternehmen</div><h1>Investment Cockpit</h1><div class="brand-subtitle">Aktien verstehen. Entwicklungen vergleichen.</div></div>
  </div>
- <div class="header-status"><span class="status-pill" id="navDataStatus"><i class="status-dot" aria-hidden="true"></i><span id="navStatusText">Datenverbindung wird geprüft</span></span><span class="status-pill">Forschungsmodell · kein Anlage-Signal</span></div>
+ <div class="header-status"><span class="status-pill" id="navDataStatus"><i class="status-dot" aria-hidden="true"></i><span id="navStatusText">Datenverbindung wird geprüft</span></span><button type="button" id="headerMethod" class="header-help" aria-haspopup="dialog">ⓘ Methodik</button><button type="button" id="themeToggle" class="theme-toggle" aria-pressed="false" aria-label="Hellen Modus aktivieren">☀ Light Mode</button><button type="button" id="menuToggle" class="menu-toggle" aria-haspopup="dialog" aria-controls="mobileMenu" aria-expanded="false">☰ Menü</button></div>
 </header>
 <div class="navigation-panel"><nav id="primaryNav" class="primary-navigation" aria-label="Hauptnavigation"><button type="button" data-group="overview" class="active" aria-label="Übersicht"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Übersicht</span></button><button type="button" data-group="analyse" aria-label="Aktienanalyse"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18 9 12l4 3 8-9"/><path d="M3 4v16h18"/></svg><span>Aktienanalyse</span></button><button type="button" data-group="score" aria-label="Bewertungen & Scores"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 15 9l7 .6-5.4 4.9 1.7 7-6.3-3.8L5.7 21l1.7-6.5L2 9.6l7-.6z"/></svg><span>Bewertungen & Scores</span></button><button type="button" data-group="backtest" aria-label="Backtesting"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17h4v-6H3zM10 17h4V7h-4zM17 17h4V3h-4z"/><path d="M2 21h20"/></svg><span>Backtesting</span></button><button type="button" data-group="daten" aria-label="Daten & Einstellungen"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v7c0 1.7 4 3 9 3s9-1.3 9-3V5M3 12v7c0 1.7 4 3 9 3s9-1.3 9-3v-7"/></svg><span>Daten & Einstellungen</span></button></nav></div>
 <div class="subnav-shell" id="secondaryNav" hidden>
@@ -1243,4 +1374,4 @@ if(location.hash==='#audit')auditLoad();
 
 </script><script src="insights.js"></script>
 <script src="research.js"></script><script src="dashboard.js"></script>
-<script src="reconstruction.js"></script><script src="workspace.js"></script><script src="research_next.js"></script></body></html>
+<script src="reconstruction.js"></script><script src="workspace.js"></script><script src="research_next.js"></script><script src="experience.js"></script></body></html>
