@@ -1,5 +1,13 @@
 # Investment Cockpit V7.5
 
+## Historische Kennzahlen, Datenlücken, Branchenvergleich und Scanner (19.10.2026)
+
+In der beauftragten Reihenfolge 1 → 4 → 2 → 3 umgesetzt und veröffentlicht. 2.799 historische Kennzahlenperioden aus 2.339 Quelldokumenten für 110 von 114 Aktien; alle 82 Ergänzungen haben historische Perioden. Quartals-, Halbjahres- und Jahreswerte bleiben getrennt. Neue SEC-EPS-Bewertungen bleiben ohne verifizierte Aktien-/Splitbasis gesperrt; internationale sowie Vorgängerhistorien bleiben als Lücken sichtbar.
+
+Neu sind Quellencharts mit Periodenwahl und CSV, priorisierte Datenlücken, Vergleichsgruppen nach Branche und Modell einschließlich Übergabe an den Aktienvergleich sowie ein Scanner mit festen, erklärten Filtern. Fehlende frühere Beobachtungen erzeugen keine erfundenen Score-Veränderungen. Historische Archive und Modellgewichte bleiben unverändert.
+
+Veröffentlichung erfolgreich: https://github.com/bastihouse/investment-cockpit/actions/runs/39262884986 (Refresh 66 Sekunden, Deployment 8 Sekunden). 53 Python-Tests, acht Node-Prüfdateien und Integration mit echten Daten bestanden. Live geprüft: Jahres-/Quartalswahl, acht P1-Lücken, Branchenvergleich mit acht Halbleiter-Emittenten und Übergabe von MU/NVDA, Scanner-Filter. Smartphone 390px: alle vier neuen Ansichten ohne horizontale Überbreite, adaptiver 320px-Chart und mobile Navigation; Tablet 768px: Scanner ohne horizontale Überbreite. Aktueller Live-Datenstand 19.10.2026, 15:46:09 Wiener Zeit. Scanner-Treffer hängen vom jeweils erzeugten Datenstand und den gewählten Filtern ab.
+
 ## Erweiterung um S&P-500-Top-100 (19.10.2026)
 
 Fester Auswahlstand 16.10.2026, anhand der offiziellen täglichen SPY-Bestände nach Fondsgewicht absteigend. Die Gewichte sind eine offengelegte Näherung für streubesitzbereinigte Indexgewichte; Original-S&P-Gewichte sind nicht unabhängig bestätigt. 100 Aktienpositionen, getrennte Aktienklassen, 18 Überschneidungen, 82 Ergänzungen, insgesamt 114 Aktien. Bisherige 32 Titel bleiben erhalten. Auswahl, Quelle und SHA256 sind in `data/sp500-selection.json` gespeichert. Keine automatische Rotation.
