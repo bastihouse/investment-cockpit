@@ -18,14 +18,15 @@ $('overview').parentNode.appendChild(section);
 function selected(){return [...new Set([...$('reconTickers').querySelectorAll('select')].map(x=>x.value).filter(Boolean))];}
 function series(){return reconstructionSeries(data,selected(),$('reconMetric').value).map(s=>({...s,points:s.points.slice(-Number($('reconRange').value))}));}
 function draw(series){
- const svg=$('reconChart'),W=1000,H=310,L=50,R=20,T=20,B=40,metric=$('reconMetric').value,max=weights[metric]||100;
+ const svg=$('reconChart'),W=Math.max(320,Math.round(svg.getBoundingClientRect().width||1000)),H=310,L=50,R=20,T=20,B=40,metric=$('reconMetric').value,max=weights[metric]||100;
+ svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
  const dates=[...new Set(series.flatMap(s=>s.points.map(p=>p.date)))].sort();
  const values=series.flatMap(s=>s.points.filter(p=>Number.isFinite(p.value)));
- if(!dates.length||!values.length){document.getElementById(svg.id+'Inspect')?.remove();svg.innerHTML='<text x="500" y="145" text-anchor="middle" fill="#a9bdc8">Keine belegten Werte für diese Auswahl.</text>';return;}
+ if(!dates.length||!values.length){document.getElementById(svg.id+'Inspect')?.remove();svg.innerHTML=`<text x="${W/2}" y="145" text-anchor="middle" fill="#a9bdc8">Keine belegten Werte für diese Auswahl.</text>`;return;}
  const first=Date.parse(dates[0]),span=Date.parse(dates.at(-1))-first,x=d=>span?L+(Date.parse(d)-first)/span*(W-L-R):W/2,y=v=>T+(1-v/max)*(H-T-B);
  let out=[0,.25,.5,.75,1].map(f=>`<line x1="${L}" x2="${W-R}" y1="${y(f*max)}" y2="${y(f*max)}" stroke="#2c434f"/><text x="${L-10}" y="${y(f*max)+4}" text-anchor="end" fill="#a3bac6" font-size="12">${num(f*max,1)}</text>`).join('');
  series.forEach((s,i)=>{let path='',pen=false;s.points.forEach(p=>{if(!Number.isFinite(p.value)){pen=false;return;}path+=(pen?'L':'M')+x(p.date).toFixed(2)+' '+y(p.value).toFixed(2)+' ';pen=true;});out+=`<path d="${path}" fill="none" stroke="${colors[i]}" stroke-width="2.4"/>`;s.points.filter(p=>Number.isFinite(p.value)).forEach(p=>{out+=`<circle cx="${x(p.date)}" cy="${y(p.value)}" r="3" fill="${colors[i]}"><title>${esc(s.ticker)} · ${p.date} · ${num(p.value)} · ${p.coverage}% Abdeckung</title></circle>`;});});
- const ticks=[dates[0],...dates.filter(d=>d.slice(5,7)==='01'),dates.at(-1)];[...new Set(ticks)].filter(d=>d===dates[0]||d===dates.at(-1)||(x(d)-x(dates[0])>85&&x(dates.at(-1))-x(d)>85)).forEach(d=>out+=`<text x="${x(d)}" y="${H-12}" fill="#a3bac6" font-size="11" text-anchor="${d===dates[0]?'start':d===dates.at(-1)?'end':'middle'}">${d.slice(0,7)}</text>`);svg.innerHTML=out;window.CockpitCharts?.bind(svg,series,{x,selectedDate:$("reconMonth").value,unit:metric==="coverage"?"%":" P.",pick:date=>{$("reconMonth").value=date;render();}});
+ const ticks=W<560?[dates[0],dates[Math.floor(dates.length/2)],dates.at(-1)]:[dates[0],...dates.filter(d=>d.slice(5,7)==='01'),dates.at(-1)];[...new Set(ticks)].filter(d=>d===dates[0]||d===dates.at(-1)||(x(d)-x(dates[0])>85&&x(dates.at(-1))-x(d)>85)).forEach(d=>out+=`<text x="${x(d)}" y="${H-12}" fill="#a3bac6" font-size="11" text-anchor="${d===dates[0]?'start':d===dates.at(-1)?'end':'middle'}">${d.slice(0,7)}</text>`);svg.innerHTML=out;window.CockpitCharts?.bind(svg,series,{x,selectedDate:$("reconMonth").value,unit:metric==="coverage"?"%":" P.",pick:date=>{$("reconMonth").value=date;render();}});
 }
 function render(){
  if(!data)return;const metric=$('reconMetric').value,ss=series(),tickers=selected(),month=$('reconMonth').value;
