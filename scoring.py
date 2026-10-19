@@ -4,7 +4,10 @@ import statistics
 
 WEIGHTS = {'valuation': 30, 'growth': 25, 'quality': 20, 'revisions': 15, 'risk': 10}
 SPECIAL = {'JPM': 'bank', 'ALV': 'insurance', 'G': 'insurance', 'O': 'reit',
-           'ARCC': 'bdc', 'BRK.B': 'holding', 'KRP': 'royalty'}
+           'ARCC': 'bdc', 'BRK.B': 'holding', 'KRP': 'royalty',
+           'BAC':'bank','WFC':'bank','C':'bank','GS':'bank','MS':'bank',
+           'AXP':'bank','COF':'bank','SCHW':'bank','PGR':'insurance','CB':'insurance',
+           'WELL':'reit','PLD':'reit'}
 LABELS = {'operating': 'Operativ', 'bank': 'Bank', 'insurance': 'Versicherung',
           'reit': 'REIT', 'bdc': 'BDC', 'holding': 'Holding', 'royalty': 'Royalty'}
 
