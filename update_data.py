@@ -4,6 +4,7 @@ import datetime as dt
 import json
 import pathlib
 import time
+import concurrent.futures as cf
 import urllib.parse
 import urllib.request
 from scoring import number, score, SPECIAL, LABELS
@@ -101,7 +102,8 @@ def main():
     sector_path=ROOT/'data/sector-inputs.json'
     specialist_inputs=json.loads(sector_path.read_text()) if sector_path.exists() else {}
     quotes, errors, successes = [], [], 0
-    for stock in universe:
+    def collect(stock):
+        errors=[];successes=0
         ticker = stock['ticker']
         old = previous.get(ticker, {})
         profile = SPECIAL.get(ticker, 'operating')
@@ -161,10 +163,16 @@ def main():
         if special:
             item['validation']['checks'].append({'name':'Emittenten-Spezialkennzahlen','state':'primary-reference' if status=='fresh' else 'unavailable','source':special['source'],'url':special['url'],'period':special['periodEnd'],'note':'Rohwerte manuell aus diesem Bericht geprüft; Aktualität neuerer Berichte nicht automatisch bestätigt.'})
         item['researchScore'] = score(item, history, item['fundamentals'], item['revision'])
-        quotes.append(item)
         print(f"{ticker}: Kurs={item['status']} | P/E={item['peTTM']} | Forward={item['forwardPE']} | Abdeckung={item['researchScore']['coveragePoints']}/100", flush=True)
         time.sleep(.35)
+        return item,errors,successes
+    with cf.ThreadPoolExecutor(max_workers=3) as pool:
+        for item,issues,success in pool.map(collect,universe):
+            quotes.append(item);errors.extend(issues);successes+=success
+    selection_path=ROOT/'data/sp500-selection.json'
+    selection=json.loads(selection_path.read_text()) if selection_path.exists() else None
     snapshot = {'schemaVersion': 3, 'scoreModelVersion':'research-v7.5.0', 'generatedAt': STAMP, 'providerMode': 'GitHub Actions · Yahoo Chart + yfinance (kostenlos, inoffiziell)',
+                'universeCount':len(universe),'universeSelection':{k:v for k,v in selection.items() if k!='holdings'} if selection else None,
                 'fmpConfigured': False, 'refresh': {'running': False, 'finishedAt': dt.datetime.now(UTC).isoformat(),
                 'processed': len(quotes), 'total': len(universe), 'lastError': '; '.join(errors[:5]) if errors else None}, 'quotes': quotes}
     snapshot['validationSummary']={
