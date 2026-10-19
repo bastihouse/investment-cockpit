@@ -141,7 +141,7 @@
   const labels={valuation:'Bewertung',growth:'Wachstum',quality:'Qualität',revisions:'Revisionen',risk:'Risiko'};
   const weights={valuation:30,growth:25,quality:20,revisions:15,risk:10};
   lsRender=function(){
-    const all=quotes(),term=el('r71ScoreSearch').value.toLowerCase(),profile=el('r71ScoreProfile').value;
+    const all=quotes().filter(q=>typeof universeMatches==='undefined'||universeMatches(q)),term=el('r71ScoreSearch').value.toLowerCase(),profile=el('r71ScoreProfile').value;
     const complete=all.filter(q=>q.researchScore?.complete).length;
     el('r71ScoreKpis').innerHTML=[['Vollständige Scores',complete+' / '+all.length],['Mit belegbaren Teilpunkten',all.filter(q=>q.researchScore?.coveragePoints>0&&!q.researchScore.complete).length],['P/E / Forward-P/E vorhanden',all.filter(q=>q.peTTM!=null).length+' / '+all.filter(q=>q.forwardPE!=null).length]].map(([l,v])=>`<div class="r71-metric">${l}<strong>${v}</strong></div>`).join('');
     const rows=all.filter(q=>(!term||`${q.name} ${q.ticker}`.toLowerCase().includes(term))&&(profile==='all'||q.sector===profile));
