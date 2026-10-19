@@ -1,0 +1,816 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-10-16",
+  "selectedAt": "2026-10-19T12:49:53.537764+00:00",
+  "sourceUrl": "https://www.ssga.com/library-content/products/fund-data/etfs/us/holdings-daily-us-en-spy.xlsx",
+  "sourceSha256": "01ebf197474145023e6761450a542260ec3986117d4e7b6732dfe5efc2b07ccb",
+  "selection": "100 largest equity positions by daily SPY holding weight; separate index share classes remain separate.",
+  "weightBasis": "SPY holdings proxy for S&P 500 float-adjusted index weight; not independently confirmed original S&P index weights.",
+  "rotation": "Fixed selection; no automatic rotation. Historical performance of this current selection is subject to survivorship/selection bias.",
+  "originalCount": 32,
+  "totalCount": 114,
+  "top100Count": 100,
+  "newCount": 82,
+  "holdings": [
+    {
+      "ticker": "NVDA",
+      "name": "NVIDIA CORP",
+      "yahoo": "NVDA",
+      "currency": "USD",
+      "weightPct": 7.850898,
+      "identifier": "67066G104"
+    },
+    {
+      "ticker": "AAPL",
+      "name": "APPLE INC",
+      "yahoo": "AAPL",
+      "currency": "USD",
+      "weightPct": 7.594225,
+      "identifier": "037833100"
+    },
+    {
+      "ticker": "MSFT",
+      "name": "MICROSOFT CORP",
+      "yahoo": "MSFT",
+      "currency": "USD",
+      "weightPct": 5.951445,
+      "identifier": "594918104"
+    },
+    {
+      "ticker": "AMZN",
+      "name": "AMAZON.COM INC",
+      "yahoo": "AMZN",
+      "currency": "USD",
+      "weightPct": 3.717575,
+      "identifier": "023135106"
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "ALPHABET INC CL A",
+      "yahoo": "GOOGL",
+      "currency": "USD",
+      "weightPct": 3.027833,
+      "identifier": "02079K305"
+    },
+    {
+      "ticker": "GOOG",
+      "name": "ALPHABET INC CL C",
+      "yahoo": "GOOG",
+      "currency": "USD",
+      "weightPct": 2.426167,
+      "identifier": "02079K107"
+    },
+    {
+      "ticker": "META",
+      "name": "META PLATFORMS INC CLASS A",
+      "yahoo": "META",
+      "currency": "USD",
+      "weightPct": 2.369714,
+      "identifier": "30303M102"
+    },
+    {
+      "ticker": "AVGO",
+      "name": "BROADCOM INC",
+      "yahoo": "AVGO",
+      "currency": "USD",
+      "weightPct": 2.36956,
+      "identifier": "11135F101"
+    },
+    {
+      "ticker": "LLY",
+      "name": "ELI LILLY + CO",
+      "yahoo": "LLY",
+      "currency": "USD",
+      "weightPct": 1.523949,
+      "identifier": "532457108"
+    },
+    {
+      "ticker": "TSLA",
+      "name": "TESLA INC",
+      "yahoo": "TSLA",
+      "currency": "USD",
+      "weightPct": 1.514623,
+      "identifier": "88160R101"
+    },
+    {
+      "ticker": "MU",
+      "name": "MICRON TECHNOLOGY INC",
+      "yahoo": "MU",
+      "currency": "USD",
+      "weightPct": 1.503777,
+      "identifier": "595112103"
+    },
+    {
+      "ticker": "BRK.B",
+      "name": "BERKSHIRE HATHAWAY INC CL B",
+      "yahoo": "BRK-B",
+      "currency": "USD",
+      "weightPct": 1.50124,
+      "identifier": "084670702"
+    },
+    {
+      "ticker": "JPM",
+      "name": "JPMORGAN CHASE + CO",
+      "yahoo": "JPM",
+      "currency": "USD",
+      "weightPct": 1.368213,
+      "identifier": "46625H100"
+    },
+    {
+      "ticker": "AMD",
+      "name": "ADVANCED MICRO DEVICES",
+      "yahoo": "AMD",
+      "currency": "USD",
+      "weightPct": 1.307775,
+      "identifier": "007903107"
+    },
+    {
+      "ticker": "XOM",
+      "name": "EXXONMOBIL HOLDINGS CORP",
+      "yahoo": "XOM",
+      "currency": "USD",
+      "weightPct": 1.115105,
+      "identifier": "30233Q108"
+    },
+    {
+      "ticker": "V",
+      "name": "VISA INC CLASS A SHARES",
+      "yahoo": "V",
+      "currency": "USD",
+      "weightPct": 1.039575,
+      "identifier": "92826C839"
+    },
+    {
+      "ticker": "JNJ",
+      "name": "JOHNSON + JOHNSON",
+      "yahoo": "JNJ",
+      "currency": "USD",
+      "weightPct": 0.933186,
+      "identifier": "478160104"
+    },
+    {
+      "ticker": "WMT",
+      "name": "WALMART INC",
+      "yahoo": "WMT",
+      "currency": "USD",
+      "weightPct": 0.802334,
+      "identifier": "931142103"
+    },
+    {
+      "ticker": "ABBV",
+      "name": "ABBVIE INC",
+      "yahoo": "ABBV",
+      "currency": "USD",
+      "weightPct": 0.764288,
+      "identifier": "00287Y109"
+    },
+    {
+      "ticker": "MA",
+      "name": "MASTERCARD INC   A",
+      "yahoo": "MA",
+      "currency": "USD",
+      "weightPct": 0.75654,
+      "identifier": "57636Q104"
+    },
+    {
+      "ticker": "INTC",
+      "name": "INTEL CORP",
+      "yahoo": "INTC",
+      "currency": "USD",
+      "weightPct": 0.67649,
+      "identifier": "458140100"
+    },
+    {
+      "ticker": "CVX",
+      "name": "CHEVRON CORP",
+      "yahoo": "CVX",
+      "currency": "USD",
+      "weightPct": 0.673634,
+      "identifier": "166764100"
+    },
+    {
+      "ticker": "COST",
+      "name": "COSTCO WHOLESALE CORP",
+      "yahoo": "COST",
+      "currency": "USD",
+      "weightPct": 0.664712,
+      "identifier": "22160K105"
+    },
+    {
+      "ticker": "PLTR",
+      "name": "PALANTIR TECHNOLOGIES INC A",
+      "yahoo": "PLTR",
+      "currency": "USD",
+      "weightPct": 0.648575,
+      "identifier": "69608A108"
+    },
+    {
+      "ticker": "CSCO",
+      "name": "CISCO SYSTEMS INC",
+      "yahoo": "CSCO",
+      "currency": "USD",
+      "weightPct": 0.641401,
+      "identifier": "17275R102"
+    },
+    {
+      "ticker": "PG",
+      "name": "PROCTER + GAMBLE CO/THE",
+      "yahoo": "PG",
+      "currency": "USD",
+      "weightPct": 0.561335,
+      "identifier": "742718109"
+    },
+    {
+      "ticker": "KO",
+      "name": "COCA COLA CO/THE",
+      "yahoo": "KO",
+      "currency": "USD",
+      "weightPct": 0.551047,
+      "identifier": "191216100"
+    },
+    {
+      "ticker": "UNH",
+      "name": "UNITEDHEALTH GROUP INC",
+      "yahoo": "UNH",
+      "currency": "USD",
+      "weightPct": 0.546063,
+      "identifier": "91324P102"
+    },
+    {
+      "ticker": "MRK",
+      "name": "MERCK + CO. INC.",
+      "yahoo": "MRK",
+      "currency": "USD",
+      "weightPct": 0.545693,
+      "identifier": "58933Y105"
+    },
+    {
+      "ticker": "CAT",
+      "name": "CATERPILLAR INC",
+      "yahoo": "CAT",
+      "currency": "USD",
+      "weightPct": 0.509045,
+      "identifier": "149123101"
+    },
+    {
+      "ticker": "BAC",
+      "name": "BANK OF AMERICA CORP",
+      "yahoo": "BAC",
+      "currency": "USD",
+      "weightPct": 0.504896,
+      "identifier": "060505104"
+    },
+    {
+      "ticker": "LRCX",
+      "name": "LAM RESEARCH CORP",
+      "yahoo": "LRCX",
+      "currency": "USD",
+      "weightPct": 0.500488,
+      "identifier": "512807306"
+    },
+    {
+      "ticker": "GE",
+      "name": "GENERAL ELECTRIC",
+      "yahoo": "GE",
+      "currency": "USD",
+      "weightPct": 0.493479,
+      "identifier": "369604301"
+    },
+    {
+      "ticker": "AMAT",
+      "name": "APPLIED MATERIALS INC",
+      "yahoo": "AMAT",
+      "currency": "USD",
+      "weightPct": 0.492428,
+      "identifier": "038222105"
+    },
+    {
+      "ticker": "PM",
+      "name": "PHILIP MORRIS INTERNATIONAL",
+      "yahoo": "PM",
+      "currency": "USD",
+      "weightPct": 0.484721,
+      "identifier": "718172109"
+    },
+    {
+      "ticker": "HD",
+      "name": "HOME DEPOT INC",
+      "yahoo": "HD",
+      "currency": "USD",
+      "weightPct": 0.467594,
+      "identifier": "437076102"
+    },
+    {
+      "ticker": "NFLX",
+      "name": "NETFLIX INC",
+      "yahoo": "NFLX",
+      "currency": "USD",
+      "weightPct": 0.445108,
+      "identifier": "64110L106"
+    },
+    {
+      "ticker": "PANW",
+      "name": "PALO ALTO NETWORKS INC",
+      "yahoo": "PANW",
+      "currency": "USD",
+      "weightPct": 0.42245,
+      "identifier": "697435105"
+    },
+    {
+      "ticker": "RTX",
+      "name": "RTX CORP",
+      "yahoo": "RTX",
+      "currency": "USD",
+      "weightPct": 0.395726,
+      "identifier": "75513E101"
+    },
+    {
+      "ticker": "GS",
+      "name": "GOLDMAN SACHS GROUP INC",
+      "yahoo": "GS",
+      "currency": "USD",
+      "weightPct": 0.388495,
+      "identifier": "38141G104"
+    },
+    {
+      "ticker": "TMO",
+      "name": "THERMO FISHER SCIENTIFIC INC",
+      "yahoo": "TMO",
+      "currency": "USD",
+      "weightPct": 0.386702,
+      "identifier": "883556102"
+    },
+    {
+      "ticker": "WFC",
+      "name": "WELLS FARGO + CO",
+      "yahoo": "WFC",
+      "currency": "USD",
+      "weightPct": 0.384421,
+      "identifier": "949746101"
+    },
+    {
+      "ticker": "TXN",
+      "name": "TEXAS INSTRUMENTS INC",
+      "yahoo": "TXN",
+      "currency": "USD",
+      "weightPct": 0.382313,
+      "identifier": "882508104"
+    },
+    {
+      "ticker": "GEV",
+      "name": "GE VERNOVA INC",
+      "yahoo": "GEV",
+      "currency": "USD",
+      "weightPct": 0.37186,
+      "identifier": "36828A101"
+    },
+    {
+      "ticker": "AMGN",
+      "name": "AMGEN INC",
+      "yahoo": "AMGN",
+      "currency": "USD",
+      "weightPct": 0.354086,
+      "identifier": "031162100"
+    },
+    {
+      "ticker": "CRWD",
+      "name": "CROWDSTRIKE HOLDINGS INC   A",
+      "yahoo": "CRWD",
+      "currency": "USD",
+      "weightPct": 0.350952,
+      "identifier": "22788C105"
+    },
+    {
+      "ticker": "LIN",
+      "name": "LINDE PLC",
+      "yahoo": "LIN",
+      "currency": "USD",
+      "weightPct": 0.348289,
+      "identifier": "G54950103"
+    },
+    {
+      "ticker": "ORCL",
+      "name": "ORACLE CORP",
+      "yahoo": "ORCL",
+      "currency": "USD",
+      "weightPct": 0.335557,
+      "identifier": "68389X105"
+    },
+    {
+      "ticker": "IBM",
+      "name": "INTL BUSINESS MACHINES CORP",
+      "yahoo": "IBM",
+      "currency": "USD",
+      "weightPct": 0.331152,
+      "identifier": "459200101"
+    },
+    {
+      "ticker": "KLAC",
+      "name": "KLA CORP",
+      "yahoo": "KLAC",
+      "currency": "USD",
+      "weightPct": 0.327881,
+      "identifier": "482480100"
+    },
+    {
+      "ticker": "MS",
+      "name": "MORGAN STANLEY",
+      "yahoo": "MS",
+      "currency": "USD",
+      "weightPct": 0.326699,
+      "identifier": "617446448"
+    },
+    {
+      "ticker": "C",
+      "name": "CITIGROUP INC",
+      "yahoo": "C",
+      "currency": "USD",
+      "weightPct": 0.315954,
+      "identifier": "172967424"
+    },
+    {
+      "ticker": "MRVL",
+      "name": "MARVELL TECHNOLOGY INC",
+      "yahoo": "MRVL",
+      "currency": "USD",
+      "weightPct": 0.302369,
+      "identifier": "573874104"
+    },
+    {
+      "ticker": "CRM",
+      "name": "SALESFORCE INC",
+      "yahoo": "CRM",
+      "currency": "USD",
+      "weightPct": 0.298544,
+      "identifier": "79466L302"
+    },
+    {
+      "ticker": "APH",
+      "name": "AMPHENOL CORP CL A",
+      "yahoo": "APH",
+      "currency": "USD",
+      "weightPct": 0.296609,
+      "identifier": "032095101"
+    },
+    {
+      "ticker": "GILD",
+      "name": "GILEAD SCIENCES INC",
+      "yahoo": "GILD",
+      "currency": "USD",
+      "weightPct": 0.293603,
+      "identifier": "375558103"
+    },
+    {
+      "ticker": "ADI",
+      "name": "ANALOG DEVICES INC",
+      "yahoo": "ADI",
+      "currency": "USD",
+      "weightPct": 0.291981,
+      "identifier": "032654105"
+    },
+    {
+      "ticker": "DIS",
+      "name": "WALT DISNEY CO/THE",
+      "yahoo": "DIS",
+      "currency": "USD",
+      "weightPct": 0.289493,
+      "identifier": "254687106"
+    },
+    {
+      "ticker": "SNDK",
+      "name": "SANDISK CORP",
+      "yahoo": "SNDK",
+      "currency": "USD",
+      "weightPct": 0.287179,
+      "identifier": "80004C200"
+    },
+    {
+      "ticker": "VZ",
+      "name": "VERIZON COMMUNICATIONS INC",
+      "yahoo": "VZ",
+      "currency": "USD",
+      "weightPct": 0.282106,
+      "identifier": "92343V104"
+    },
+    {
+      "ticker": "ANET",
+      "name": "ARISTA NETWORKS INC",
+      "yahoo": "ANET",
+      "currency": "USD",
+      "weightPct": 0.280514,
+      "identifier": "040413205"
+    },
+    {
+      "ticker": "QCOM",
+      "name": "QUALCOMM INC",
+      "yahoo": "QCOM",
+      "currency": "USD",
+      "weightPct": 0.278333,
+      "identifier": "747525103"
+    },
+    {
+      "ticker": "ABT",
+      "name": "ABBOTT LABORATORIES",
+      "yahoo": "ABT",
+      "currency": "USD",
+      "weightPct": 0.274814,
+      "identifier": "002824100"
+    },
+    {
+      "ticker": "PEP",
+      "name": "PEPSICO INC",
+      "yahoo": "PEP",
+      "currency": "USD",
+      "weightPct": 0.272085,
+      "identifier": "713448108"
+    },
+    {
+      "ticker": "COP",
+      "name": "CONOCOPHILLIPS",
+      "yahoo": "COP",
+      "currency": "USD",
+      "weightPct": 0.266498,
+      "identifier": "20825C104"
+    },
+    {
+      "ticker": "MCD",
+      "name": "MCDONALD S CORP",
+      "yahoo": "MCD",
+      "currency": "USD",
+      "weightPct": 0.260672,
+      "identifier": "580135101"
+    },
+    {
+      "ticker": "UNP",
+      "name": "UNION PACIFIC CORP",
+      "yahoo": "UNP",
+      "currency": "USD",
+      "weightPct": 0.2602,
+      "identifier": "907818108"
+    },
+    {
+      "ticker": "WELL",
+      "name": "WELLTOWER INC",
+      "yahoo": "WELL",
+      "currency": "USD",
+      "weightPct": 0.256299,
+      "identifier": "95040Q104"
+    },
+    {
+      "ticker": "PFE",
+      "name": "PFIZER INC",
+      "yahoo": "PFE",
+      "currency": "USD",
+      "weightPct": 0.255505,
+      "identifier": "717081103"
+    },
+    {
+      "ticker": "NEE",
+      "name": "NEXTERA ENERGY INC",
+      "yahoo": "NEE",
+      "currency": "USD",
+      "weightPct": 0.25233,
+      "identifier": "65339F101"
+    },
+    {
+      "ticker": "AXP",
+      "name": "AMERICAN EXPRESS CO",
+      "yahoo": "AXP",
+      "currency": "USD",
+      "weightPct": 0.250102,
+      "identifier": "025816109"
+    },
+    {
+      "ticker": "BLK",
+      "name": "BLACKROCK INC",
+      "yahoo": "BLK",
+      "currency": "USD",
+      "weightPct": 0.247355,
+      "identifier": "09290D101"
+    },
+    {
+      "ticker": "TJX",
+      "name": "TJX COMPANIES INC",
+      "yahoo": "TJX",
+      "currency": "USD",
+      "weightPct": 0.24643,
+      "identifier": "872540109"
+    },
+    {
+      "ticker": "DE",
+      "name": "DEERE + CO",
+      "yahoo": "DE",
+      "currency": "USD",
+      "weightPct": 0.244282,
+      "identifier": "244199105"
+    },
+    {
+      "ticker": "T",
+      "name": "AT+T INC",
+      "yahoo": "T",
+      "currency": "USD",
+      "weightPct": 0.243515,
+      "identifier": "00206R102"
+    },
+    {
+      "ticker": "ETN",
+      "name": "EATON CORP PLC",
+      "yahoo": "ETN",
+      "currency": "USD",
+      "weightPct": 0.23035,
+      "identifier": "G29183103"
+    },
+    {
+      "ticker": "ISRG",
+      "name": "INTUITIVE SURGICAL INC",
+      "yahoo": "ISRG",
+      "currency": "USD",
+      "weightPct": 0.228236,
+      "identifier": "46120E602"
+    },
+    {
+      "ticker": "BA",
+      "name": "BOEING CO/THE",
+      "yahoo": "BA",
+      "currency": "USD",
+      "weightPct": 0.227631,
+      "identifier": "097023105"
+    },
+    {
+      "ticker": "SCHW",
+      "name": "SCHWAB (CHARLES) CORP",
+      "yahoo": "SCHW",
+      "currency": "USD",
+      "weightPct": 0.226667,
+      "identifier": "808513105"
+    },
+    {
+      "ticker": "NOW",
+      "name": "SERVICENOW INC",
+      "yahoo": "NOW",
+      "currency": "USD",
+      "weightPct": 0.222241,
+      "identifier": "81762P102"
+    },
+    {
+      "ticker": "STX",
+      "name": "SEAGATE TECHNOLOGY HOLDINGS",
+      "yahoo": "STX",
+      "currency": "USD",
+      "weightPct": 0.219289,
+      "identifier": "G7997R103"
+    },
+    {
+      "ticker": "UBER",
+      "name": "UBER TECHNOLOGIES INC",
+      "yahoo": "UBER",
+      "currency": "USD",
+      "weightPct": 0.217571,
+      "identifier": "90353T100"
+    },
+    {
+      "ticker": "DHR",
+      "name": "DANAHER CORP",
+      "yahoo": "DHR",
+      "currency": "USD",
+      "weightPct": 0.216981,
+      "identifier": "235851102"
+    },
+    {
+      "ticker": "ACN",
+      "name": "ACCENTURE PLC CL A",
+      "yahoo": "ACN",
+      "currency": "USD",
+      "weightPct": 0.213152,
+      "identifier": "G1151C101"
+    },
+    {
+      "ticker": "DELL",
+      "name": "DELL TECHNOLOGIES  C",
+      "yahoo": "DELL",
+      "currency": "USD",
+      "weightPct": 0.206761,
+      "identifier": "24703L202"
+    },
+    {
+      "ticker": "MPC",
+      "name": "MARATHON PETROLEUM CORP",
+      "yahoo": "MPC",
+      "currency": "USD",
+      "weightPct": 0.203606,
+      "identifier": "56585A102"
+    },
+    {
+      "ticker": "SPGI",
+      "name": "S+P GLOBAL INC",
+      "yahoo": "SPGI",
+      "currency": "USD",
+      "weightPct": 0.196475,
+      "identifier": "78409V104"
+    },
+    {
+      "ticker": "VLO",
+      "name": "VALERO ENERGY CORP",
+      "yahoo": "VLO",
+      "currency": "USD",
+      "weightPct": 0.193865,
+      "identifier": "91913Y100"
+    },
+    {
+      "ticker": "PGR",
+      "name": "PROGRESSIVE CORP",
+      "yahoo": "PGR",
+      "currency": "USD",
+      "weightPct": 0.192329,
+      "identifier": "743315103"
+    },
+    {
+      "ticker": "VRTX",
+      "name": "VERTEX PHARMACEUTICALS INC",
+      "yahoo": "VRTX",
+      "currency": "USD",
+      "weightPct": 0.191781,
+      "identifier": "92532F100"
+    },
+    {
+      "ticker": "CB",
+      "name": "CHUBB LTD",
+      "yahoo": "CB",
+      "currency": "USD",
+      "weightPct": 0.191578,
+      "identifier": "H1467J104"
+    },
+    {
+      "ticker": "MO",
+      "name": "ALTRIA GROUP INC",
+      "yahoo": "MO",
+      "currency": "USD",
+      "weightPct": 0.190023,
+      "identifier": "02209S103"
+    },
+    {
+      "ticker": "NEM",
+      "name": "NEWMONT CORP",
+      "yahoo": "NEM",
+      "currency": "USD",
+      "weightPct": 0.189033,
+      "identifier": "651639106"
+    },
+    {
+      "ticker": "COF",
+      "name": "CAPITAL ONE FINANCIAL CORP",
+      "yahoo": "COF",
+      "currency": "USD",
+      "weightPct": 0.187709,
+      "identifier": "14040H105"
+    },
+    {
+      "ticker": "BKNG",
+      "name": "BOOKING HOLDINGS INC",
+      "yahoo": "BKNG",
+      "currency": "USD",
+      "weightPct": 0.185769,
+      "identifier": "09857L108"
+    },
+    {
+      "ticker": "BMY",
+      "name": "BRISTOL MYERS SQUIBB CO",
+      "yahoo": "BMY",
+      "currency": "USD",
+      "weightPct": 0.184894,
+      "identifier": "110122108"
+    },
+    {
+      "ticker": "PH",
+      "name": "PARKER HANNIFIN CORP",
+      "yahoo": "PH",
+      "currency": "USD",
+      "weightPct": 0.184068,
+      "identifier": "701094104"
+    },
+    {
+      "ticker": "WDC",
+      "name": "WESTERN DIGITAL CORP",
+      "yahoo": "WDC",
+      "currency": "USD",
+      "weightPct": 0.181236,
+      "identifier": "958102105"
+    },
+    {
+      "ticker": "PLD",
+      "name": "PROLOGIS INC",
+      "yahoo": "PLD",
+      "currency": "USD",
+      "weightPct": 0.180945,
+      "identifier": "74340W103"
+    },
+    {
+      "ticker": "CVS",
+      "name": "CVS HEALTH CORP",
+      "yahoo": "CVS",
+      "currency": "USD",
+      "weightPct": 0.178857,
+      "identifier": "126650100"
+    }
+  ]
+}
