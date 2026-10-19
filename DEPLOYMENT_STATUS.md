@@ -13,6 +13,8 @@ GitHub-Pages-Lauf 39162860335: erfolgreich, Datenjob 56 Sekunden und Deployment 
 
 ## Aktuelle Oberflächen-Erweiterung (19.10.2026)
 
-Umfang: Treiberkarten für gespeicherte Score-Veränderungen, kompakte Infodialoge, bereinigte Kopfzeile, gespeicherter Dark/Light-Modus sowie mobile Navigation/Karten und adaptive Charts. Keine Änderungen am Research-Modell oder seinen Gewichten. Lokale Regressionen und DOM-Integration bestanden. Live-Abnahme erfolgt nach Veröffentlichung über denselben GitHub-Pages-Workflow.
+Umfang: Treiberkarten für gespeicherte Score-Veränderungen, kompakte Infodialoge, bereinigte Kopfzeile, gespeicherter Dark/Light-Modus sowie mobile Navigation/Karten und adaptive Charts. Keine Änderungen am Research-Modell oder seinen Gewichten. 39 Python-Prüfungen, sieben Node-Prüfdateien, Syntaxprüfungen und lokale DOM-Integration bestanden.
 
-Veröffentlichungsfreigabe am 19.10.2026 ausdrücklich erteilt. Die geprüften Dateien werden ins öffentliche Repository übertragen. Visuelle Live-Abnahme in Desktop-, 390- und 768-Pixel-Ansichten folgt dem Deployment; ein Test auf einem physischen iPhone ist nicht enthalten.
+Veröffentlichungsfreigabe am 19.10.2026 ausdrücklich erteilt. Die Dateien sind im öffentlichen Repository und über GitHub Pages veröffentlicht. Finaler erfolgreicher Workflow: https://github.com/bastihouse/investment-cockpit/actions/runs/39214715599.
+
+Visuelle Live-Abnahme in Desktop-, 390- und 768-Pixel-Ansichten abgeschlossen: Theme-Wechsel/Persistenz, Dialoge/Escape/Fokusrückgabe, mobile Navigation, Vergleichskarten, adaptive Chartbreite, historische Monatswahl und Quellen sowie getrennte Modellvergleiche. Keine horizontale Überbreite der getesteten Seiten. Kopfzeile ohne Versions-/Kostenlosigkeitsangaben; Modellmetadaten stehen im Infodialog. Ein Test auf einem physischen iPhone ist nicht enthalten.
