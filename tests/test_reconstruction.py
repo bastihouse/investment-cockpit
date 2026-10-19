@@ -8,6 +8,19 @@ from reconstruct import month_ends,inputs_at,reconstruct_point
 def report(end,published,eps=2):
  return dict(ticker='MSFT',currency='USD',periodEnd=end,publishedAt=published,revenue=100,revenueYearAgo=80,operatingIncome=30,epsDiluted=eps,sourceUrl='https://example.test/report',documentSha256='abc',priceBasis='No stock split after 2020')
 class ReconstructionTests(unittest.TestCase):
+ def test_new_original_gap_sources_and_annual_insurance_basis(self):
+  import json
+  rows=json.loads((pathlib.Path(__file__).resolve().parents[1]/'data/historical-extensions.json').read_text())['reports']
+  for year,rev,prior,op in [(2022,36729,28665,10127),(2024,41677,42240,10624)]:
+   row=next(r for r in rows if r['ticker']=='MC' and r['periodEnd']==f'{year}-06-30')
+   self.assertEqual((row['revenue'],row['revenueYearAgo'],row['operatingIncome']),(rev,prior,op))
+   self.assertFalse(row['priceBasisVerified']);self.assertEqual(row['periodMonths'],6)
+  row=next(r for r in rows if r['ticker']=='G' and r['periodEnd']=='2025-12-31')
+  self.assertEqual((row['netIncome'],row['netIncomeYearAgo']),(4172,3724))
+  self.assertEqual(inputs_at([row],'G',row['publishedAt'])[0]['status'],'missing')
+  f,eps,_=inputs_at([row],'G','2026-03-31')
+  self.assertEqual(f['growthPeriodMonths'],12);self.assertEqual(f['growthBasis'],'annual-shareholder-net-income-yoy')
+  self.assertAlmostEqual(f['earningsGrowth'],4172/3724-1);self.assertIsNone(eps);self.assertIsNone(f['returnOnEquity'])
  def test_month_ends_exclude_incomplete_month(self):
   values=month_ends(dt.date(2026,10,17));self.assertEqual(len(values),60);self.assertEqual(values[0],'2021-10-31');self.assertEqual(values[-1],'2026-09-30')
   self.assertEqual(month_ends(dt.date(2024,3,1),1),['2024-02-29'])
