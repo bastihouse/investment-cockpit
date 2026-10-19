@@ -51,6 +51,35 @@ function renderDrivers({a,b,before,after}){
 }
 window.CockpitExperience={renderDrivers,explainChange};
 function boot(){
+ const selectionPanel=document.createElement('div');selectionPanel.className='panel';selectionPanel.id='universeSelectionPanel';$('overview').prepend(selectionPanel);
+ const groupControls=[];
+ for(const id of ['overviewSearch','r71ScoreSearch','lmSearch']){
+  const input=$(id);if(!input)continue;
+  const label=document.createElement('label');label.textContent='Aktienuniversum ';
+  const select=document.createElement('select');select.setAttribute('aria-label','Aktienuniversum '+id);
+  select.innerHTML='<option value="all">Alle Aktien</option><option value="original">Bisherige Auswahl · 32 Aktien</option><option value="sp500">S&P 500 · Top 100</option>';
+  label.append(select);input.before(label);groupControls.push(select);
+  select.onchange=()=>{universeGroup=select.value;groupControls.forEach(s=>s.value=universeGroup);lmRender();lsRender();};
+ }
+ function renderUniverseBadges(){
+  const all=lmState.data?.quotes||[];
+  for(const row of document.querySelectorAll('#overviewRows tr,#lmRows tr')){
+   const ticker=row.dataset.ticker||row.querySelector('[data-open-score]')?.dataset.openScore;
+   const q=all.find(q=>q.ticker===ticker),cell=row.cells[0];if(!q?.sp500Top100||!cell)continue;
+   if(cell.querySelector('.universe-rank'))continue;
+   const badge=document.createElement('small');badge.className='universe-rank';badge.style.display='block';badge.textContent='S&P-Rang ≈ '+q.sp500Top100.rank+' · Gewicht ≈ '+num(q.sp500Top100.weightProxyPct,3)+'%';cell.append(badge);
+  }
+ }
+ for(const id of ['overviewRows','lmRows'])if($(id))new MutationObserver(renderUniverseBadges).observe($(id),{childList:true});
+ function renderUniverseSelection(){
+  const all=lmState.data?.quotes||[],meta=lmState.data?.universeSelection;if(!all.length)return;
+  renderUniverseBadges();
+  document.querySelector('.brand-eyebrow').textContent='Investment Research · '+all.length+' Aktien';
+  const subtitle=$('overviewRows')?.closest('.panel')?.querySelector('.dashboard-panel-head p');if(subtitle)subtitle.textContent=all.length+' Aktien · '+all.filter(q=>q.sp500Top100).length+' im S&P-500-Top-100-Snapshot';
+  if(!meta){selectionPanel.textContent='Universum wird geladen …';return;}
+  selectionPanel.innerHTML=`<b>${all.length} Aktien · 100 S&P-500-Positionen · ${all.filter(q=>q.originalUniverse===false).length} Ergänzungen</b><p class="muted">Auswahlstand ${esc(meta.asOf)} · Rangfolge nach Indexgewicht, angenähert durch SPY-Bestände.</p><details><summary>Auswahl, Gewichte & Quelle ⓘ</summary><p>Feste Auswahl der 100 größten Aktienpositionen aus den täglichen SPY-Beständen. Fondsgewichte dienen als Näherung für die streubesitzbereinigten S&P-500-Indexgewichte. Originalgewichte von S&P sind nicht unabhängig bestätigt. Aktienklassen zählen einzeln; Überschneidungen mit der bisherigen Auswahl werden einmal geführt.</p><p>Die Auswahl wird nicht automatisch ausgetauscht. Rückblicke auf heutige Top-100-Aktien enthalten Auswahl- und Survivorship-Bias. Historische Finanzdaten werden je Aktie separat belegt.</p><a href="${esc(meta.sourceUrl)}" target="_blank" rel="noopener noreferrer">Originalbestände von State Street ↗</a> · <a href="./data/sp500-selection.json" target="_blank" rel="noopener noreferrer">Vollständige Auswahl mit Rang und Gewichts-Näherung ↗</a><p class="muted">SHA256 ${esc(meta.sourceSha256)}</p></details>`;
+ }
+ const previousUniverseRender=lmRender;lmRender=function(){previousUniverseRender();renderUniverseSelection();};renderUniverseSelection();
  const root=document.documentElement;let themePreference;try{themePreference=localStorage.getItem('cockpit-theme');}catch{};
  const system=window.matchMedia('(prefers-color-scheme: light)');
  const toggle=$('themeToggle');
