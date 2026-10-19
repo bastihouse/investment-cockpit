@@ -3,192 +3,1298 @@
     "ticker": "NVDA",
     "name": "Nvidia",
     "yahoo": "NVDA",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true,
+    "sp500Top100": {
+      "rank": 1,
+      "weightProxyPct": 7.850898,
+      "asOf": "2026-10-16"
+    }
   },
   {
     "ticker": "LLY",
     "name": "Eli Lilly",
     "yahoo": "LLY",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true,
+    "sp500Top100": {
+      "rank": 9,
+      "weightProxyPct": 1.523949,
+      "asOf": "2026-10-16"
+    }
   },
   {
     "ticker": "MSFT",
     "name": "Microsoft",
     "yahoo": "MSFT",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true,
+    "sp500Top100": {
+      "rank": 3,
+      "weightProxyPct": 5.951445,
+      "asOf": "2026-10-16"
+    }
   },
   {
     "ticker": "NFLX",
     "name": "Netflix",
     "yahoo": "NFLX",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true,
+    "sp500Top100": {
+      "rank": 37,
+      "weightProxyPct": 0.445108,
+      "asOf": "2026-10-16"
+    }
   },
   {
     "ticker": "GOOGL",
     "name": "Alphabet",
     "yahoo": "GOOGL",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true,
+    "sp500Top100": {
+      "rank": 5,
+      "weightProxyPct": 3.027833,
+      "asOf": "2026-10-16"
+    }
   },
   {
     "ticker": "META",
     "name": "Meta",
     "yahoo": "META",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true,
+    "sp500Top100": {
+      "rank": 7,
+      "weightProxyPct": 2.369714,
+      "asOf": "2026-10-16"
+    }
   },
   {
     "ticker": "005930",
     "name": "Samsung Electronics",
     "yahoo": "005930.KS",
-    "currency": "KRW"
+    "currency": "KRW",
+    "originalUniverse": true
   },
   {
     "ticker": "UL",
     "name": "Unilever",
     "yahoo": "UL",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true
   },
   {
     "ticker": "AMZN",
     "name": "Amazon",
     "yahoo": "AMZN",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true,
+    "sp500Top100": {
+      "rank": 4,
+      "weightProxyPct": 3.717575,
+      "asOf": "2026-10-16"
+    }
   },
   {
     "ticker": "JPM",
     "name": "JPMorgan",
     "yahoo": "JPM",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true,
+    "sp500Top100": {
+      "rank": 13,
+      "weightProxyPct": 1.368213,
+      "asOf": "2026-10-16"
+    }
   },
   {
     "ticker": "BSX",
     "name": "Boston Scientific",
     "yahoo": "BSX",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true
   },
   {
     "ticker": "ENR",
     "name": "Siemens Energy",
     "yahoo": "ENR.DE",
-    "currency": "EUR"
+    "currency": "EUR",
+    "originalUniverse": true
   },
   {
     "ticker": "MCK",
     "name": "McKesson",
     "yahoo": "MCK",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true
   },
   {
     "ticker": "G",
     "name": "Generali",
     "yahoo": "G.MI",
-    "currency": "EUR"
+    "currency": "EUR",
+    "originalUniverse": true
   },
   {
     "ticker": "V",
     "name": "Visa",
     "yahoo": "V",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true,
+    "sp500Top100": {
+      "rank": 16,
+      "weightProxyPct": 1.039575,
+      "asOf": "2026-10-16"
+    }
   },
   {
     "ticker": "MCD",
     "name": "McDonald's",
     "yahoo": "MCD",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true,
+    "sp500Top100": {
+      "rank": 66,
+      "weightProxyPct": 0.260672,
+      "asOf": "2026-10-16"
+    }
   },
   {
     "ticker": "ALV",
     "name": "Allianz",
     "yahoo": "ALV.DE",
-    "currency": "EUR"
+    "currency": "EUR",
+    "originalUniverse": true
   },
   {
     "ticker": "SHEL",
     "name": "Shell",
     "yahoo": "SHEL",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true
   },
   {
     "ticker": "O",
     "name": "Realty Income",
     "yahoo": "O",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true
   },
   {
     "ticker": "BRK.B",
     "name": "Berkshire Hathaway B",
     "yahoo": "BRK-B",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true,
+    "sp500Top100": {
+      "rank": 12,
+      "weightProxyPct": 1.50124,
+      "asOf": "2026-10-16"
+    }
   },
   {
     "ticker": "AMD",
     "name": "AMD",
     "yahoo": "AMD",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true,
+    "sp500Top100": {
+      "rank": 14,
+      "weightProxyPct": 1.307775,
+      "asOf": "2026-10-16"
+    }
   },
   {
     "ticker": "ARCC",
     "name": "Ares Capital",
     "yahoo": "ARCC",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true
   },
   {
     "ticker": "KO",
     "name": "Coca-Cola",
     "yahoo": "KO",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true,
+    "sp500Top100": {
+      "rank": 27,
+      "weightProxyPct": 0.551047,
+      "asOf": "2026-10-16"
+    }
   },
   {
     "ticker": "PEP",
     "name": "PepsiCo",
     "yahoo": "PEP",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true,
+    "sp500Top100": {
+      "rank": 64,
+      "weightProxyPct": 0.272085,
+      "asOf": "2026-10-16"
+    }
   },
   {
     "ticker": "PG",
     "name": "Procter & Gamble",
     "yahoo": "PG",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true,
+    "sp500Top100": {
+      "rank": 26,
+      "weightProxyPct": 0.561335,
+      "asOf": "2026-10-16"
+    }
   },
   {
     "ticker": "WMT",
     "name": "Walmart",
     "yahoo": "WMT",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true,
+    "sp500Top100": {
+      "rank": 18,
+      "weightProxyPct": 0.802334,
+      "asOf": "2026-10-16"
+    }
   },
   {
     "ticker": "MC",
     "name": "LVMH",
     "yahoo": "MC.PA",
-    "currency": "EUR"
+    "currency": "EUR",
+    "originalUniverse": true
   },
   {
     "ticker": "ACOMO",
     "name": "Acomo",
     "yahoo": "ACOMO.AS",
-    "currency": "EUR"
+    "currency": "EUR",
+    "originalUniverse": true
   },
   {
     "ticker": "CEG",
     "name": "Constellation Energy",
     "yahoo": "CEG",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true
   },
   {
     "ticker": "KRP",
     "name": "Kimbell Royalty",
     "yahoo": "KRP",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true
   },
   {
     "ticker": "AAPL",
     "name": "Apple",
     "yahoo": "AAPL",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true,
+    "sp500Top100": {
+      "rank": 2,
+      "weightProxyPct": 7.594225,
+      "asOf": "2026-10-16"
+    }
   },
   {
     "ticker": "TSLA",
     "name": "Tesla",
     "yahoo": "TSLA",
-    "currency": "USD"
+    "currency": "USD",
+    "originalUniverse": true,
+    "sp500Top100": {
+      "rank": 10,
+      "weightProxyPct": 1.514623,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "GOOG",
+    "name": "ALPHABET INC CL C",
+    "yahoo": "GOOG",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 6,
+      "weightProxyPct": 2.426167,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "AVGO",
+    "name": "BROADCOM INC",
+    "yahoo": "AVGO",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 8,
+      "weightProxyPct": 2.36956,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "MU",
+    "name": "MICRON TECHNOLOGY INC",
+    "yahoo": "MU",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 11,
+      "weightProxyPct": 1.503777,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "XOM",
+    "name": "EXXONMOBIL HOLDINGS CORP",
+    "yahoo": "XOM",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 15,
+      "weightProxyPct": 1.115105,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "JNJ",
+    "name": "JOHNSON + JOHNSON",
+    "yahoo": "JNJ",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 17,
+      "weightProxyPct": 0.933186,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "ABBV",
+    "name": "ABBVIE INC",
+    "yahoo": "ABBV",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 19,
+      "weightProxyPct": 0.764288,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "MA",
+    "name": "MASTERCARD INC   A",
+    "yahoo": "MA",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 20,
+      "weightProxyPct": 0.75654,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "INTC",
+    "name": "INTEL CORP",
+    "yahoo": "INTC",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 21,
+      "weightProxyPct": 0.67649,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "CVX",
+    "name": "CHEVRON CORP",
+    "yahoo": "CVX",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 22,
+      "weightProxyPct": 0.673634,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "COST",
+    "name": "COSTCO WHOLESALE CORP",
+    "yahoo": "COST",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 23,
+      "weightProxyPct": 0.664712,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "PLTR",
+    "name": "PALANTIR TECHNOLOGIES INC A",
+    "yahoo": "PLTR",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 24,
+      "weightProxyPct": 0.648575,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "CSCO",
+    "name": "CISCO SYSTEMS INC",
+    "yahoo": "CSCO",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 25,
+      "weightProxyPct": 0.641401,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "UNH",
+    "name": "UNITEDHEALTH GROUP INC",
+    "yahoo": "UNH",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 28,
+      "weightProxyPct": 0.546063,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "MRK",
+    "name": "MERCK + CO. INC.",
+    "yahoo": "MRK",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 29,
+      "weightProxyPct": 0.545693,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "CAT",
+    "name": "CATERPILLAR INC",
+    "yahoo": "CAT",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 30,
+      "weightProxyPct": 0.509045,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "BAC",
+    "name": "BANK OF AMERICA CORP",
+    "yahoo": "BAC",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 31,
+      "weightProxyPct": 0.504896,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "LRCX",
+    "name": "LAM RESEARCH CORP",
+    "yahoo": "LRCX",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 32,
+      "weightProxyPct": 0.500488,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "GE",
+    "name": "GENERAL ELECTRIC",
+    "yahoo": "GE",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 33,
+      "weightProxyPct": 0.493479,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "AMAT",
+    "name": "APPLIED MATERIALS INC",
+    "yahoo": "AMAT",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 34,
+      "weightProxyPct": 0.492428,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "PM",
+    "name": "PHILIP MORRIS INTERNATIONAL",
+    "yahoo": "PM",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 35,
+      "weightProxyPct": 0.484721,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "HD",
+    "name": "HOME DEPOT INC",
+    "yahoo": "HD",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 36,
+      "weightProxyPct": 0.467594,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "PANW",
+    "name": "PALO ALTO NETWORKS INC",
+    "yahoo": "PANW",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 38,
+      "weightProxyPct": 0.42245,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "RTX",
+    "name": "RTX CORP",
+    "yahoo": "RTX",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 39,
+      "weightProxyPct": 0.395726,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "GS",
+    "name": "GOLDMAN SACHS GROUP INC",
+    "yahoo": "GS",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 40,
+      "weightProxyPct": 0.388495,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "TMO",
+    "name": "THERMO FISHER SCIENTIFIC INC",
+    "yahoo": "TMO",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 41,
+      "weightProxyPct": 0.386702,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "WFC",
+    "name": "WELLS FARGO + CO",
+    "yahoo": "WFC",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 42,
+      "weightProxyPct": 0.384421,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "TXN",
+    "name": "TEXAS INSTRUMENTS INC",
+    "yahoo": "TXN",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 43,
+      "weightProxyPct": 0.382313,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "GEV",
+    "name": "GE VERNOVA INC",
+    "yahoo": "GEV",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 44,
+      "weightProxyPct": 0.37186,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "AMGN",
+    "name": "AMGEN INC",
+    "yahoo": "AMGN",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 45,
+      "weightProxyPct": 0.354086,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "CRWD",
+    "name": "CROWDSTRIKE HOLDINGS INC   A",
+    "yahoo": "CRWD",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 46,
+      "weightProxyPct": 0.350952,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "LIN",
+    "name": "LINDE PLC",
+    "yahoo": "LIN",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 47,
+      "weightProxyPct": 0.348289,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "ORCL",
+    "name": "ORACLE CORP",
+    "yahoo": "ORCL",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 48,
+      "weightProxyPct": 0.335557,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "IBM",
+    "name": "INTL BUSINESS MACHINES CORP",
+    "yahoo": "IBM",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 49,
+      "weightProxyPct": 0.331152,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "KLAC",
+    "name": "KLA CORP",
+    "yahoo": "KLAC",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 50,
+      "weightProxyPct": 0.327881,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "MS",
+    "name": "MORGAN STANLEY",
+    "yahoo": "MS",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 51,
+      "weightProxyPct": 0.326699,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "C",
+    "name": "CITIGROUP INC",
+    "yahoo": "C",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 52,
+      "weightProxyPct": 0.315954,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "MRVL",
+    "name": "MARVELL TECHNOLOGY INC",
+    "yahoo": "MRVL",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 53,
+      "weightProxyPct": 0.302369,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "CRM",
+    "name": "SALESFORCE INC",
+    "yahoo": "CRM",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 54,
+      "weightProxyPct": 0.298544,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "APH",
+    "name": "AMPHENOL CORP CL A",
+    "yahoo": "APH",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 55,
+      "weightProxyPct": 0.296609,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "GILD",
+    "name": "GILEAD SCIENCES INC",
+    "yahoo": "GILD",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 56,
+      "weightProxyPct": 0.293603,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "ADI",
+    "name": "ANALOG DEVICES INC",
+    "yahoo": "ADI",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 57,
+      "weightProxyPct": 0.291981,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "DIS",
+    "name": "WALT DISNEY CO/THE",
+    "yahoo": "DIS",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 58,
+      "weightProxyPct": 0.289493,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "SNDK",
+    "name": "SANDISK CORP",
+    "yahoo": "SNDK",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 59,
+      "weightProxyPct": 0.287179,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "VZ",
+    "name": "VERIZON COMMUNICATIONS INC",
+    "yahoo": "VZ",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 60,
+      "weightProxyPct": 0.282106,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "ANET",
+    "name": "ARISTA NETWORKS INC",
+    "yahoo": "ANET",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 61,
+      "weightProxyPct": 0.280514,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "QCOM",
+    "name": "QUALCOMM INC",
+    "yahoo": "QCOM",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 62,
+      "weightProxyPct": 0.278333,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "ABT",
+    "name": "ABBOTT LABORATORIES",
+    "yahoo": "ABT",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 63,
+      "weightProxyPct": 0.274814,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "COP",
+    "name": "CONOCOPHILLIPS",
+    "yahoo": "COP",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 65,
+      "weightProxyPct": 0.266498,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "UNP",
+    "name": "UNION PACIFIC CORP",
+    "yahoo": "UNP",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 67,
+      "weightProxyPct": 0.2602,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "WELL",
+    "name": "WELLTOWER INC",
+    "yahoo": "WELL",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 68,
+      "weightProxyPct": 0.256299,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "PFE",
+    "name": "PFIZER INC",
+    "yahoo": "PFE",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 69,
+      "weightProxyPct": 0.255505,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "NEE",
+    "name": "NEXTERA ENERGY INC",
+    "yahoo": "NEE",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 70,
+      "weightProxyPct": 0.25233,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "AXP",
+    "name": "AMERICAN EXPRESS CO",
+    "yahoo": "AXP",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 71,
+      "weightProxyPct": 0.250102,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "BLK",
+    "name": "BLACKROCK INC",
+    "yahoo": "BLK",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 72,
+      "weightProxyPct": 0.247355,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "TJX",
+    "name": "TJX COMPANIES INC",
+    "yahoo": "TJX",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 73,
+      "weightProxyPct": 0.24643,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "DE",
+    "name": "DEERE + CO",
+    "yahoo": "DE",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 74,
+      "weightProxyPct": 0.244282,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "T",
+    "name": "AT+T INC",
+    "yahoo": "T",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 75,
+      "weightProxyPct": 0.243515,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "ETN",
+    "name": "EATON CORP PLC",
+    "yahoo": "ETN",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 76,
+      "weightProxyPct": 0.23035,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "ISRG",
+    "name": "INTUITIVE SURGICAL INC",
+    "yahoo": "ISRG",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 77,
+      "weightProxyPct": 0.228236,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "BA",
+    "name": "BOEING CO/THE",
+    "yahoo": "BA",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 78,
+      "weightProxyPct": 0.227631,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "SCHW",
+    "name": "SCHWAB (CHARLES) CORP",
+    "yahoo": "SCHW",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 79,
+      "weightProxyPct": 0.226667,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "NOW",
+    "name": "SERVICENOW INC",
+    "yahoo": "NOW",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 80,
+      "weightProxyPct": 0.222241,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "STX",
+    "name": "SEAGATE TECHNOLOGY HOLDINGS",
+    "yahoo": "STX",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 81,
+      "weightProxyPct": 0.219289,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "UBER",
+    "name": "UBER TECHNOLOGIES INC",
+    "yahoo": "UBER",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 82,
+      "weightProxyPct": 0.217571,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "DHR",
+    "name": "DANAHER CORP",
+    "yahoo": "DHR",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 83,
+      "weightProxyPct": 0.216981,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "ACN",
+    "name": "ACCENTURE PLC CL A",
+    "yahoo": "ACN",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 84,
+      "weightProxyPct": 0.213152,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "DELL",
+    "name": "DELL TECHNOLOGIES  C",
+    "yahoo": "DELL",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 85,
+      "weightProxyPct": 0.206761,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "MPC",
+    "name": "MARATHON PETROLEUM CORP",
+    "yahoo": "MPC",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 86,
+      "weightProxyPct": 0.203606,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "SPGI",
+    "name": "S+P GLOBAL INC",
+    "yahoo": "SPGI",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 87,
+      "weightProxyPct": 0.196475,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "VLO",
+    "name": "VALERO ENERGY CORP",
+    "yahoo": "VLO",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 88,
+      "weightProxyPct": 0.193865,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "PGR",
+    "name": "PROGRESSIVE CORP",
+    "yahoo": "PGR",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 89,
+      "weightProxyPct": 0.192329,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "VRTX",
+    "name": "VERTEX PHARMACEUTICALS INC",
+    "yahoo": "VRTX",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 90,
+      "weightProxyPct": 0.191781,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "CB",
+    "name": "CHUBB LTD",
+    "yahoo": "CB",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 91,
+      "weightProxyPct": 0.191578,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "MO",
+    "name": "ALTRIA GROUP INC",
+    "yahoo": "MO",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 92,
+      "weightProxyPct": 0.190023,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "NEM",
+    "name": "NEWMONT CORP",
+    "yahoo": "NEM",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 93,
+      "weightProxyPct": 0.189033,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "COF",
+    "name": "CAPITAL ONE FINANCIAL CORP",
+    "yahoo": "COF",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 94,
+      "weightProxyPct": 0.187709,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "BKNG",
+    "name": "BOOKING HOLDINGS INC",
+    "yahoo": "BKNG",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 95,
+      "weightProxyPct": 0.185769,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "BMY",
+    "name": "BRISTOL MYERS SQUIBB CO",
+    "yahoo": "BMY",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 96,
+      "weightProxyPct": 0.184894,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "PH",
+    "name": "PARKER HANNIFIN CORP",
+    "yahoo": "PH",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 97,
+      "weightProxyPct": 0.184068,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "WDC",
+    "name": "WESTERN DIGITAL CORP",
+    "yahoo": "WDC",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 98,
+      "weightProxyPct": 0.181236,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "PLD",
+    "name": "PROLOGIS INC",
+    "yahoo": "PLD",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 99,
+      "weightProxyPct": 0.180945,
+      "asOf": "2026-10-16"
+    }
+  },
+  {
+    "ticker": "CVS",
+    "name": "CVS HEALTH CORP",
+    "yahoo": "CVS",
+    "currency": "USD",
+    "originalUniverse": false,
+    "sp500Top100": {
+      "rank": 100,
+      "weightProxyPct": 0.178857,
+      "asOf": "2026-10-16"
+    }
   }
 ]
