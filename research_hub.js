@@ -21,7 +21,8 @@ function benchmarkComparison(stocks,benchmark,fx,{currency='USD',mode='adjusted'
  const cutoff=Date.parse(today)-Math.max(1,Number(range))*dayMs,field=mode==='price'?'close':'adjustedClose';
  const all=[...stocks,benchmark];if(!stocks.length||!benchmark)return {series:[],error:'Aktie und Benchmark auswählen.'};
  const missing=[];
- const prepared=all.map(s=>{const points=[];for(const p of s.data||[]){if(!/^\d{4}-\d{2}-\d{2}$/.test(p.date)||!finite(Date.parse(p.date))||p.date>=today||Date.parse(p.date)<cutoff||!finite(p[field])||p[field]<=0)continue;const a=fxRate(s.currency,p.date,fx),b=fxRate(currency,p.date,fx);if(!a||!b)continue;points.push({date:p.date,raw:p[field],value:p[field]*a.value/b.value,fxSourceDate:a.date,fxTargetDate:b.date});}if(!points.length)missing.push(s.ticker||s.symbol);return {...s,points:new Map(points.map(p=>[p.date,p]))};});
+ const rates=new Map(),rate=(currency,date)=>{const key=currency+'|'+date;if(!rates.has(key))rates.set(key,fxRate(currency,date,fx));return rates.get(key);};
+ const prepared=all.map(s=>{const points=[];for(const p of s.data||[]){if(!/^\d{4}-\d{2}-\d{2}$/.test(p.date)||!finite(Date.parse(p.date))||p.date>=today||Date.parse(p.date)<cutoff||!finite(p[field])||p[field]<=0)continue;const a=rate(s.currency,p.date),b=rate(currency,p.date);if(!a||!b)continue;points.push({date:p.date,raw:p[field],value:p[field]*a.value/b.value,fxSourceDate:a.date,fxTargetDate:b.date});}if(!points.length)missing.push(s.ticker||s.symbol);return {...s,points:new Map(points.map(p=>[p.date,p]))};});
  if(missing.length)return {series:[],error:'Keine geeigneten Kurs-/FX-Daten: '+missing.join(', ')};
  const dates=[...prepared[0].points.keys()].filter(d=>prepared.every(s=>s.points.has(d))).sort();
  if(dates.length<2)return {series:[],error:'Zu wenige gemeinsame abgeschlossene Handelstage.'};
