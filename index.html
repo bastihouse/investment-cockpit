@@ -496,7 +496,7 @@ document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',(
 window.addEventListener('hashchange',()=>{const v=location.hash.slice(1);if(NAV_FOR_VIEW[v])show(v,false)});
 // The real connection label comes from the existing data load, not from a guessed time.
 (function(){const origin=document.getElementById('liveConnection'),text=document.getElementById('navStatusText'),pill=document.getElementById('navDataStatus');if(!origin)return;
- const sync=()=>{const content=(origin.textContent||'').trim();const down=/nicht|fehl|offline|keine verbindung|starten|127\.0\.0\.1|unbekannt|server antwortet nicht/i.test(content);const connected=/verbunden|erreichbar|geladen|aktuali|aus dem cache/i.test(content)&&!down;text.textContent=connected?'Veröffentlichte Marktdaten geladen':down?'Marktdaten nicht verfügbar':'Datenstatus wird geprüft';pill.classList.toggle('is-online',connected);pill.classList.toggle('is-offline',down)};
+ const sync=()=>{const content=(origin.textContent||'').trim();const down=/nicht|fehl|offline|keine verbindung|starten|127\.0\.0\.1|unbekannt|server antwortet nicht/i.test(content);const connected=origin.dataset.loaded==='true'&&!down;text.textContent=connected?'Veröffentlichte Marktdaten geladen':down?'Marktdaten nicht verfügbar':'Datenstatus wird geprüft';pill.classList.toggle('is-online',connected);pill.classList.toggle('is-offline',down)};
  new MutationObserver(sync).observe(origin,{subtree:true,childList:true,characterData:true});sync()})();
 
 function list(){
@@ -1210,7 +1210,7 @@ function lmRender(){
  lm('lmKpis').innerHTML=tileHTML;lm('liveHeadline').innerHTML=tileHTML;
  const progress=d?.refresh;lm('lmProgress').textContent=d?`Quelle: ${d.providerMode} · ${d.fmpConfigured?'FMP-Schlüssel auf dem Server vorhanden':'Kostenlose Kennzahlen nach tatsächlicher Anbieterabdeckung'} · ${progress?.running?`Aktualisierung läuft: ${progress.processed}/${progress.total}`:`Letzter Lauf: ${lmDate(progress?.finishedAt)}`}`:'';
  const msg=!d?'Statische Marktdaten konnten nicht geladen werden.':`${all.length} Aktien · Datenstand ${lmDate(d.generatedAt)}`; 
- lm('lmStatus').textContent=msg;lm('liveConnection').textContent=msg;
+ lm('lmStatus').textContent=msg;lm('liveConnection').dataset.loaded=String(!!d);lm('liveConnection').textContent=msg;
  const search=lm('lmSearch').value.trim().toLowerCase(),filter=lm('lmFilter').value;
  const list=all.filter(x=>(!search||x.name.toLowerCase().includes(search)||x.ticker.toLowerCase().includes(search))&&(filter==='all'||(filter==='cached'?x.price!=null&&x.status==='cached':x.price==null||x.status==='stale')));
  lm('lmRows').innerHTML=list.map(x=>`<tr data-ticker="${lmEsc(x.ticker)}"><td><b>${lmEsc(x.name)}</b><div class="muted">${lmEsc(x.ticker)} · ${lmEsc(x.yahoo)}</div></td><td>${lmNum(x.price)}</td><td>${lmEsc(x.currency||'—')}</td><td class="${x.ytdPricePct>=0?'pos':'neg'}">${lmNum(x.ytdPricePct)}${Number.isFinite(x.ytdPricePct)?'%':''}</td><td>${lmNum(x.peTTM)}${x.peTTM!=null?'×':''}</td><td>${lmNum(x.forwardPE)}${x.forwardPE!=null?'×':''}</td><td>${lmEsc(x.marketDate||'—')}</td><td><span class="muted">${lmEsc((x.source||[]).join(' + ')||'—')}<div>${lmEsc(x.cachedAt?.replace('T',' ').slice(0,16)||'—')} UTC</div></span></td><td><span class="pill">${x.status==='cached'?'Veröffentlichter Stand':x.status==='stale'?'Veraltet':'Keine Kursdaten'}</span></td></tr>`).join('')||'<tr><td colspan="9">Keine Titel für diese Auswahl.</td></tr>';
