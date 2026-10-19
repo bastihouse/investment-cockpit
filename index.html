@@ -126,6 +126,8 @@ html:has(dialog[open]){overflow:hidden}
 .info-summary::-webkit-details-marker{display:none}
 .info-summary::after{content:'ⓘ';font-size:18px;color:var(--accent)}
 .compact-notice{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.compact-notice strong{font-size:13px}
+.scope-info{margin-bottom:14px}
+html[data-theme] .overview-ring small{color:var(--muted)}
 .driver-summary{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:16px 0}
 .driver-summary strong{font-size:19px;flex-basis:100%}
 .driver-summary span,.driver-tag{font-size:12px;background:var(--raised);border:1px solid var(--line);border-radius:7px;padding:5px 8px}
@@ -1207,7 +1209,7 @@ function lmRender(){
  const tileHTML=tiles.map(([label,val])=>`<div class="card"><div class="muted">${label}</div><div class="big">${val}</div></div>`).join('');
  lm('lmKpis').innerHTML=tileHTML;lm('liveHeadline').innerHTML=tileHTML;
  const progress=d?.refresh;lm('lmProgress').textContent=d?`Quelle: ${d.providerMode} · ${d.fmpConfigured?'FMP-Schlüssel auf dem Server vorhanden':'Kostenlose Kennzahlen nach tatsächlicher Anbieterabdeckung'} · ${progress?.running?`Aktualisierung läuft: ${progress.processed}/${progress.total}`:`Letzter Lauf: ${lmDate(progress?.finishedAt)}`}`:'';
- const msg=!d?'Statische Marktdaten konnten nicht geladen werden.':`Kostenlose Webversion · ${all.length} Aktien erfasst · Letzter Datenlauf: ${lmDate(d.generatedAt)} · Daten werden im Repository aktualisiert`; 
+ const msg=!d?'Statische Marktdaten konnten nicht geladen werden.':`${all.length} Aktien · Datenstand ${lmDate(d.generatedAt)}`; 
  lm('lmStatus').textContent=msg;lm('liveConnection').textContent=msg;
  const search=lm('lmSearch').value.trim().toLowerCase(),filter=lm('lmFilter').value;
  const list=all.filter(x=>(!search||x.name.toLowerCase().includes(search)||x.ticker.toLowerCase().includes(search))&&(filter==='all'||(filter==='cached'?x.price!=null&&x.status==='cached':x.price==null||x.status==='stale')));
