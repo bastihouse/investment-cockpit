@@ -90,7 +90,7 @@ def reconstruct_point(stock,history,reports,month,price_splits=None):
     r=score(q,known,facts,{'status':'missing'})
     r.update(model='V7.5 historical reconstruction · unchanged weights and thresholds',modelVersion=MODEL)
     for key in ('valuation','growth','quality'):
-        r['explanation'][key]=r['explanation'].get(key,'').replace('(Anbieter)','(veröffentlichte Quartalsmeldung)').replace('TTM-P/E','KGV-Näherung aus Quartals-EPS')
+        r['explanation'][key]=r['explanation'].get(key,'').replace('(Anbieter)','(veröffentlichter Finanzbericht)').replace('TTM-P/E','KGV-Näherung aus berichteten TTM-EPS')
     if r['parts']['revisions'] is None:r['missingReasons']['revisions']='Geeignete historische Analysten- bzw. Emittentenrevisionen fehlen; keine heutigen Schätzungen eingesetzt.'
     if audit and eps is None:r['missingReasons']['valuation']=facts.get('epsBasis','Aktienbasis offen.')
     if facts.get('qualityBasis') and r['parts']['quality'] is not None:r['explanation']['quality']+=' Basis: '+facts['qualityBasis']
