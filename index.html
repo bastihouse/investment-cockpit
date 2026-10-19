@@ -208,7 +208,7 @@ html[data-theme] .menu-item{display:block;text-align:left;width:100%;min-height:
 <header class="masthead">
  <div class="brand-row">
   <div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M5 23h23" opacity=".3"/><path d="m5 22 8-9 5 4 9-12"/><path d="M21 5h6v6"/></svg></div>
-  <div><div class="brand-eyebrow">Investment Research · 32 Unternehmen</div><h1>Investment Cockpit</h1><div class="brand-subtitle">Aktien verstehen. Entwicklungen vergleichen.</div></div>
+  <div><div class="brand-eyebrow">Investment Research · Aktienuniversum</div><h1>Investment Cockpit</h1><div class="brand-subtitle">Aktien verstehen. Entwicklungen vergleichen.</div></div>
  </div>
  <div class="header-status"><span class="status-pill" id="navDataStatus"><i class="status-dot" aria-hidden="true"></i><span id="navStatusText">Datenverbindung wird geprüft</span></span><button type="button" id="headerMethod" class="header-help" aria-haspopup="dialog">ⓘ Methodik</button><button type="button" id="themeToggle" class="theme-toggle" aria-pressed="false" aria-label="Hellen Modus aktivieren">☀ Light Mode</button><button type="button" id="menuToggle" class="menu-toggle" aria-haspopup="dialog" aria-controls="mobileMenu" aria-expanded="false">☰ Menü</button></div>
 </header>
@@ -249,7 +249,7 @@ html[data-theme] .menu-item{display:block;text-align:left;width:100%;min-height:
 </section>
 
 <section id="audit" class="view">
-<div class="panel" style="margin-bottom:12px"><h2 style="margin:0 0 8px">Provider- &amp; Sektor-Audit · 32 Titel</h2>
+<div class="panel" style="margin-bottom:12px"><h2 style="margin:0 0 8px">Provider- &amp; Sektor-Audit</h2>
 <p class="muted">Die Tabelle zeigt die veröffentlichten Ergebnisse des letzten Datenlaufs. Frisch bedeutet erfolgreich abgerufen, nicht unabhängig verifiziert. Kennzahlen werden nach tatsächlicher Verfügbarkeit abgerufen und gesondert gekennzeichnet. Yahoo Chart bleibt eine inoffizielle Best-Effort-Quelle.</p>
 <div style="display:flex;gap:9px;flex-wrap:wrap;align-items:center"><button type="button" id="auditReload">Status jetzt auslesen</button><button type="button" id="auditRefresh">Veröffentlichten Stand laden</button><button type="button" id="auditExport">Audit-CSV exportieren</button></div>
 <p id="auditStatus" class="muted">Provider-Status wird beim Öffnen geladen …</p></div>
@@ -1195,6 +1195,8 @@ function diInit(){diEl('diCore').addEventListener('click',()=>diRun(DI_CORE));di
 diInit();
 
 // V6.15 Data Foundation: modern market snapshots never overwrite historical score records.
+let universeGroup='all';
+function universeMatches(q,group=universeGroup){return group==='all'||(group==='original'?q.originalUniverse!==false:!!q.sp500Top100);}
 const lm=id=>document.getElementById(id);
 const lmState={data:null,started:false,selected:'MSFT',timer:null};
 const lmEsc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -1206,14 +1208,14 @@ function lmRender(){
  stale=all.filter(x=>x.status==='stale').length,
  failed=all.filter(x=>x.price==null).length,
  pe=all.filter(x=>x.peTTM!=null).length;
- const tiles=[['Kurse verfügbar',valid+' / 32'],['Veraltet',stale],['Nicht verfügbar',failed],['Forward-P/E verfügbar',all.filter(x=>x.forwardPE!=null).length]];
+ const tiles=[['Kurse verfügbar',valid+' / '+all.length],['Veraltet',stale],['Nicht verfügbar',failed],['Forward-P/E verfügbar',all.filter(x=>x.forwardPE!=null).length]];
  const tileHTML=tiles.map(([label,val])=>`<div class="card"><div class="muted">${label}</div><div class="big">${val}</div></div>`).join('');
  lm('lmKpis').innerHTML=tileHTML;lm('liveHeadline').innerHTML=tileHTML;
  const progress=d?.refresh;lm('lmProgress').textContent=d?`Quelle: ${d.providerMode} · ${d.fmpConfigured?'FMP-Schlüssel auf dem Server vorhanden':'Kostenlose Kennzahlen nach tatsächlicher Anbieterabdeckung'} · ${progress?.running?`Aktualisierung läuft: ${progress.processed}/${progress.total}`:`Letzter Lauf: ${lmDate(progress?.finishedAt)}`}`:'';
  const msg=!d?'Statische Marktdaten konnten nicht geladen werden.':`${all.length} Aktien · Datenstand ${lmDate(d.generatedAt)}`; 
  lm('lmStatus').textContent=msg;lm('liveConnection').dataset.loaded=String(!!d);lm('liveConnection').textContent=msg;
  const search=lm('lmSearch').value.trim().toLowerCase(),filter=lm('lmFilter').value;
- const list=all.filter(x=>(!search||x.name.toLowerCase().includes(search)||x.ticker.toLowerCase().includes(search))&&(filter==='all'||(filter==='cached'?x.price!=null&&x.status==='cached':x.price==null||x.status==='stale')));
+ const list=all.filter(x=>universeMatches(x)&&(!search||x.name.toLowerCase().includes(search)||x.ticker.toLowerCase().includes(search))&&(filter==='all'||(filter==='cached'?x.price!=null&&x.status==='cached':x.price==null||x.status==='stale')));
  lm('lmRows').innerHTML=list.map(x=>`<tr data-ticker="${lmEsc(x.ticker)}"><td><b>${lmEsc(x.name)}</b><div class="muted">${lmEsc(x.ticker)} · ${lmEsc(x.yahoo)}</div></td><td>${lmNum(x.price)}</td><td>${lmEsc(x.currency||'—')}</td><td class="${x.ytdPricePct>=0?'pos':'neg'}">${lmNum(x.ytdPricePct)}${Number.isFinite(x.ytdPricePct)?'%':''}</td><td>${lmNum(x.peTTM)}${x.peTTM!=null?'×':''}</td><td>${lmNum(x.forwardPE)}${x.forwardPE!=null?'×':''}</td><td>${lmEsc(x.marketDate||'—')}</td><td><span class="muted">${lmEsc((x.source||[]).join(' + ')||'—')}<div>${lmEsc(x.cachedAt?.replace('T',' ').slice(0,16)||'—')} UTC</div></span></td><td><span class="pill">${x.status==='cached'?'Veröffentlichter Stand':x.status==='stale'?'Veraltet':'Keine Kursdaten'}</span></td></tr>`).join('')||'<tr><td colspan="9">Keine Titel für diese Auswahl.</td></tr>';
  lm('lmRows').querySelectorAll('tr[data-ticker]').forEach(t=>t.addEventListener('click',()=>{lmState.selected=t.dataset.ticker;lm('lmTicker').value=lmState.selected;lmDetail();lmChart()}));
  const dropdown=lm('lmTicker'),previous=dropdown.value||lmState.selected;
@@ -1240,7 +1242,7 @@ async function lmChart(){
  }catch(e){lm('lmChart').innerHTML='';lm('lmChartStatus').textContent='Kursverlauf nicht verfügbar: '+e.message}
 }
 async function lmFetch(){
- try{const r=await fetch('./data/snapshot.json',{cache:'no-store'});if(!r.ok)throw Error('Server HTTP '+r.status);const j=await r.json();if(!Array.isArray(j.quotes)||j.quotes.length!==32)throw Error('Unvollständiges JSON-Schema');
+ try{const r=await fetch('./data/snapshot.json',{cache:'no-store'});if(!r.ok)throw Error('Server HTTP '+r.status);const j=await r.json();if(!Array.isArray(j.quotes)||!j.quotes.length||j.quotes.length!==(j.universeCount||j.refresh?.total)||new Set(j.quotes.map(q=>q.ticker)).size!==j.quotes.length)throw Error('Unvollständiges JSON-Schema');
   const first=!lmState.data;lmState.data=j;window.liveMarket.connected=true;lmRender();lsRender();if(first)lmChart();
   if(j.refresh.running){if(!lmState.timer)lmState.timer=setTimeout(async()=>{lmState.timer=null;await lmFetch()},1500)}
  }catch(e){lmState.data=null;window.liveMarket.connected=false;lm('lmStatus').textContent='Statische Kursdatei nicht abrufbar. Bitte die Webadresse statt einer lokalen Datei verwenden. '+e.message;lm('liveConnection').textContent='Keine aktuellen Marktdaten verfügbar; letzte veröffentlichte JSON-Daten prüfen.';lm('lmProgress').textContent='Alle historischen Scores und Beispielwerte sind Archiv, keine aktuellen Marktkurse.'}
@@ -1318,7 +1320,7 @@ async function auditLoad(){
  lm('auditStatus').textContent='Lese belegte Cache- und Abrufdaten …';
  try{
   const res=await fetch('./data/provider-audit.json',{cache:'no-store'});if(!res.ok)throw Error('HTTP '+res.status);
-  const x=await res.json();if(!Array.isArray(x.stocks)||x.stocks.length!==32)throw Error('Erwartet 32 Datensätze');
+  const x=await res.json();if(!Array.isArray(x.stocks)||!x.stocks.length||new Set(x.stocks.map(q=>q.ticker)).size!==x.stocks.length)throw Error('Ungültige Datensätze');
   auditData=x;auditRender();
  }catch(e){auditData=null;lm('auditStatus').textContent='Veröffentlichte Provider-Diagnose konnte nicht geladen werden. '+e.message;
    lm('auditRows').innerHTML='';lm('auditKpis').innerHTML='';lm('auditSummary').innerHTML='Keine Live-Provider-Abdeckung verifiziert.'}
@@ -1327,7 +1329,7 @@ function auditRender(){
  if(!auditData)return;const x=auditData,sm=x.summary||{},all=x.stocks||[];
  const s=cat=>sm[cat]||{};const covered=(s('history').fresh||0);
  const err=Object.values(sm).reduce((a,v)=>a+(v.lastError||0),0);
- lm('auditKpis').innerHTML=[['Frische Kursreihen',covered+' / 32'],['Frische Analystenschätzungen',s('estimates').fresh||0],['Letzte Fehler (Quellen)',err],['Kennzahlenquelle','Yahoo Finance']].map(([k,v])=>`<div class="card"><div class="muted">${k}</div><div class="big">${v}</div></div>`).join('');
+ lm('auditKpis').innerHTML=[['Frische Kursreihen',covered+' / '+all.length],['Frische Analystenschätzungen',s('estimates').fresh||0],['Letzte Fehler (Quellen)',err],['Kennzahlenquelle','Yahoo Finance']].map(([k,v])=>`<div class="card"><div class="muted">${k}</div><div class="big">${v}</div></div>`).join('');
  lm('auditSummary').innerHTML='<b>Abdeckung nach Endpunkt</b><div class="tbl"><table><thead><tr><th>Quelle</th><th>Frisch</th><th>Alt</th><th>Fehlt</th><th>Letzter Fehler</th><th>n. a.</th></tr></thead><tbody>'+auditCategories.map(([k,label])=>{const v=s(k);return `<tr><td>${lmEsc(label)}</td><td>${v.fresh||0}</td><td>${v.stale||0}</td><td>${v.missing||0}</td><td>${v.lastError||0}</td><td>${v.notApplicable||0}</td></tr>`}).join('')+'</tbody></table></div>';
  const term=lm('auditSearch').value.trim().toLowerCase(),sector=lm('auditSector').value,filter=lm('auditFilter').value;
  const matches=all.filter(q=>{
@@ -1341,7 +1343,7 @@ function auditRender(){
   return `<tr data-audit="${lmEsc(q.ticker)}"><td><b>${lmEsc(q.name)}</b><div class="muted">${lmEsc(q.ticker)} · ${lmEsc(q.sectorLabel)}</div></td>${auditCategories.map(([k])=>`<td>${auditState(q.providers[k])}</td>`).join('')}<td>${r.coveragePoints!=null?lmNum(r.coveragePoints,0)+'/100':'—'}</td><td>${errors||'—'}</td></tr>`;
  }).join('')||'<tr><td colspan="9">Keine Treffer.</td></tr>';
  lm('auditRows').querySelectorAll('tr[data-audit]').forEach(row=>row.addEventListener('click',()=>{auditSelected=row.dataset.audit;auditDetails()}));
- lm('auditStatus').textContent=`${matches.length} von 32 Aktien · Prüfung ${lmDate(x.generatedAt)} · API-Abdeckung nicht live garantiert.`;
+ lm('auditStatus').textContent=`${matches.length} von ${all.length} Aktien · Prüfung ${lmDate(x.generatedAt)} · API-Abdeckung nicht live garantiert.`;
  auditDetails();
 }
 function auditDetails(){
