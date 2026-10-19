@@ -81,6 +81,8 @@ class EvaluationTests(unittest.TestCase):
    self.assertEqual(result['observed']['matureCount'],0)
 
 class MonitorTests(unittest.TestCase):
+ def test_html_error_page_is_not_successful_empty_feed(self):
+  with self.assertRaises(ValueError):parse_feed(b'<html><body>Access denied</body></html>','X','https://issuer.test/feed',dt.date(2026,10,19))
  def test_catalog_dates_never_invented_and_future_periods_excluded(self):
   body=json.dumps({'items':[{'year':'2026','quarter':q,'docs':{'pressRelease':{'link':'/report-'+q+'.pdf'}}} for q in ['2nd','4th']]}).encode()
   hits=parse_catalog(body,'JPM',CATALOGS['JPM'],dt.date(2026,10,19))
