@@ -25,6 +25,7 @@ function comparisonSeries(data,tickers,metric='partial',basis='common'){
 }
 if(typeof module!=='undefined'&&module.exports)module.exports={reconstructionSeries,comparisonSeries};
 if(typeof document==='undefined')return;
+window.CockpitHistory={comparisonSeries,reconstructionSeries};
 const $=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),num=(v,d=2)=>Number.isFinite(v)?v.toLocaleString('de-AT',{maximumFractionDigits:d}):'—';
 const colors=['#19977e','#477dc1','#bc7d29','#9465bc'],weights={valuation:30,growth:25,quality:20,revisions:15,risk:10},names={valuation:'Bewertung',growth:'Wachstum',quality:'Qualität',revisions:'Revisionen',risk:'Marktrisiko'};
 let data=null;
