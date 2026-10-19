@@ -18,3 +18,9 @@ Umfang: Treiberkarten für gespeicherte Score-Veränderungen, kompakte Infodialo
 Veröffentlichungsfreigabe am 19.10.2026 ausdrücklich erteilt. Die Dateien sind im öffentlichen Repository und über GitHub Pages veröffentlicht. Finaler erfolgreicher Workflow: https://github.com/bastihouse/investment-cockpit/actions/runs/39215197863.
 
 Visuelle Live-Abnahme in Desktop-, 390- und 768-Pixel-Ansichten abgeschlossen: Theme-Wechsel/Persistenz, Dialoge/Escape/Fokusrückgabe, mobile Navigation, Vergleichskarten, adaptive Chartbreite, historische Monatswahl und Quellen sowie getrennte Modellvergleiche. Keine horizontale Überbreite der getesteten Seiten. Kopfzeile ohne Versions-/Kostenlosigkeitsangaben; Modellmetadaten stehen im Infodialog. Ein Test auf einem physischen iPhone ist nicht enthalten.
+
+## Quellen und historische Lücken (19.10.2026)
+
+Neu: unabhängige Emittentenkataloge für JPMorgan, Allianz und Siemens Energy, korrigierter offizieller Meta-RSS-Link, getrennte Zählung von Endpunkten und erreichten Unternehmen. Unbekannte Veröffentlichungsdaten bleiben unbekannt; Erkennung ändert keine kuratierten Finanzzahlen automatisch. Strukturfehler ergeben keine irreführend erfolgreichen Leerläufe.
+
+Vier verifizierte Originalberichte ergänzt: LVMH H1 2022/H1 2024, Generali FY 2024/FY 2025. Insgesamt 273 Originalberichte von 13 Unternehmen. Generali-Jahresgewinne sind keine Quartalszahlen und keine bereinigten Gewinne; fehlende Buchwert-/ROE-Eingaben bleiben offen. Die Allianz-FY-2022-Textlücke bleibt sichtbar. Lokale Prüfung: 43 Python-Tests, sieben Node-Prüfdateien, Syntaxprüfungen und DOM-Integration ohne Fehler. Rückrechnung mit vorhandenen Kursreihen: 89 retrospektive Ergebnisfälle, keine gereiften beobachteten Ergebnisse. Erreichbarkeit ist netzwerkabhängig; der produktive Monitor zeigt die tatsächlichen Ergebnisse seines jeweiligen Laufs.
