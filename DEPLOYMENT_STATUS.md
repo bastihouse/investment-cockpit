@@ -1,5 +1,15 @@
 # Investment Cockpit V7.5
 
+## EPS-Basis, internationale Historien und historischer Vier-Aktien-Vergleich (19.10.2026)
+
+Folgeauftrag 1–3 umgesetzt und veröffentlicht. 133 zusätzliche EPS-Basisprüfungen für AMD/AVGO/WMT/QCOM/COST; lokal 297 zusätzliche Monatsbewertungen mit belegter EPS-Näherung. Belegte Splits, verwässerte Aktienzahlen, Gewinn und EPS derselben Einreichung bleiben nachvollziehbar. Direkte FY-EPS beziehungsweise vier Quartale oder YTD + vorheriges FY − vorheriges YTD sind ausdrücklich TTM-Näherungen. Abweichende Split-Ereignisse der Kursreihe sperren die Bewertung. Andere unbestätigte Instrumente erhalten keine automatische Freigabe.
+
+51 neue internationale Perioden schließen die bislang fehlenden vier Titel (Samsung, Acomo, Unilever, Shell); 43 Quellenperioden ergänzen die belegte 1:1-Vorgängerfortführung bei Exxon und BlackRock. Insgesamt 2.893 Kennzahlenperioden aus 2.416 verknüpften Quelldokumenten für 114/114 Aktienpositionen. Jahres- und Halbjahresreihen bleiben als solche gekennzeichnet; keine Behauptung lückenloser Quartals- oder Bewertungsdaten. Internationale ADR-/Währungsbasen und historische Revisionen bleiben offen.
+
+Vier-Aktien-Vergleich mit gemeinsamer Kategorienbasis je Monat, getrennter Originalabdeckung, sichtbaren Kategoriebeiträgen, zusätzlichem Abdeckungsverlauf und CSV mit Komponenten/Maximalpunkten. Wachstumsperioden müssen übereinstimmen, bank-/versicherungsspezifische Qualitätsbasen ebenfalls; profilübergreifend nur Marktrisiko. Unterbrechungen bei Wechsel der Vergleichsbasis. Direkte Übergabe aus dem Branchenvergleich und EPS-/Splitbelege im kompakten Quelldialog. Rückrechnung `research-v7.5-reconstruction-v2`; unveränderte Gewichte und unverändertes beobachtetes Archiv.
+
+58 Python-Tests und acht Node-Prüfdateien bestanden; tatsächliche Datenintegration ohne JavaScript-Fehler. Erfolgreicher finaler Lauf: https://github.com/bastihouse/investment-cockpit/actions/runs/39303615340 (Refresh 74 Sekunden, Deployment 8 Sekunden). Live geprüft: vier Kurven und vier Abdeckungslinien, 85-Punkte-Basis AVGO/AMD/WMT/QCOM, 65 gemeinsame mögliche Punkte mit Costco statt Qualcomm, Profilwechsel auf JPM begrenzt gemeinsame Kategorien auf Risiko, Peer-Übergabe MU/NVDA, CSV-Download mit Vergleichsbasis, alle vier internationalen Quellencharts sowie XOM-/BLK-Vorgängerreihen. Smartphone 390px: vier Beitragskarten, adaptiver 320×150-Abdeckungschart, keine horizontale Überbreite einschließlich Quelldialog; Tablet 768px: keine horizontale Überbreite, 677×150-Chart. Die Responsive-Vorschau kann ihre Frames nun explizit auf aktuelle Assets aktualisieren.
+
 ## Historische Kennzahlen, Datenlücken, Branchenvergleich und Scanner (19.10.2026)
 
 In der beauftragten Reihenfolge 1 → 4 → 2 → 3 umgesetzt und veröffentlicht. 2.799 historische Kennzahlenperioden aus 2.339 Quelldokumenten für 110 von 114 Aktien; alle 82 Ergänzungen haben historische Perioden. Quartals-, Halbjahres- und Jahreswerte bleiben getrennt. Neue SEC-EPS-Bewertungen bleiben ohne verifizierte Aktien-/Splitbasis gesperrt; internationale sowie Vorgängerhistorien bleiben als Lücken sichtbar.
