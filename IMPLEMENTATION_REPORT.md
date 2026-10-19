@@ -1,5 +1,13 @@
 # Research-Erweiterung 19.10.2026
 
+## Folgeauftrag: Benchmarkvergleich, Watchlists, Vergleichsansicht
+
+Umgesetzt sind drei neue Ansichten: konsistenter Renditevergleich mit SPY und elf US-Sektor-ETF-Proxies, lokale Watchlists mit Notizen und Sicherung sowie benannte Vergleichskonfigurationen mit historischen Rängen, Heatmap und Kategorieunterschieden. Gemeinsame abgeschlossene Tage und gemeinsame Darstellungswährung verhindern lokale-Währungs-Mischvergleiche. Dividendenbereinigung bleibt eine Anbieternäherung, ETF-Proxies bleiben von offiziellen Indexrenditen getrennt. Datenabrufstatus und Cache-Zeitstempel bleiben nachvollziehbar. Kein aktueller UTC-Tag, kein zukünftiger FX-Wert, Carry höchstens vier Tage. Fehlende historische Kategorien werden nicht hochgerechnet; Ränge gelten ausschließlich für gleiche Profile und gemeinsame Kategorien in der Auswahl.
+
+Watchlists, Notizen und Presets bleiben ausschließlich lokal. JSON-Import ist versioniert und validiert; Überschreiben erfordert eine ausdrückliche Bestätigung in der Oberfläche. Entfernen ist rückgängig machbar. Private Inhalte landen weder im Repository noch in generierten Marktdatendateien. Gespeicherte Vergleiche verwenden bei erneutem Öffnen aktuelle veröffentlichte Daten.
+
+Lokale Prüfung: 61 Python-Tests, neun Node-Prüfdateien und DOM-Integration mit tatsächlichen Daten bestanden. Alle 14 Benchmark-/FX-Reihen erreichbar. EUR-Preisvergleich Samsung/Microsoft/SPY: 237 gemeinsame abgeschlossene Beobachtungen 20.10.2025 bis 16.10.2026 im geprüften Stand. Watchlist-Anlage, sichere Notiz mit HTML-Zeichen, Speicherung, Sortierung, Übergabe, Wiederherstellen eines Presets und Undo ohne JavaScript-Fehler geprüft. Die folgenden Abschnitte dokumentieren vorherige Ausbaustufen.
+
 ## Folgeauftrag: EPS-/Splitbasis, verbleibende Historien und Score-Vergleich
 
 Umgesetzt: 133 zusätzliche EPS-Basisprüfungen für AMD/AVGO/WMT/QCOM/COST, 51 internationale Kennzahlenperioden für UL/SHEL/005930/ACOMO sowie 43 belegte Vorgängerperioden für XOM/BLK. Insgesamt 2.893 Perioden für 114 Positionen aus 2.416 verknüpften Dokumenten. EPS-Overlays bleiben vom Rohpaket getrennt und sind an dessen genaue Quellenidentität gebunden. Kein pauschales Freischalten unreviewter Instrumente. Operanden werden im selben Filing gegen Gewinn/Aktienzahl abgeglichen, spätestens zur Originalveröffentlichung verfügbar; spätere Vergleichsperioden werden nicht zurückdatiert. Berichtete FY-/YTD-EPS sind eine TTM-Näherung und ersetzen keine fehlenden Quartals-EPS.
