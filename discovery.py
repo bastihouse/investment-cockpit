@@ -125,10 +125,11 @@ def build(root,today=None):
     for q in snapshot['quotes']:
         ticker=q['ticker'];r=q.get('researchScore') or {};f=q.get('fundamentals',{});rs=by_ticker[ticker];points=hist.get(ticker,{}).get('points',[]);last=points[-1] if points else {}
         historical={'reportCount':len(rs),'firstPeriod':min((x['periodEnd'] for x in rs),default=None),'latestPeriod':max((x['periodEnd'] for x in rs),default=None),
+                    'epsAuditedPeriods':sum(bool(x.get('epsBasisAudit')) for x in rs),
                     'monthsWithFundamentals':sum(any(p['parts'].get(k) is not None for k in ('valuation','growth','quality')) for p in points),
                     'latestCoverage':last.get('coveragePoints',0),'latestMonth':last.get('date'),
                     'latestParts':last.get('parts',{}),'originalUrl':max(rs,key=lambda x:x['publishedAt'])['sourceUrl'] if rs else None}
-        historical['reports']=[{k:x.get(k) for k in ('periodEnd','publishedAt','periodMonths','currency','revenue','revenueYearAgo','operatingIncome','netIncome','netIncomeYearAgo','sourceUrl','documentSha256','sourceType','derivation','accession','basis')} for x in sorted(rs,key=lambda x:(x['periodEnd'],x.get('periodMonths',3)))]
+        historical['reports']=[{k:x.get(k) for k in ('periodEnd','publishedAt','periodMonths','currency','revenue','revenueYearAgo','operatingIncome','netIncome','netIncomeYearAgo','sourceUrl','documentSha256','sourceType','derivation','accession','basis','epsBasisAudit','epsTtmBasis','entityContinuity','releasePage')} for x in sorted(rs,key=lambda x:(x['periodEnd'],x.get('periodMonths',3)))]
         for report,original in zip(historical['reports'],sorted(rs,key=lambda x:(x['periodEnd'],x.get('periodMonths',3)))):
             report['periodMonths']=original.get('periodMonths',3)
             report['operandAccessions']=sorted({r['accn'] for r in original.get('sourceInputs',[])})
