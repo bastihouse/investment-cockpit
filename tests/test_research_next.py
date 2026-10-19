@@ -9,7 +9,7 @@ from validation import check_quote,issuer_reference
 from scoring import score
 from reconstruct import inputs_at,reconstruct_point
 from evaluation import add_months,outcome,rank_ic,summarize,sample,build as evaluate
-from monitor_reports import parse_feed,review_rows
+from monitor_reports import parse_feed,parse_catalog,CATALOGS,review_rows
 
 class QualityTests(unittest.TestCase):
  def quote(self):return {'ticker':'BRK.B','yahoo':'BRK-B','currency':'USD','price':532,'status':'cached','marketDate':'2026-10-16','fundamentals':{'status':'fresh','quoteCurrency':'USD','financialCurrency':'USD','bookValue':522000,'priceToBook':.001019}}
@@ -81,6 +81,20 @@ class EvaluationTests(unittest.TestCase):
    self.assertEqual(result['observed']['matureCount'],0)
 
 class MonitorTests(unittest.TestCase):
+ def test_catalog_dates_never_invented_and_future_periods_excluded(self):
+  body=json.dumps({'items':[{'year':'2026','quarter':q,'docs':{'pressRelease':{'link':'/report-'+q+'.pdf'}}} for q in ['2nd','4th']]}).encode()
+  hits=parse_catalog(body,'JPM',CATALOGS['JPM'],dt.date(2026,10,19))
+  self.assertEqual(len(hits),1);self.assertIsNone(hits[0]['publishedAt']);self.assertEqual(hits[0]['periodEnd'],'2026-06-30')
+  snap={'quotes':[{'ticker':'JPM','name':'JPM'}]}
+  row=review_rows(snap,[{'ticker':'JPM','periodEnd':'2026-03-31','publishedAt':'2026-04-14'}],{}, {},hits)[0]
+  self.assertEqual(row['state'],'review-required');self.assertFalse(row['providerAdvanced'])
+ def test_catalog_fiscal_year_and_official_links(self):
+  body=b'<a href="https://assets.siemens-energy.com/Q1-FY2026-earnings.pdf">Q1 FY2026 Earnings</a><a href="https://evil.test/Q2-FY2026-earnings.pdf">Q2 FY2026 Earnings</a>'
+  hits=parse_catalog(body,'ENR',CATALOGS['ENR'],dt.date(2026,10,19));self.assertEqual(len(hits),1);self.assertEqual(hits[0]['periodEnd'],'2025-12-31')
+  body=b'<a href="/content/results/2022-fy/release.pdf">Annual release</a><a href="/content/results/2026-2q/release.pdf">Release</a>'
+  hits=parse_catalog(body,'ALV',CATALOGS['ALV'],dt.date(2026,10,19));self.assertEqual(len(hits),1);self.assertEqual(hits[0]['periodEnd'],'2026-06-30')
+ def test_catalog_changed_structure_is_failure_not_empty_success(self):
+  with self.assertRaises(ValueError):parse_catalog(b'<html>Access denied</html>','ALV',CATALOGS['ALV'],dt.date(2026,10,19))
  def test_future_scheduled_and_external_items_excluded(self):
   feed=b'''<rss><channel><item><title>Reports First Quarter Results</title><link>https://issuer.test/result</link><pubDate>Wed, 29 Apr 2026 10:00:00 GMT</pubDate></item><item><title>Schedules Earnings Release</title><link>https://issuer.test/schedule</link><pubDate>Wed, 29 Apr 2026 10:00:00 GMT</pubDate></item><item><title>Financial Results</title><link>https://evil.test/result</link><pubDate>Wed, 29 Apr 2026 10:00:00 GMT</pubDate></item><item><title>Financial Results</title><link>https://issuer.test/future</link><pubDate>Wed, 29 Apr 2027 10:00:00 GMT</pubDate></item></channel></rss>'''
   hits=parse_feed(feed,'X','https://issuer.test/feed',dt.date(2026,10,18));self.assertEqual(len(hits),1);self.assertEqual(hits[0]['state'],'needs-review')
