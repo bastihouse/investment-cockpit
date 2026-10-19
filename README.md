@@ -1,4 +1,16 @@
-# Investment Cockpit V7.4
+# Investment Cockpit V7.5
+
+## Historische Aktienbasis und Vergleich (19.10.2026, Folgeausbau)
+
+Aktueller Stand: 2.893 Kennzahlenperioden aus 2.416 Quelldokumenten für alle 114 Aktienpositionen. Neu: Unilever und Shell mit exakt bezeichneten IFRS-Berichtswährungen, sechs Samsung-Konzernjahresabschlüsse in Mio. KRW und 13 Acomo-Jahres-/Halbjahresmeldungen in Mio. EUR. Verfügbarkeitsdaten kommen aus Einreichungen oder datierten Originalmeldungen, nicht aus dem Berichtsende. Jahresreihen sind keine lückenlosen Quartalsreihen. Fehlendes operatives Ergebnis wird nicht durch bereinigten Gewinn ersetzt. UL-EPS in EUR wird nicht mit dem USD-ADR-Kurs verrechnet; auch Shell-ADR-EPS bleibt offen.
+
+Für AMD, Broadcom, Walmart, Qualcomm und Costco sind 133 zusätzliche Perioden mit belegter EPS-/Aktienbasis hinterlegt. Diluted EPS wird gegen Gewinn und gewichtete verwässerte Aktienzahl derselben Einreichung/Periode abgeglichen. TTM verwendet berichtetes FY, vier Quartale oder berichtetes YTD + vorheriges FY − vorheriges YTD als explizite Näherung. Keine erfundenen Q4-EPS. Rohwerte, Faktoren, Operanden, Einreichungsdaten und Splitbelege bleiben im Paket. Die Kursabfrage speichert Split-Ereignisse; Abweichungen vom geprüften Paket sperren diese Bewertung. Andere Instrumente werden nicht pauschal freigegeben. Keine historischen Analystenrevisionen: weiterhin kein vollständiger historischer 100-Punkte-Score.
+
+Exxon (alte CIK 34088) und BlackRock (alte CIK 1364742) erhalten 43 zusätzliche Vorgängerperioden nach belegter 1:1-Fortführung. GE-Vernova- und Sandisk-Abspaltungen erhalten keine Kursgeschichte der Mutter. Ursprüngliche Einreichungsdaten bleiben unverändert.
+
+„Score-Verlauf → Rückrechnung · 5 Jahre“ vergleicht bis zu vier Aktien. Standard: nur gemeinsam belegte Kategorien je Monat, originale Punkte und originale Abdeckung separat. Unterschiedliche Profile haben gemeinsam nur Marktrisiko. Wechsel des Komponentensatzes unterbrechen Verbindungslinien. Kategoriebeiträge am gewählten Monatsende, eigener Abdeckungsverlauf, Eingaben-/EPS-Belege und CSV mit Vergleichsbasis ergänzen den Chart. Aus dem Branchenvergleich können Auswahlen direkt übernommen werden. Separate Rückrechnungsvariante `research-v7.5-reconstruction-v2`, unveränderte Schwellen/Gewichte und unverändertes beobachtetes Archiv.
+
+Quellenpflege außerhalb der täglichen CI: `python tools/collect_international_history.py`, `python tools/collect_predecessor_history.py`, `python tools/audit_historical_eps.py`. Quellenpakete `historical-international.json`, `historical-predecessors.json` und `historical-eps-audit.json` werden fingerprintet geladen. EPS-Overlays greifen nur bei identischem Ticker, Berichtsende, Periodenlänge, Publikationsdatum und ursprünglichem Dokumenthash. Prüfung: 58 Python-Tests, acht Node-Prüfdateien sowie Integration mit tatsächlichen Daten.
 
 Kostenloses öffentliches Research-Dashboard auf GitHub Pages. Keine Depotbestände, Zugangsdaten oder kostenpflichtigen Dienste.
 
