@@ -17,6 +17,7 @@ NOW = dt.datetime.now(UTC)
 TODAY = NOW.date()
 STAMP = NOW.isoformat()
 SOURCE = 'Yahoo Finance via yfinance (inoffiziell)'
+CHART_BASIS = {}
 
 
 def write(path, value):
@@ -51,6 +52,13 @@ def chart(symbol):
     if not history or (TODAY-dt.date.fromisoformat(history[-1]['date'])).days > 7:
         raise ValueError('Kein aktueller Tagesschluss innerhalb von 7 Tagen')
     currency = data.get('meta', {}).get('currency')
+    CHART_BASIS[symbol] = sorted([
+        {'tradingDate': dt.datetime.fromtimestamp(e['date'], UTC).date().isoformat(),
+         'ratio': float(e['numerator']) / float(e['denominator'])}
+        for e in data.get('events', {}).get('splits', {}).values()
+        if e.get('denominator') and e.get('numerator') and e.get('date')
+        and '2020-01-01' <= dt.datetime.fromtimestamp(e['date'], UTC).date().isoformat() <= TODAY.isoformat()
+    ], key=lambda e: e['tradingDate'])
     return history, currency
 
 
@@ -124,7 +132,8 @@ def main():
                         source=['Yahoo Finance Chart (inoffiziell)'], status='cached')
             item['attempts']['history'] = {'status': 'ok', 'checkedAt': STAMP}
             write(histpath, {'source': 'Yahoo Finance Chart · Schlusskurse ohne Dividendenreinvestition', 'fetchedAt': STAMP,
-                             'currency': stock['currency'], 'data': history})
+                             'currency': stock['currency'], 'data': history, 'splitEvents': CHART_BASIS[stock['yahoo']],
+                             'priceBasis': 'Provider split-adjusted close; adjustedClose also includes dividend adjustments'})
             successes += 1
         except Exception as exc:
             msg = str(exc)[:200]
