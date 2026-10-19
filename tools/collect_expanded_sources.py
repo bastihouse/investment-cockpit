@@ -69,6 +69,17 @@ def mc(page,year,months):
     if not m:raise ValueError('LVMH original publication date missing')
     pub=f'{m[3]}-{m[1]}-{m[2]}'
     candidates=[a.get('href') for a in tree.xpath('//a[@href]') if '.pdf' in a.get('href').lower() and any(k in (a.text_content()+' '+a.get('href')).lower() for k in ['financial document','financial-doc','financialdocuments','financial report','financial-report'])]
+    if year==2022 and months==6:
+        # The event's financial-report anchor currently points to the presentation.
+        release=html.fromstring(get('https://www.lvmh.com/en/publications/excellent-first-half-for-lvmh-2022/'))
+        candidates=[a.get('href') for a in release.xpath('//a[@href]') if '.pdf' in a.get('href').lower()]
+    if not candidates:
+        # Some event pages expose only the issuer release, whose original PDF
+        # contains the condensed IFRS statements. Never use a presentation proxy.
+        releases=[urllib.parse.urljoin(page,a.get('href')) for a in tree.xpath('//a[@href]') if '/en/publications/' in a.get('href') and 'press release' in a.text_content().lower()]
+        if len(releases)==1:
+            release=html.fromstring(get(releases[0]))
+            candidates=[urllib.parse.urljoin(releases[0],a.get('href')) for a in release.xpath('//a[@href]') if '.pdf' in a.get('href').lower()]
     if not candidates:raise ValueError('LVMH original financial document missing')
     url=urllib.parse.urljoin(page,candidates[-1]);b=get(url);t=pdftext(b)
     chunks=re.split(r'CONSOLIDATED INCOME STATEMENT',t,flags=re.I)
