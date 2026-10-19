@@ -2,7 +2,7 @@ name: Kostenlose Marktdaten aktualisieren
 on:
   push:
     branches: [main]
-    paths: [index.html, insights.js, research.js, dashboard.js, reconstruction.js, workspace.js, research_next.js, experience.js, discovery.js, responsive-preview.html, evaluation.py, monitor_reports.py, reconstruct.py, discovery.py, historical_sources.py, tools/audit_historical_eps.py, update_data.py, scoring.py, validation.py, archive.py, requirements.txt, "data/**", "tests/**", ".github/workflows/update.yml"]
+    paths: [index.html, insights.js, research.js, dashboard.js, reconstruction.js, workspace.js, research_next.js, experience.js, discovery.js, research_hub.js, benchmarks.py, responsive-preview.html, evaluation.py, monitor_reports.py, reconstruct.py, discovery.py, historical_sources.py, tools/audit_historical_eps.py, update_data.py, scoring.py, validation.py, archive.py, requirements.txt, "data/**", "tests/**", ".github/workflows/update.yml"]
   schedule:
     - cron: '35 21 * * 1-5'
   workflow_dispatch:
@@ -35,6 +35,8 @@ jobs:
           node tests/test_research_next.cjs
           node tests/test_experience.cjs
           node tests/test_discovery.cjs
+          node tests/test_research_hub.cjs
+          node --check research_hub.js
           node --check experience.js
           node --check discovery.js
           node --check research_next.js
@@ -47,6 +49,7 @@ jobs:
       - name: Marktdaten abrufen
         run: |
           python update_data.py
+          python benchmarks.py
           python reconstruct.py
           python monitor_reports.py
           python evaluation.py
@@ -65,7 +68,7 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html _site/index.html
-          for asset in insights research dashboard reconstruction workspace research_next experience discovery; do
+          for asset in insights research dashboard reconstruction workspace research_next experience discovery research_hub; do
             asset_hash=$(sha256sum "$asset.js" | cut -c1-12)
             cp "$asset.js" "_site/$asset.js"
             cp "$asset.js" "_site/$asset.$asset_hash.js"
