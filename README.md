@@ -38,7 +38,7 @@ node tests/test_history.cjs
 node --check dashboard.js
 ```
 
-Pages benötigt `index.html`, die sechs JS-Dateien (`insights`, `research`, `dashboard`, `reconstruction`, `workspace`, `research_next`) und `data/`; Python und Tests werden nicht ausgeliefert.
+Pages benötigt `index.html`, die sieben JS-Dateien (`insights`, `research`, `dashboard`, `reconstruction`, `workspace`, `research_next`, `experience`) und `data/`; Python und Tests werden nicht ausgeliefert.
 
 ## Monatliche Rückrechnung (separate Modellvariante)
 
@@ -91,3 +91,14 @@ JPM nutzt berichteten Gewinn, Buchwert und annualisierte Quartals-ROE (keine ROT
 `evaluation.py` erstellt „Aktienanalyse → Score-Auswertung“: feste Regeln, 6/12 Kalendermonate, Einstieg erst zum nächsten verfügbaren adjustierten Schlusskurs nach dem Signal; nur gereifte Ergebnisse. Vor 2024 liegt der Entwicklungszeitraum, ab 2024 der Prüfzeitraum. Entwicklungsfenster über der Grenze werden entfernt. Feste Januar-/Juli- beziehungsweise Januar-Anker und zusätzliche Überlappungsprüfung verhindern überlappende Fenster je Aktie/Horizont. Kein Fit und keine Gewichtsoptimierung. Vergleichbare Segmente halten Modell, Profil, Abdeckung, Komponenten und Wachstumsperiode getrennt; Rangkorrelation braucht mindestens vier Aktien derselben Stichtagskohorte. Rückrechnung und beobachtetes Archiv werden separat ausgewertet. Noch unreife beobachtete Horizonte bleiben offen. CSV/JSON und Einzelbeobachtungen legen Grenzen und Kurstage offen.
 
 Die Zeitteilung ist rückblickend und kein damals versiegelter Holdout. Heutiges Universum, nachträglich geladene Kursreihen, kleine Stichproben, fehlende Kosten und FX begrenzen die Aussage. Die Diagnose belegt keine Prognosekraft oder Überrendite.
+
+
+## Kompakte Oberfläche, Themen und erklärbare Veränderungen
+
+`experience.js` ergänzt verständliche Treiberkarten in „Score-Veränderungen“: Kurs-/Bewertungsdaten, veränderte Kennzahlen, Anbieter-Berichtsperioden, Konsens, Risiko und Datenfreigaben. Kategorie-Punktedifferenzen stammen ausschließlich aus den Originalständen. Reine Kurseffekte werden nur bei unveränderter passender Kennzahl, Währung und entsprechend proportionaler Bewertungsquote benannt. Sonst bleibt die gemeinsame Änderung sichtbar; es gibt keine erfundene Kausalzerlegung. Modellwechsel und neue/verlorene Abdeckung erhalten keine scheinbaren Gesamtgewinne. Alle ursprünglichen Werte/Regeln bleiben aufklappbar. EPS, Buchwert und Eingabesperren sind jetzt ebenfalls im Eingabevergleich enthalten. Das Research-Modell und das unveränderliche Archiv werden dadurch nicht geändert.
+
+Die Kopfzeile enthält keine Versions- oder Kostenlosigkeitswerbung. Dark/Light folgt zunächst der Systempräferenz; eine ausdrücklich gewählte Einstellung wird unter `cockpit-theme` lokal gespeichert. Die Darstellung benötigt weder Konto noch neue Dienste. Längere Texte, Quellen und Berechnungen öffnen auf Wunsch native Infodialoge mit Escape/Schließen und Fokusrückgabe. Kurze Hinweise auf Teilbewertungen, fehlende Daten und Forschung bleiben sichtbar.
+
+Unter 760 Pixeln stehen ein Navigationdialog, eine feste Schnellnavigation, 44-Pixel-Bedienelemente und native Auswahlfelder mit 16-Pixel-Schrift zur Verfügung. Aktienvergleich, Scores und Score-Veränderungen erhalten Karten statt breiter Tabellen. Zusätzliche Quellen/Quotienten bleiben aus den Vergleichskarten erreichbar. Charts berechnen Achsen und Plotbreite aus der tatsächlich verfügbaren Breite; Datumswahl und gemeinsame Stichtagsanzeige bleiben erhalten. Reagiert auf Breitenänderungen und behält die Auswahl bei. `responsive-preview.html` zeigt echte 390-/768-Pixel-Iframe-Viewports für die visuelle Abnahme; dies ersetzt keinen Test auf einem physischen iPhone.
+
+Prüfungen: `node tests/test_experience.cjs` für Treiber, EPS-Basis, Berichtswechsel, Freigaben und Modellgrenzen. Lokale DOM-Integration prüft Theme-Speicherung, Dialoge/Fokus, Navigation, Vergleichskarten und 350-Pixel-Charts. Die neue UI-Datei wird mit SHA-Fingerprint veröffentlicht.
