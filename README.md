@@ -1,5 +1,14 @@
 # Investment Cockpit V7.5
 
+## Gespeicherte Sortierung und Watchlist-Filter (20.10.2026)
+
+Sortierspalte und Richtung werden je Tabelle lokal unter `cockpit-table-sorts-v1` gespeichert und nach Neuladen anhand des Spaltennamens wiederhergestellt. Getrennte Tabellen behalten getrennte Wahlen; verschwundene Spalten werden ignoriert. Desktop-Kopfzeilen, mobile Spaltenauswahl und der bisherige Übersichtsfilter verwenden dieselbe Speicherung. Änderungen lesen vor dem Speichern den aktuellen Präferenzstand, um andere Tabellenwahlen aus weiteren Tabs zu erhalten. Beschädigte Präferenzen verhindern die Bedienung nicht; bei einem Schreibfehler gilt die neue Reihenfolge nur im laufenden Aufruf und die Oberfläche meldet den Fehler.
+
+Die Aktienübersicht enthält einen Watchlist-Filter mit Trefferzahl, kombinierbar mit Aktienuniversum und Textsuche. Filterwahl bleibt lokal über Neuladen erhalten (`cockpit-overview-watchlist-v1`). Listenänderungen, Umbenennen, Entfernen, Import/Reset und Änderungen aus anderen Tabs werden über den vorhandenen Workspace übernommen. Eine entfernte gewählte Liste setzt den Filter mit Hinweis auf alle Aktien zurück. Leere Listen zeigen keine zufälligen Gesamttreffer. Marktkennzahlen und Research-Rangfolge oberhalb der Aktienliste bleiben global, was beim aktiven Filter ausdrücklich angezeigt wird. Keine Übertragung von Listen oder Notizen.
+
+Syntax und erweiterte Node-Prüfungen bestanden. Integration mit tatsächlichen Daten einschließlich neu erzeugter Dokumentinstanz: Wiederherstellung unabhängiger Tabellenwahlen und Watchlist, kombinierte Suche/Universum, Umbenennen, leere Liste, Quota-Schreibfehler, defekte Präferenzen und Rückfall nach gelöschter Liste bestanden; keine JavaScript-Fehler.
+
+
 ## Tabellen über Spaltenköpfe sortieren (20.10.2026)
 
 Alle Datenspalten von Tabellen mit Kopfzeile erhalten bedienbare Sortierköpfe: erster Klick aufsteigend, erneuter Klick absteigend, sichtbare Richtung sowie aria-sort und Tastaturbedienung. Reine Aktionsspalten und leere Köpfe bleiben ohne Sortierung. Neu eingefügte Tabellen und Tabellenkopien in Informationsdialogen werden ebenfalls angebunden. Deutsche Dezimal-/Tausenderformate, Vorzeichen, Datumswerte und natürliche Namensreihenfolge werden berücksichtigt; fehlende Werte stehen in beiden Richtungen zuletzt. Gleichstände bleiben stabil.
