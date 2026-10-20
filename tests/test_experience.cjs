@@ -13,3 +13,26 @@ b=make();b.researchScore.parts.valuation=19;d=explainChange(a,b,'same','same');a
 b=make();b.currency='EUR';b.price=110;b.peTTM=22;d=explainChange(a,b,'same','same');assert.equal(d.pricePct,null);assert.notEqual(d.drivers[0].title,'Kursbewegung bei gleicher Kennzahl');
 assert.equal(explainChange(a,a,'same','same').changed,false);
 console.log('Observed drivers: price basis, changed EPS, reports, data gates, missing coverage and model boundaries passed.');
+
+const {tableSortValue,compareTableValues}=require('../experience.js');
+const number=v=>tableSortValue(v)?.value;
+assert.equal(number('1.234,56 USD'),1234.56);
+assert.equal(number('1\u202f234,56'),1234.56);
+assert.equal(number('−12,5%'),-12.5);
+assert.equal(number('+8,75 P.'),8.75);
+assert.equal(number('71,8 / 100'),71.8);
+assert.equal(number('3.50'),3.5);
+assert.equal(number('1.234'),1234);
+assert.equal(number('2026-10-20'),Date.UTC(2026,9,20));
+assert.equal(number('20.10.2026, 08:00'),Date.UTC(2026,9,20));
+assert.equal(tableSortValue('—'),null);
+assert.equal(tableSortValue('Teilbewertung'),null);
+assert.equal(tableSortValue('Nicht verfügbar'),null);
+assert.equal(tableSortValue('005930',true).type,'text');
+assert.equal(tableSortValue('Keine Primärbestätigung',true).type,'text');
+for(const direction of [1,-1])assert(compareTableValues(null,tableSortValue('0'),direction)>0);
+const sorted=(values,direction)=>values.map(v=>tableSortValue(v)).sort((a,b)=>compareTableValues(a,b,direction)).map(x=>x?.value??null);
+assert.deepEqual(sorted(['10','−2,5','2','—','2'],1),[-2.5,2,2,10,null]);
+assert.deepEqual(sorted(['10','−2,5','2','—','2'],-1),[10,2,2,-2.5,null]);
+assert(compareTableValues(tableSortValue('Aktie 2'),tableSortValue('Aktie 10'))<0);
+console.log('Table sorting: German numbers, signs, dates, tickers and missing values passed.');
