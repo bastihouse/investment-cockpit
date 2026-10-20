@@ -1,5 +1,14 @@
 # Investment Cockpit V7.5
 
+## Watchlist-Sterne an Aktien (20.10.2026)
+
+Sterne in Übersicht und mobilen Karten, Live-Kurstabelle, aktuellen Score-/Vergleichsansichten, Aktien-Detailansicht, Branchenvergleich, Scanner und Datenlücken-Karten. Gefüllter Stern bei Mitgliedschaft in mindestens einer Liste, zugängliche Beschriftung mit Listenanzahl. Kompakter nativer Dialog mit Mehrfachzuordnung, neuer Liste samt Aktie, Entfernen und Rückgängig. Vorhandene Notizen bleiben beim Hinzufügen in weitere Listen erhalten. Browserlokale Speicherung und JSON-Sicherung verwenden unverändert dasselbe Datenformat.
+
+Syntaxprüfung und Research-Hub-Prüfung bestanden. Tatsächliche DOM-Integration prüft Mehrfachzuordnung, Listennamen als sicheren Text, neue Liste, Notizerhalt, Rückgängig, simulierte Speicherquota ohne falsche Erfolgsmeldung, Suche ohne doppelte Sterne, Änderungen aus anderen Tabs und den Fall ohne vorhandene Listen. Keine JavaScript-Fehler.
+
+Erfolgreich veröffentlicht: https://github.com/bastihouse/investment-cockpit/actions/runs/39374288010 (Refresh 69 Sekunden, Deployment 10 Sekunden; bestehende 61 Python-Tests und neun Node-Prüfdateien im Workflow). Live geprüft: neue Liste über Stern, zwei Listen je Aktie, gefüllter Stern nach Neuladen, Entfernen/Rückgängig, Suche ohne doppelte Sterne, Wechsel NVDA/MSFT, Escape mit Fokusrückgabe und Synchronisation zwischen Tabs. Smartphone 390px: Stern in Aktienkarte, Dialog 356px breit ohne innere Überbreite, Zuordnung und Rückgängig; Tablet 768px: 440px-Dialog. Dark-Mode-Farben geprüft und ursprüngliches Theme wiederhergestellt. Temporäre QA-Listen entfernt. Keine physische Geräteprüfung.
+
+
 ## Benchmarkvergleich, Watchlists und Vergleichsansicht (19.10.2026)
 
 Drei integrierte Ansichten unter Aktienanalyse: bis zu vier Aktien gegen SPY beziehungsweise elf US-Sektor-ETF-Proxies, historische Umrechnung nach USD/EUR, gemeinsame abgeschlossene Handelstage, Kursrendite oder dividendenbereinigte Anbieternäherung, Renditeabstand in Prozentpunkten, Drawdown und CSV. Kein offizieller Index-Total-Return und kein risikobereinigtes Alpha. Fehlende/veraltete Daten, längere Lücken und auffällige Basissprünge sperren die Darstellung.
