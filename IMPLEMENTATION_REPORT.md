@@ -1,5 +1,14 @@
 # Research-Erweiterung 19.10.2026
 
+## Tabellen über Spaltenköpfe sortieren (20.10.2026)
+
+Alle Datenspalten von Tabellen mit Kopfzeile erhalten bedienbare Sortierköpfe: erster Klick aufsteigend, erneuter Klick absteigend, sichtbare Richtung sowie aria-sort und Tastaturbedienung. Reine Aktionsspalten und leere Köpfe bleiben ohne Sortierung. Neu eingefügte Tabellen und Tabellenkopien in Informationsdialogen werden ebenfalls angebunden. Deutsche Dezimal-/Tausenderformate, Vorzeichen, Datumswerte und natürliche Namensreihenfolge werden berücksichtigt; fehlende Werte stehen in beiden Richtungen zuletzt. Gleichstände bleiben stabil.
+
+Eine aktive Sortierung wird nach Aktualisierung, Suche und Filtern innerhalb der vorhandenen Tabelle erneut angewendet. Bestehende Zeilen und ihre Aktionen werden umgeordnet, nicht neu erstellt; zusammengefasste Hinweiszeilen bleiben getrennt. Die Sortierung wird nicht über einen vollständigen Seitenreload gespeichert. Auf Smartphones erhalten als Karten dargestellte Tabellen eine vollständige Spaltenauswahl mit Richtungswechsel. Der bisherige Übersichts-Sortierfilter und die Kopfsortierung zeigen keine widersprüchliche Auswahl.
+
+Aktien im Vergleich behalten beim Sortieren ihre Tickerzuordnung zu Watchlist-Sternen. Unit-Prüfungen für Zahlen, Vorzeichen, Datum, numerische Ticker und fehlende Werte ergänzt. DOM-Abnahme mit tatsächlichen Daten: Kurs-/YTD-Sortierung, Persistenz bei Suche, mobile Auswahl und Kartenreihenfolge, Details-Listener, fehlende Werte, Datumsfolge, neue Zeilen, Tabellenkopien sowie Watchlist-Zuordnung nach umgekehrter Reihenfolge bestanden; keine JavaScript-Fehler.
+
+
 ## Watchlist-Sterne direkt an Aktien (20.10.2026)
 
 Sterne in der Aktienübersicht (Tabelle und mobile Karten), Live-Kurstabelle, aktueller Score-Liste, aktuellem Aktienvergleich, Detailansicht, Branchenvergleich, Scanner und Datenlücken-Karten. Ein gefüllter Stern zeigt die Mitgliedschaft in mindestens einer Liste; der zugängliche Name nennt die Anzahl. Ein kompakter Dialog erlaubt Zuordnung zu mehreren Listen, Entfernen, Rückgängig sowie das Anlegen einer neuen Liste mit Aktie. Browserlokale Speicherung verwendet unverändert die vorhandene validierte Arbeitsfläche; bestehende Notizen bleiben beim Hinzufügen zu anderen Listen erhalten.
