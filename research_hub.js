@@ -84,7 +84,7 @@ function boot(){
    const root=$(id);if(!root)continue;root.querySelectorAll('['+attribute+']').forEach(anchor=>{const host=anchor.closest('tr')?.cells[0]||anchor.closest('article');makeStar(host,anchor.getAttribute(attribute));});
   }
   $('lmRows')?.querySelectorAll('tr[data-ticker]').forEach(row=>makeStar(row.cells[0],row.dataset.ticker));
-  $('r71CompareRows')?.querySelectorAll('tr').forEach((row,i)=>makeStar(row.cells[0],readTickers('r71Cmp')[i]));
+  $('r71CompareRows')?.querySelectorAll('tr').forEach(row=>{const title=row.cells[0]?.querySelector('b')?.textContent;const stock=universe.find(q=>title===q.name+' · '+q.ticker);makeStar(row.cells[0],stock?.ticker);});
   for(const id of ['r71ScoreRows','r71CompareRows']){const rows=[...($(id)?.rows||[])];$(id+'Mobile')?.querySelectorAll('article').forEach((card,i)=>makeStar(card,rows[i]?.querySelector('[data-hub-star]')?.dataset.hubStar));}
   makeStar($('companyTitle')?.parentElement,$('companyTicker')?.value);
   document.querySelectorAll('[data-hub-star]').forEach(button=>{const t=button.dataset.hubStar,count=state.lists.filter(l=>l.items.some(i=>i.ticker===t)).length,label=`Watchlists für ${stockName(t)} · ${count?`in ${count} Liste${count===1?'':'n'}`:'noch nicht vorgemerkt'}`;if(button.textContent!==(count?'★':'☆'))button.textContent=count?'★':'☆';button.setAttribute('aria-label',label);button.setAttribute('title',label);button.setAttribute('aria-pressed',String(count>0));});
