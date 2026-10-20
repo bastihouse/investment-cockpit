@@ -1,5 +1,14 @@
 # Investment Cockpit V7.5
 
+## Watchlist-Sterne direkt an Aktien (20.10.2026)
+
+Sterne in der Aktienübersicht (Tabelle und mobile Karten), Live-Kurstabelle, aktueller Score-Liste, aktuellem Aktienvergleich, Detailansicht, Branchenvergleich, Scanner und Datenlücken-Karten. Ein gefüllter Stern zeigt die Mitgliedschaft in mindestens einer Liste; der zugängliche Name nennt die Anzahl. Ein kompakter Dialog erlaubt Zuordnung zu mehreren Listen, Entfernen, Rückgängig sowie das Anlegen einer neuen Liste mit Aktie. Browserlokale Speicherung verwendet unverändert die vorhandene validierte Arbeitsfläche; bestehende Notizen bleiben beim Hinzufügen zu anderen Listen erhalten.
+
+Sterne werden nach Such-/Filterwechseln und Änderungen aus anderen Tabs synchronisiert. Der Dialog unterstützt native Tastaturbedienung, Escape, Fokusrückgabe und Dark/Light-Themes; Listenbezeichnungen werden als Text dargestellt. Schreibfehler melden keinen Erfolg. Vorhandene Export-/Importfunktionen bleiben nutzbar.
+
+Prüfung: JavaScript-Syntax und bestehende Research-Hub-Prüfung bestanden. DOM-Integration mit tatsächlichen Daten einschließlich Mehrfachzuordnung, neuer Liste, Notizerhalt, Rückgängig, simulierter Speicherquota, Suche ohne doppelte Sterne und externem Speicherereignis bestanden; keine JavaScript-Fehler.
+
+
 ## Benchmark, Watchlists und gespeicherte Vergleiche (19.10.2026)
 
 Neue Ansichten unter Aktienanalyse: `#benchmarkCompare`, `#watchlists` und `#comparisonWorkspace`. Benchmarkvergleich mit SPY als S&P-500-ETF-Proxy und elf US-Sektor-ETFs, historischen EUR/USD- und USD/KRW-Kursen, Wahl USD/EUR, Kursrendite oder dividendenbereinigter Anbieternäherung, drei Monaten bis fünf Jahren, gemeinsamen Start-/Endtagen und CSV. `benchmarks.py` erfasst 14 Reihen separat vom Aktienuniversum; fehlgeschlagene Abrufe behalten den ursprünglichen Cache-Zeitstempel. Der laufende UTC-Tag bleibt ausgeschlossen. FX nur rückwärts, höchstens vier Kalendertage; keine Interpolation oder Vorwärtsdaten. Lange Kurslücken und extreme Basissprünge sperren den Vergleich. ETF-Gebühren sind im Marktpreis enthalten, persönliche Steuern/Transaktionskosten fehlen; keine Behauptung offizieller Index-Gesamtrenditen oder risikobereinigten Alphas. Branchenauswahl von Aktie 1 beruht auf dem aktuellen Anbieter-Sektor und bleibt ein US-Proxy.
