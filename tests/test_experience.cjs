@@ -36,3 +36,14 @@ assert.deepEqual(sorted(['10','−2,5','2','—','2'],1),[-2.5,2,2,10,null]);
 assert.deepEqual(sorted(['10','−2,5','2','—','2'],-1),[10,2,2,-2.5,null]);
 assert(compareTableValues(tableSortValue('Aktie 2'),tableSortValue('Aktie 10'))<0);
 console.log('Table sorting: German numbers, signs, dates, tickers and missing values passed.');
+
+const {validateTableSorts}=require('../experience.js');
+const preferences=validateTableSorts({version:1,tables:{'body:overviewRows':{column:'Score',direction:-1,ignored:'not retained'}}});
+assert.deepEqual(preferences.tables['body:overviewRows'],{column:'Score',direction:-1});
+assert.throws(()=>validateTableSorts({version:2,tables:{}}));
+assert.throws(()=>validateTableSorts({version:1,tables:[]}));
+assert.throws(()=>validateTableSorts({version:1,tables:{bad:{column:5,direction:1}}}));
+assert.throws(()=>validateTableSorts({version:1,tables:{bad:{column:'Score',direction:0}}}));
+assert.throws(()=>validateTableSorts({version:1,tables:Object.fromEntries(Array.from({length:251},(_,i)=>['t'+i,{column:'Name',direction:1}]))}));
+assert.equal(Object.getPrototypeOf(validateTableSorts(JSON.parse('{"version":1,"tables":{"__proto__":{"column":"Name","direction":1}}}')).tables),null);
+console.log('Saved table preferences: version, limits, directions and safe keys passed.');
