@@ -1,5 +1,14 @@
 # Research-Erweiterung 19.10.2026
 
+## Watchlist-Sterne direkt an Aktien (20.10.2026)
+
+Sterne in der Aktienübersicht (Tabelle und mobile Karten), Live-Kurstabelle, aktueller Score-Liste, aktuellem Aktienvergleich, Detailansicht, Branchenvergleich, Scanner und Datenlücken-Karten. Ein gefüllter Stern zeigt die Mitgliedschaft in mindestens einer Liste; der zugängliche Name nennt die Anzahl. Ein kompakter Dialog erlaubt Zuordnung zu mehreren Listen, Entfernen, Rückgängig sowie das Anlegen einer neuen Liste mit Aktie. Browserlokale Speicherung verwendet unverändert die vorhandene validierte Arbeitsfläche; bestehende Notizen bleiben beim Hinzufügen zu anderen Listen erhalten.
+
+Sterne werden nach Such-/Filterwechseln und Änderungen aus anderen Tabs synchronisiert. Der Dialog unterstützt native Tastaturbedienung, Escape, Fokusrückgabe und Dark/Light-Themes; Listenbezeichnungen werden als Text dargestellt. Schreibfehler melden keinen Erfolg. Vorhandene Export-/Importfunktionen bleiben nutzbar.
+
+Prüfung: JavaScript-Syntax und bestehende Research-Hub-Prüfung bestanden. DOM-Integration mit tatsächlichen Daten einschließlich Mehrfachzuordnung, neuer Liste, Notizerhalt, Rückgängig, simulierter Speicherquota, Suche ohne doppelte Sterne und externem Speicherereignis bestanden; keine JavaScript-Fehler.
+
+
 ## Folgeauftrag: Benchmarkvergleich, Watchlists, Vergleichsansicht
 
 Umgesetzt sind drei neue Ansichten: konsistenter Renditevergleich mit SPY und elf US-Sektor-ETF-Proxies, lokale Watchlists mit Notizen und Sicherung sowie benannte Vergleichskonfigurationen mit historischen Rängen, Heatmap und Kategorieunterschieden. Gemeinsame abgeschlossene Tage und gemeinsame Darstellungswährung verhindern lokale-Währungs-Mischvergleiche. Dividendenbereinigung bleibt eine Anbieternäherung, ETF-Proxies bleiben von offiziellen Indexrenditen getrennt. Datenabrufstatus und Cache-Zeitstempel bleiben nachvollziehbar. Kein aktueller UTC-Tag, kein zukünftiger FX-Wert, Carry höchstens vier Tage. Fehlende historische Kategorien werden nicht hochgerechnet; Ränge gelten ausschließlich für gleiche Profile und gemeinsame Kategorien in der Auswahl.
