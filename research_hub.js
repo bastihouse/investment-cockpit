@@ -70,6 +70,27 @@ function boot(){
  const launch=document.createElement('div');launch.className='hub-actions';launch.innerHTML='<button data-hub-route="watchlists">Watchlists →</button><button data-hub-route="benchmarkCompare">Benchmarkvergleich →</button><button data-hub-route="comparisonWorkspace">Gespeicherte Vergleiche →</button>';$('overview').prepend(launch);launch.querySelectorAll('[data-hub-route]').forEach(b=>b.onclick=()=>show(b.dataset.hubRoute));
  const originalCompareActions=document.createElement('div');originalCompareActions.className='hub-actions';originalCompareActions.innerHTML='<button id="hubFromCompare" class="secondary">Auswahl in Vergleichsansicht →</button><button id="hubFromCompareBenchmark" class="secondary">Benchmark hinzufügen →</button>';$('r71CompareTickers')?.after(originalCompareActions);
  const reconActions=document.createElement('div');reconActions.className='hub-actions';reconActions.innerHTML='<button id="hubFromRecon" class="secondary">Diesen Vergleich speichern / erweitern →</button>';$('reconTickers')?.after(reconActions);
+ const FILTER_KEY='cockpit-overview-watchlist-v1';let overviewListPreference='all',overviewListSignature=null,overviewFilterNotice='';
+ try{const stored=localStorage.getItem(FILTER_KEY);if(stored==='all'||stored?.startsWith('list:')&&stored.length<=85)overviewListPreference=stored;}catch(e){/* Filtering also works without persistent preferences. */}
+ const overviewListLabel=document.createElement('label');overviewListLabel.className='hub-overview-filter';overviewListLabel.textContent='Watchlist ';
+ const overviewListSelect=document.createElement('select');overviewListSelect.id='overviewWatchlist';overviewListSelect.setAttribute('aria-label','Aktienübersicht Watchlist');overviewListLabel.append(overviewListSelect);$('overviewSearch').before(overviewListLabel);
+ const overviewListCount=document.createElement('p');overviewListCount.id='overviewWatchlistCount';overviewListCount.className='hub-status';overviewListCount.setAttribute('role','status');$('overviewSearch').closest('.dashboard-controls').after(overviewListCount);
+ const filterStyle=document.createElement('style');filterStyle.textContent='.hub-overview-filter{display:flex;flex-direction:column;gap:7px;min-width:0}.hub-overview-filter select{min-width:0;width:100%;min-height:44px}';document.head.append(filterStyle);
+ function persistOverviewList(){try{localStorage.setItem(FILTER_KEY,overviewListPreference);}catch(e){overviewFilterNotice='Filterwahl konnte nicht gespeichert werden; sie gilt für diesen Seitenaufruf.';}}
+ function syncOverviewLists(){
+  const signature=JSON.stringify(state.lists.map(l=>[l.id,l.name,l.items.map(i=>i.ticker)]));if(signature===overviewListSignature)return;overviewListSignature=signature;
+  const selected=overviewListSelect.value||overviewListPreference,options=document.createDocumentFragment(),all=document.createElement('option');all.value='all';all.textContent='Alle Aktien';options.append(all);
+  for(const list of state.lists){const option=document.createElement('option');option.value='list:'+list.id;option.textContent=`${list.name} (${list.items.length})`;options.append(option);}overviewListSelect.replaceChildren(options);
+  const exists=selected==='all'||state.lists.some(l=>'list:'+l.id===selected);overviewListPreference=exists?selected:'all';overviewListSelect.value=overviewListPreference;
+  if(!exists){overviewFilterNotice=storageError?'Watchlist-Speicher nicht lesbar; Filter deaktiviert.':'Die gewählte Watchlist ist nicht mehr vorhanden. Alle Aktien im gewählten Universum werden angezeigt.';persistOverviewList();}
+  window.CockpitDashboard?.render();
+ }
+ window.CockpitWatchlists={
+  overviewTickers:()=>{const list=state.lists.find(l=>'list:'+l.id===overviewListSelect.value);return list?new Set(list.items.map(i=>i.ticker)):null;},
+  updateOverviewCount:(visible,total)=>{const list=state.lists.find(l=>'list:'+l.id===overviewListSelect.value),empty=list&&!list.items.length?' · Watchlist ist leer':'',scope=list?' · Watchlist „'+list.name+'“ · Marktkennzahlen oben bleiben gesamt':'';overviewListCount.textContent=`${visible} / ${total} Aktien in der aktuellen Auswahl${scope}${empty}.`+(overviewFilterNotice?' '+overviewFilterNotice:'');}
+ };
+ overviewListSelect.onchange=()=>{overviewListPreference=overviewListSelect.value;overviewFilterNotice='';persistOverviewList();window.CockpitDashboard?.render();};
+ syncOverviewLists();
  function readTickers(prefix){return [...new Set([0,1,2,3].map(i=>$(prefix+i)?.value).filter(Boolean))];}
  function setTickers(prefix,tickers){for(let i=0;i<4;i++)$(prefix+i).value=tickers[i]||'';}
  function options(){return '<option value="">Keine weitere Aktie</option>'+universe.map(q=>`<option value="${esc(q.ticker)}">${esc(q.name)} (${esc(q.ticker)})</option>`).join('');}
@@ -111,6 +132,7 @@ function boot(){
  $('hubListRows').querySelectorAll('[data-hub-remove-stock]').forEach(b=>b.onclick=()=>{const previous=state;if(save({...state,lists:state.lists.map(l=>l.id===selectedList?{...l,items:l.items.filter(i=>i.ticker!==b.dataset.hubRemoveStock)}:l)},'Aktie entfernt.')){undo=previous;$('hubUndo').hidden=false;renderLists();}});
  $('hubListRows').querySelectorAll('[data-hub-detail]').forEach(b=>b.onclick=()=>{show('company');const s=$('companyTicker');if(s){s.value=b.dataset.hubDetail;s.dispatchEvent(new Event('change'));}});
  refreshStars();
+ syncOverviewLists();
  }
  function exportFile(name,body,type){const url=URL.createObjectURL(new Blob([body],{type})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
  function csv(name,rows){exportFile(name,'\ufeff'+rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\r\n'),'text/csv;charset=utf-8');}
