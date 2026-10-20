@@ -39,7 +39,21 @@ function explainChange(before,after,beforeModel,afterModel){
   pricePct:priceChanged&&before.currency===after.currency?(after.price/before.price-1)*100:null,
   sameMarketDate:!!before?.marketDate&&before.marketDate===after?.marketDate};
 }
-if(typeof module!=='undefined'&&module.exports)module.exports={explainChange};if(typeof document==='undefined')return;
+// Locale-aware displayed values; absent values stay last in either direction.
+function tableSortValue(value,textOnly=false){
+ const text=String(value??'').replace(/[\u00a0\u202f]/g,' ').replace(/[−–]/g,'-').trim();
+ if(!text||/^(?:[-—]+|n\.?\s*[av]\.?)$/i.test(text))return null;
+ if(textOnly)return {type:'text',value:text};
+ if(/^(?:null|NaN|fehlt|unbekannt|nicht verfügbar|nicht vergleichbar|keine(?:\s|$)|Teilbewertung$)/i.test(text))return null;
+ let date=text.match(/^(\d{4})-(\d{2})-(\d{2})(?:\b|T)/);if(date)return {type:'number',value:Date.UTC(+date[1],+date[2]-1,+date[3])};
+ date=text.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})(?:\b|,)/);if(date)return {type:'number',value:Date.UTC(+date[3],+date[2]-1,+date[1])};
+ const match=text.match(/^[+\-]?(?:\d[\d .,'’]*\d|\d)(?:e[+\-]?\d+)?/i);
+ if(match){let number=match[0].replace(/[ '’]/g,'');if(number.includes(','))number=number.replace(/\./g,'').replace(',','.');else if(/^[+\-]?\d{1,3}(?:\.\d{3})+$/.test(number))number=number.replace(/\./g,'');const n=Number(number);if(Number.isFinite(n))return {type:'number',value:n};}
+ return {type:'text',value:text};
+}
+const tableCollator=new Intl.Collator('de-AT',{numeric:true,sensitivity:'base'});
+function compareTableValues(a,b,direction=1){if(a===null)return b===null?0:1;if(b===null)return -1;if(a.type!==b.type)return a.type==='number'?-1:1;return direction*(a.type==='number'?a.value-b.value:tableCollator.compare(a.value,b.value));}
+if(typeof module!=='undefined'&&module.exports)module.exports={explainChange,tableSortValue,compareTableValues};if(typeof document==='undefined')return;
 const $=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),num=(v,d=2)=>finite(v)?v.toLocaleString('de-AT',{maximumFractionDigits:d}):'—',signed=v=>finite(v)?(v>0?'+':'')+num(v)+' P.':'—';
 let openInfo;
 function renderDrivers({a,b,before,after}){
@@ -125,10 +139,52 @@ function boot(){
     const evidence=document.createElement('div');cells.forEach((cell,i)=>{const heading=document.createElement('h3');heading.textContent=headings[i];const content=cell.cloneNode(true);content.querySelectorAll('button').forEach(n=>n.remove());const section=document.createElement('div');section.append(...content.childNodes);evidence.append(heading,section);});
     const help=document.createElement('button');help.type='button';help.className='info-button';help.textContent='ⓘ Kennzahlen & Quellen';help.onclick=()=>openInfo(title.textContent,evidence,help);card.append(help);
    }
-   cells.forEach(cell=>cell.querySelectorAll('button').forEach(source=>{const b=document.createElement('button');b.type='button';b.textContent=source.textContent;b.onclick=()=>source.click();card.append(b);}));target.append(card);
+   cells.forEach(cell=>cell.querySelectorAll('button:not([data-hub-star])').forEach(source=>{const b=document.createElement('button');b.type='button';b.textContent=source.textContent;b.onclick=()=>source.click();card.append(b);}));target.append(card);
   });
  }
  cardRoots.forEach(id=>{if($(id))new MutationObserver(()=>cards(id)).observe($(id),{childList:true});cards(id);});
+ const tableStates=new WeakMap(),pendingTables=new Set();let tableQueue=false;
+ const tableStyle=document.createElement('style');tableStyle.textContent=`button.table-sort-header{display:inline-flex;align-items:center;gap:7px;min-height:36px;min-width:0!important;padding:4px 0!important;border:0!important;border-radius:0;background:transparent!important;color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit;text-align:left;white-space:normal}button.table-sort-header::after{content:'↕';font-size:12px;opacity:.65}th[aria-sort=ascending]>.table-sort-header::after{content:'↑';opacity:1}th[aria-sort=descending]>.table-sort-header::after{content:'↓';opacity:1}.table-sort-mobile{display:none}.table-sort-mobile label{display:flex;align-items:center;gap:8px;min-width:0;flex:1;flex-wrap:wrap}.table-sort-mobile select{max-width:100%;min-width:0;min-height:44px;font-size:16px}.table-sort-mobile button{min-height:44px}@media(max-width:760px){.table-sort-mobile{display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;margin:14px 0}html[data-table-sort-ready] #overviewSort{display:none}}`;document.head.append(tableStyle);
+ const categoricalHeader=label=>/^(?:aktie|unternehmen|name|ticker|kategorie|komponente|faktor|strategie|profil|branche|modell$|quelle$|endpunkt|status|basis\s*\/|datencheck|feld$|xbrl|accession|währung|income$|bilanz$|freigabe)/i.test(label);
+ function cellSortValue(cell,header){
+  if(cell.hasAttribute('data-sort-value'))return tableSortValue(cell.dataset.sortValue,cell.dataset.sortType==='text');
+  const copy=cell.cloneNode(true);copy.querySelectorAll('button,details,svg,progress,.universe-rank,[aria-hidden=true]').forEach(e=>e.remove());
+  const walker=document.createTreeWalker(copy,NodeFilter.SHOW_TEXT),texts=[];while(walker.nextNode()){const t=walker.currentNode.textContent.trim();if(t)texts.push(t);}
+  if(categoricalHeader(header))return tableSortValue(texts[0]||'',true);
+  // Ignore secondary footnotes; metric tables may put a label before the value.
+  const primary=copy.cloneNode(true);primary.querySelectorAll('small,.r71-caption,.muted').forEach(e=>e.remove());
+  const nodes=document.createTreeWalker(primary,NodeFilter.SHOW_TEXT),values=[];while(nodes.nextNode()){const t=nodes.currentNode.textContent.trim();if(t)values.push(t);}
+  const candidates=values.length?values:texts;for(const text of candidates){const value=tableSortValue(text);if(value===null)return null;if(value.type==='number')return value;}
+  return tableSortValue(candidates[0]||'');
+ }
+ function tableIndicators(table,state){
+  state.headers.forEach(h=>{const current=state.column===h.column;h.cell.setAttribute('aria-sort',current?(state.direction===1?'ascending':'descending'):'none');h.button.setAttribute('aria-label',h.label+' · '+(current?(state.direction===1?'aufsteigend':'absteigend')+' sortiert · ':'')+(current&&state.direction===1?'Absteigend':'Aufsteigend')+' sortieren');});
+  if(state.select){state.select.value=state.column==null?'':String(state.column);state.directionButton.textContent=state.direction===1?'↑ Aufsteigend':'↓ Absteigend';}
+  if(table.tBodies[0]?.id==='overviewRows'&&state.column!=null){const select=$('overviewSort');let option=select.querySelector('[data-header-sort-option]');if(!option){option=document.createElement('option');option.value='header';option.disabled=true;option.dataset.headerSortOption='';select.append(option);}const label=state.headers.find(h=>h.column===state.column)?.label;const text=label+' '+(state.direction===1?'↑':'↓')+' · Spaltenkopf';if(option.textContent!==text)option.textContent=text;select.value='header';}
+ }
+ function sortTableRows(table,state){
+  if(state.column==null)return;const header=state.headers.find(h=>h.column===state.column);if(!header)return;
+  for(const body of table.tBodies){const before=[...body.rows],after=[];let group=[];const flush=()=>{after.push(...group.map((row,index)=>({row,index,key:cellSortValue(row.cells[state.column],header.label)})).sort((a,b)=>compareTableValues(a.key,b.key,state.direction)||a.index-b.index).map(x=>x.row));group=[];};
+   for(const row of before){if(row.cells.length>state.column&&[...row.cells].every(c=>c.colSpan===1&&c.rowSpan===1)&&!row.querySelector('th'))group.push(row);else{flush();after.push(row);}}flush();
+   if(after.some((row,i)=>row!==before[i]))body.replaceChildren(...after);
+  }
+  tableIndicators(table,state);
+ }
+ function chooseTableSort(table,state,column){state.direction=state.column===column?-state.direction:1;state.column=column;sortTableRows(table,state);}
+ function enhanceTable(table){
+  let state=tableStates.get(table);if(state){sortTableRows(table,state);return;}
+  const row=table.tHead?.rows[table.tHead.rows.length-1];if(!row)return;state={headers:[],column:null,direction:1};tableStates.set(table,state);
+  let column=0;for(const cell of row.cells){const index=column;column+=cell.colSpan;const label=cell.textContent.trim();if(cell.tagName!=='TH'||cell.colSpan!==1||!label||/^(?:Details|Aktion(?:en)?)$/i.test(label))continue;
+   const button=document.createElement('button');button.type='button';button.className='table-sort-header';button.textContent=label;button.onclick=e=>{e.stopPropagation();chooseTableSort(table,state,index);};cell.replaceChildren(button);cell.scope='col';state.headers.push({cell,button,label,column:index});
+  }
+  const body=table.tBodies[0],mobile=body&&(body.id==='overviewRows'||cardRoots.includes(body.id));
+  if(mobile&&state.headers.length){const controls=document.createElement('div');controls.className='table-sort-mobile';const label=document.createElement('label'),select=document.createElement('select'),button=document.createElement('button'),empty=document.createElement('option');label.append(document.createTextNode('Sortieren nach '));select.setAttribute('aria-label','Spalte zum Sortieren · '+(table.closest('.panel')?.querySelector('h2,h3')?.textContent||'Tabelle'));empty.value='';empty.disabled=true;empty.textContent='Aktuelle Reihenfolge';select.append(empty);for(const h of state.headers){const option=document.createElement('option');option.value=h.column;option.textContent=h.label;select.append(option);}select.onchange=()=>{if(select.value===''){state.column=null;tableIndicators(table,state);return;}state.column=Number(select.value);state.direction=1;sortTableRows(table,state);};button.type='button';button.className='secondary';button.onclick=()=>{if(state.column==null){state.column=state.headers[0].column;state.direction=1;}else state.direction=-state.direction;sortTableRows(table,state);};label.append(select);controls.append(label,button);table.closest('.tbl')?.before(controls);state.select=select;state.directionButton=button;}
+  tableIndicators(table,state);document.documentElement.dataset.tableSortReady='';
+ }
+ function scheduleTable(table){pendingTables.add(table);if(tableQueue)return;tableQueue=true;queueMicrotask(()=>{tableQueue=false;const tables=[...pendingTables];pendingTables.clear();tables.forEach(t=>{if(t.isConnected)enhanceTable(t);});});}
+ new MutationObserver(changes=>{for(const change of changes){const table=change.target.closest?.('table');if(table)scheduleTable(table);for(const node of change.addedNodes)if(node.nodeType===1){if(node.matches('table'))scheduleTable(node);node.querySelectorAll('table').forEach(scheduleTable);}}}).observe(document.body,{childList:true,subtree:true});
+ document.querySelectorAll('table').forEach(enhanceTable);
+ $('overviewSort')?.addEventListener('change',()=>{const table=$('overviewRows').closest('table'),state=tableStates.get(table);if(state){state.column=null;tableIndicators(table,state);}$('overviewSort').querySelector('[data-header-sort-option]')?.remove();});
  let queued=false;new MutationObserver(()=>{if(queued)return;queued=true;queueMicrotask(()=>{queued=false;compact();});}).observe(document.querySelector('.app'),{subtree:true,childList:true});
  const oldShow=show;show=function(view,hash=true){oldShow(view,hash);document.title='Investment Cockpit · '+(document.querySelector('#tabs button.active')?.textContent||'Übersicht');quick.querySelectorAll('[data-quick]').forEach(b=>b.setAttribute('aria-current',b.dataset.quick===view?'page':'false'));compact();requestAnimationFrame(()=>{const tabs=$('tabs'),active=tabs.querySelector('button.active');if(active&&active.offsetParent){const left=active.getBoundingClientRect().left-tabs.getBoundingClientRect().left+tabs.scrollLeft,right=left+active.offsetWidth;const target=left<tabs.scrollLeft?left:right>tabs.scrollLeft+tabs.clientWidth?right-tabs.clientWidth:tabs.scrollLeft;tabs.scrollTo?.({left:Math.max(0,target),behavior:'instant'});}redraw();});};
  let lastWidth=0,timer;function redraw(){const view=document.querySelector('.view.active')?.id;const ids={company:'companyTicker',compare:'r71CompareTickers',reconstruction:'reconMetric',scoreHistory:'historyMetric',scoreEvaluation:'evaluationSegment',live:'lmTicker'};let control=$(ids[view]);if(control?.tagName!=='SELECT')control=control?.querySelector('select');control?.dispatchEvent(new Event('change'));window.dispatchEvent(new Event('cockpitresize'));}
