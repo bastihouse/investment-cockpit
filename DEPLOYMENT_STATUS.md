@@ -1,5 +1,16 @@
 # Investment Cockpit V7.5
 
+## Gespeicherte Sortierung und Watchlist-Filter (20.10.2026)
+
+Sortierspalte und Richtung werden je Tabelle lokal unter `cockpit-table-sorts-v1` gespeichert und nach Neuladen anhand des Spaltennamens wiederhergestellt. Getrennte Tabellen behalten getrennte Wahlen; verschwundene Spalten werden ignoriert. Desktop-Kopfzeilen, mobile Spaltenauswahl und der bisherige Übersichtsfilter verwenden dieselbe Speicherung. Änderungen lesen vor dem Speichern den aktuellen Präferenzstand, um andere Tabellenwahlen aus weiteren Tabs zu erhalten. Beschädigte Präferenzen verhindern die Bedienung nicht; bei einem Schreibfehler gilt die neue Reihenfolge nur im laufenden Aufruf und die Oberfläche meldet den Fehler.
+
+Die Aktienübersicht enthält einen Watchlist-Filter mit Trefferzahl, kombinierbar mit Aktienuniversum und Textsuche. Filterwahl bleibt lokal über Neuladen erhalten (`cockpit-overview-watchlist-v1`). Listenänderungen, Umbenennen, Entfernen, Import/Reset und Änderungen aus anderen Tabs werden über den vorhandenen Workspace übernommen. Eine entfernte gewählte Liste setzt den Filter mit Hinweis auf alle Aktien zurück. Leere Listen zeigen keine zufälligen Gesamttreffer. Marktkennzahlen und Research-Rangfolge oberhalb der Aktienliste bleiben global, was beim aktiven Filter ausdrücklich angezeigt wird. Keine Übertragung von Listen oder Notizen.
+
+Syntax und erweiterte Node-Prüfungen bestanden. Integration mit tatsächlichen Daten einschließlich neu erzeugter Dokumentinstanz: Wiederherstellung unabhängiger Tabellenwahlen und Watchlist, kombinierte Suche/Universum, Umbenennen, leere Liste, Quota-Schreibfehler, defekte Präferenzen und Rückfall nach gelöschter Liste bestanden; keine JavaScript-Fehler.
+
+
+Erfolgreicher finaler Workflow: https://github.com/bastihouse/investment-cockpit/actions/runs/39399953545 (Refresh 74 Sekunden, Deployment 9 Sekunden). Live-Abnahme: Watchlist mit drei Aktien, Score absteigend, vollständiges Neuladen mit gleicher Auswahl und Reihenfolge, Microsoft-Suche mit einem Treffer und S&P-Universum mit zwei Treffern. Smartphone 390px und Tablet 768px stellen die gespeicherte Auswahl korrekt wieder her; keine horizontale Seitenüberbreite (375/375 bzw. 753/753 CSS-Pixel). Temporäre Testliste entfernt und Rückfall auf alle 114 Aktien mit Hinweis bestätigt. Keine physische Geräteprüfung.
+
 ## Einheitliche Tabellensortierung (20.10.2026)
 
 Datenspalten über klickbare Kopfzeilen auf-/absteigend sortierbar, mit Richtungsanzeige, aria-sort und Tastaturbedienung. Automatische Anbindung dynamischer Tabellen und Tabellenkopien. Aktive Sortierung wird nach Suche, Filter und neuer Datenanzeige im bestehenden Tabellenelement wieder angewendet. Deutsche Zahlenformate, negative Werte, Namen und Datumswerte; fehlende Werte zuletzt. Aktionsspalten ohne Daten bleiben ausgenommen. Zusammengefasste Hinweiszeilen werden nicht unter die Daten gemischt.
