@@ -53,7 +53,13 @@ function tableSortValue(value,textOnly=false){
 }
 const tableCollator=new Intl.Collator('de-AT',{numeric:true,sensitivity:'base'});
 function compareTableValues(a,b,direction=1){if(a===null)return b===null?0:1;if(b===null)return -1;if(a.type!==b.type)return a.type==='number'?-1:1;return direction*(a.type==='number'?a.value-b.value:tableCollator.compare(a.value,b.value));}
-if(typeof module!=='undefined'&&module.exports)module.exports={explainChange,tableSortValue,compareTableValues};if(typeof document==='undefined')return;
+function validateTableSorts(input){
+ if(!input||input.version!==1||!input.tables||typeof input.tables!=='object'||Array.isArray(input.tables))throw Error('Ungültige Sortierwahl.');
+ const entries=Object.entries(input.tables);if(entries.length>250)throw Error('Zu viele Sortierwahlen.');const tables=Object.create(null);
+ for(const [key,value] of entries){if(key.length>2000||!value||typeof value.column!=='string'||value.column.length>240||![1,-1].includes(value.direction))throw Error('Ungültige Sortierwahl.');tables[key]={column:value.column,direction:value.direction};}
+ return {version:1,tables};
+}
+if(typeof module!=='undefined'&&module.exports)module.exports={explainChange,tableSortValue,compareTableValues,validateTableSorts};if(typeof document==='undefined')return;
 const $=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),num=(v,d=2)=>finite(v)?v.toLocaleString('de-AT',{maximumFractionDigits:d}):'—',signed=v=>finite(v)?(v>0?'+':'')+num(v)+' P.':'—';
 let openInfo;
 function renderDrivers({a,b,before,after}){
@@ -144,6 +150,16 @@ function boot(){
  }
  cardRoots.forEach(id=>{if($(id))new MutationObserver(()=>cards(id)).observe($(id),{childList:true});cards(id);});
  const tableStates=new WeakMap(),pendingTables=new Set();let tableQueue=false;
+ const SORT_KEY='cockpit-table-sorts-v1';let savedSorts={version:1,tables:Object.create(null)};
+ try{const raw=localStorage.getItem(SORT_KEY);if(raw)savedSorts=validateTableSorts(JSON.parse(raw));}catch(e){/* Sorting remains usable if browser preferences cannot be read. */}
+ function tablePreferenceKey(table,state){const body=table.tBodies[0];if(body?.id)return 'body:'+body.id;if(table.id)return 'table:'+table.id;const owner=table.parentElement.closest('[id]');if(!owner)return null;const siblings=[...owner.querySelectorAll('table')];return 'view:'+owner.id+':'+state.headers.map(h=>h.label).join('|')+':'+Math.max(0,siblings.indexOf(table));}
+ function persistTableSort(table,state){
+  const header=state.headers.find(h=>h.column===state.column);if(!state.preferenceKey||!header)return;
+  let latest=savedSorts;try{const raw=localStorage.getItem(SORT_KEY);if(raw)latest=validateTableSorts(JSON.parse(raw));}catch(e){}
+  const next={version:1,tables:{...latest.tables,[state.preferenceKey]:{column:header.label,direction:state.direction}}};
+  try{const clean=validateTableSorts(next);localStorage.setItem(SORT_KEY,JSON.stringify(clean));savedSorts=clean;if(state.feedback)state.feedback.hidden=true;}
+  catch(e){if(!state.feedback){state.feedback=document.createElement('p');state.feedback.className='hub-status';state.feedback.setAttribute('role','status');(table.closest('.tbl')||table).before(state.feedback);}state.feedback.textContent='Sortierwahl konnte nicht gespeichert werden. Die Sortierung gilt für diesen Seitenaufruf.';state.feedback.hidden=false;}
+ }
  const tableStyle=document.createElement('style');tableStyle.textContent=`button.table-sort-header{display:inline-flex;align-items:center;gap:7px;min-height:36px;min-width:0!important;padding:4px 0!important;border:0!important;border-radius:0;background:transparent!important;color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit;text-align:left;white-space:normal}button.table-sort-header::after{content:'↕';font-size:12px;opacity:.65}th[aria-sort=ascending]>.table-sort-header::after{content:'↑';opacity:1}th[aria-sort=descending]>.table-sort-header::after{content:'↓';opacity:1}.table-sort-mobile{display:none}.table-sort-mobile label{display:flex;align-items:center;gap:8px;min-width:0;flex:1;flex-wrap:wrap}.table-sort-mobile select{max-width:100%;min-width:0;min-height:44px;font-size:16px}.table-sort-mobile button{min-height:44px}@media(max-width:760px){.table-sort-mobile{display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;margin:14px 0}html[data-table-sort-ready] #overviewSort{display:none}}`;document.head.append(tableStyle);
  const categoricalHeader=label=>/^(?:aktie|unternehmen|name|ticker|kategorie|komponente|faktor|strategie|profil|branche|modell$|quelle$|endpunkt|status|basis\s*\/|datencheck|feld$|xbrl|accession|währung|income$|bilanz$|freigabe)/i.test(label);
  function cellSortValue(cell,header){
@@ -170,7 +186,7 @@ function boot(){
   }
   tableIndicators(table,state);
  }
- function chooseTableSort(table,state,column){state.direction=state.column===column?-state.direction:1;state.column=column;sortTableRows(table,state);}
+ function chooseTableSort(table,state,column){state.direction=state.column===column?-state.direction:1;state.column=column;sortTableRows(table,state);persistTableSort(table,state);}
  function enhanceTable(table){
   let state=tableStates.get(table);if(state){sortTableRows(table,state);return;}
   const row=table.tHead?.rows[table.tHead.rows.length-1];if(!row)return;state={headers:[],column:null,direction:1};tableStates.set(table,state);
@@ -178,13 +194,14 @@ function boot(){
    const button=document.createElement('button');button.type='button';button.className='table-sort-header';button.textContent=label;button.onclick=e=>{e.stopPropagation();chooseTableSort(table,state,index);};cell.replaceChildren(button);cell.scope='col';state.headers.push({cell,button,label,column:index});
   }
   const body=table.tBodies[0],mobile=body&&(body.id==='overviewRows'||cardRoots.includes(body.id));
-  if(mobile&&state.headers.length){const controls=document.createElement('div');controls.className='table-sort-mobile';const label=document.createElement('label'),select=document.createElement('select'),button=document.createElement('button'),empty=document.createElement('option');label.append(document.createTextNode('Sortieren nach '));select.setAttribute('aria-label','Spalte zum Sortieren · '+(table.closest('.panel')?.querySelector('h2,h3')?.textContent||'Tabelle'));empty.value='';empty.disabled=true;empty.textContent='Aktuelle Reihenfolge';select.append(empty);for(const h of state.headers){const option=document.createElement('option');option.value=h.column;option.textContent=h.label;select.append(option);}select.onchange=()=>{if(select.value===''){state.column=null;tableIndicators(table,state);return;}state.column=Number(select.value);state.direction=1;sortTableRows(table,state);};button.type='button';button.className='secondary';button.onclick=()=>{if(state.column==null){state.column=state.headers[0].column;state.direction=1;}else state.direction=-state.direction;sortTableRows(table,state);};label.append(select);controls.append(label,button);table.closest('.tbl')?.before(controls);state.select=select;state.directionButton=button;}
-  tableIndicators(table,state);document.documentElement.dataset.tableSortReady='';
+  if(mobile&&state.headers.length){const controls=document.createElement('div');controls.className='table-sort-mobile';const label=document.createElement('label'),select=document.createElement('select'),button=document.createElement('button'),empty=document.createElement('option');label.append(document.createTextNode('Sortieren nach '));select.setAttribute('aria-label','Spalte zum Sortieren · '+(table.closest('.panel')?.querySelector('h2,h3')?.textContent||'Tabelle'));empty.value='';empty.disabled=true;empty.textContent='Aktuelle Reihenfolge';select.append(empty);for(const h of state.headers){const option=document.createElement('option');option.value=h.column;option.textContent=h.label;select.append(option);}select.onchange=()=>{if(select.value===''){state.column=null;tableIndicators(table,state);return;}state.column=Number(select.value);state.direction=1;sortTableRows(table,state);persistTableSort(table,state);};button.type='button';button.className='secondary';button.onclick=()=>{if(state.column==null){state.column=state.headers[0].column;state.direction=1;}else state.direction=-state.direction;sortTableRows(table,state);persistTableSort(table,state);};label.append(select);controls.append(label,button);table.closest('.tbl')?.before(controls);state.select=select;state.directionButton=button;}
+  state.preferenceKey=tablePreferenceKey(table,state);const preference=savedSorts.tables[state.preferenceKey],restored=preference&&state.headers.find(h=>h.label===preference.column);if(restored){state.column=restored.column;state.direction=preference.direction;sortTableRows(table,state);}tableIndicators(table,state);document.documentElement.dataset.tableSortReady='';
  }
  function scheduleTable(table){pendingTables.add(table);if(tableQueue)return;tableQueue=true;queueMicrotask(()=>{tableQueue=false;const tables=[...pendingTables];pendingTables.clear();tables.forEach(t=>{if(t.isConnected)enhanceTable(t);});});}
  new MutationObserver(changes=>{for(const change of changes){const table=change.target.closest?.('table');if(table)scheduleTable(table);for(const node of change.addedNodes)if(node.nodeType===1){if(node.matches('table'))scheduleTable(node);node.querySelectorAll('table').forEach(scheduleTable);}}}).observe(document.body,{childList:true,subtree:true});
  document.querySelectorAll('table').forEach(enhanceTable);
- $('overviewSort')?.addEventListener('change',()=>{const table=$('overviewRows').closest('table'),state=tableStates.get(table);if(state){state.column=null;tableIndicators(table,state);}$('overviewSort').querySelector('[data-header-sort-option]')?.remove();});
+ if($('overviewSort'))$('overviewSort').querySelector('option[value=score]').textContent='Score / Teilpunkte absteigend';
+ $('overviewSort')?.addEventListener('change',()=>{const table=$('overviewRows').closest('table'),state=tableStates.get(table),choice={name:[0,1],score:[5,-1],ytd:[2,-1],pe:[3,1]}[$('overviewSort').value];if(state&&choice){[state.column,state.direction]=choice;sortTableRows(table,state);persistTableSort(table,state);}});
  let queued=false;new MutationObserver(()=>{if(queued)return;queued=true;queueMicrotask(()=>{queued=false;compact();});}).observe(document.querySelector('.app'),{subtree:true,childList:true});
  const oldShow=show;show=function(view,hash=true){oldShow(view,hash);document.title='Investment Cockpit · '+(document.querySelector('#tabs button.active')?.textContent||'Übersicht');quick.querySelectorAll('[data-quick]').forEach(b=>b.setAttribute('aria-current',b.dataset.quick===view?'page':'false'));compact();requestAnimationFrame(()=>{const tabs=$('tabs'),active=tabs.querySelector('button.active');if(active&&active.offsetParent){const left=active.getBoundingClientRect().left-tabs.getBoundingClientRect().left+tabs.scrollLeft,right=left+active.offsetWidth;const target=left<tabs.scrollLeft?left:right>tabs.scrollLeft+tabs.clientWidth?right-tabs.clientWidth:tabs.scrollLeft;tabs.scrollTo?.({left:Math.max(0,target),behavior:'instant'});}redraw();});};
  let lastWidth=0,timer;function redraw(){const view=document.querySelector('.view.active')?.id;const ids={company:'companyTicker',compare:'r71CompareTickers',reconstruction:'reconMetric',scoreHistory:'historyMetric',scoreEvaluation:'evaluationSegment',live:'lmTicker'};let control=$(ids[view]);if(control?.tagName!=='SELECT')control=control?.querySelector('select');control?.dispatchEvent(new Event('change'));window.dispatchEvent(new Event('cockpitresize'));}
