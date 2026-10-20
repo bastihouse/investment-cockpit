@@ -1,5 +1,16 @@
 # Investment Cockpit V7.5
 
+## Einheitliche Tabellensortierung (20.10.2026)
+
+Datenspalten über klickbare Kopfzeilen auf-/absteigend sortierbar, mit Richtungsanzeige, aria-sort und Tastaturbedienung. Automatische Anbindung dynamischer Tabellen und Tabellenkopien. Aktive Sortierung wird nach Suche, Filter und neuer Datenanzeige im bestehenden Tabellenelement wieder angewendet. Deutsche Zahlenformate, negative Werte, Namen und Datumswerte; fehlende Werte zuletzt. Aktionsspalten ohne Daten bleiben ausgenommen. Zusammengefasste Hinweiszeilen werden nicht unter die Daten gemischt.
+
+Mobile Kartenansichten bekommen dieselbe Spaltenauswahl und einen Richtungswechsel; bestehende Karten bleiben mit den Tabellen synchronisiert. Die Übersicht zeigt eine Kopfsortierung auch im bisherigen Sortierfeld konsistent. Watchlist-Zuordnungen im direkten Aktienvergleich hängen an der Aktie und nicht an der Zeilennummer.
+
+Erweiterte Node-Prüfung und tatsächliche DOM-Integration bestanden: Kurs-/YTD-Reihenfolge, Vorzeichen, fehlende Werte, Datum, Suchpersistenz, mobile Auswahl, Detailaktionen, neue Zeilen, Tabellenkopien und Watchlist-Sterne nach umgekehrter Vergleichsreihenfolge. Keine JavaScript-Fehler. Sortierwahl wird im laufenden Seitenaufruf gehalten, nicht über vollständiges Neuladen gespeichert.
+
+Erfolgreicher finaler Workflow: https://github.com/bastihouse/investment-cockpit/actions/runs/39384497021 (Refresh 76 Sekunden, Deployment 12 Sekunden; bestehende 61 Python-Tests und neun Node-Prüfdateien einschließlich neuer Sortierprüfungen bestanden). Live: 163 Sortierköpfe eingebunden, Aktienvergleich nach Name umgekehrt mit passenden NVDA/MSFT-Sternen, Score absteigend mit MU an erster Stelle, Beibehaltung nach Microsoft-Suche und Rückkehr zur Gesamtliste, YTD aufsteigend mit negativen Werten, Detailaktion öffnet weiterhin die richtige Aktie. Smartphone 390px: Score-Spaltenauswahl und Absteigend-Schalter sortieren Karten korrekt; Tablet 768px: Namenssortierung per Tabellenkopf. Beide ohne horizontale Seitenüberbreite. Keine physische Geräteprüfung.
+
+
 ## Watchlist-Sterne an Aktien (20.10.2026)
 
 Sterne in Übersicht und mobilen Karten, Live-Kurstabelle, aktuellen Score-/Vergleichsansichten, Aktien-Detailansicht, Branchenvergleich, Scanner und Datenlücken-Karten. Gefüllter Stern bei Mitgliedschaft in mindestens einer Liste, zugängliche Beschriftung mit Listenanzahl. Kompakter nativer Dialog mit Mehrfachzuordnung, neuer Liste samt Aktie, Entfernen und Rückgängig. Vorhandene Notizen bleiben beim Hinzufügen in weitere Listen erhalten. Browserlokale Speicherung und JSON-Sicherung verwenden unverändert dasselbe Datenformat.
