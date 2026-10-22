@@ -1,5 +1,11 @@
 # Investment Cockpit V7.5
 
+## Eigener Bereich für Datenqualität (22.10.2026)
+
+Universumsfilter enthalten nur noch Alle Aktien und S&P 500 Top 100; die bisherige 32er-Auswahl ist in allen aktuellen Ansichten entfernt. Der Header zeigt Investment Research ohne Aktienanzahl. Der Hauptbereich Daten heißt Datenqualität. Kursverfügbarkeit, Primärprüfung, Statusanzeige, Berichtsprüfung und Qualitätshinweise sind dort gebündelt. Die erste Übersicht beginnt direkt mit der Aktienliste. Datencheck-Spalte und Primärhinweise auf mobilen Übersichtskarten sind dort ausgeblendet; Prüfdetails bleiben im eigenen Bereich und in Einzelaktienansichten verfügbar. Such-/Watchlist-Filter und Sortierung bleiben bestehen.
+
+Syntax, bestehende Experience-/Discovery-Prüfungen und DOM-Integration mit tatsächlichen Daten bestanden: keine Original-Auswahl in aktuellen Filtern, Qualitätsblöcke im eigenen Tab, Header ohne Aktienanzahl, unveränderte Suchrücksetzung, Navigation und historische Charts. Live-Abnahme erfolgreich: https://github.com/bastihouse/investment-cockpit/actions/runs/39745817249 (Refresh 65 Sekunden, Deployment 8 Sekunden). Header ohne Aktienanzahl, genau zwei Universumsoptionen und Qualitätsblöcke im eigenen Tab bestätigt. Score-Sortierung bleibt nach Neuladen erhalten. Smartphone/Tablet ohne horizontale Überbreite (375/375 und 753/753 CSS-Pixel); mobiler Datenqualität-Einstieg geprüft.
+
 ## Vereinfachte Oberfläche (22.10.2026)
 
 Sechs aufgabenbezogene Einstiege: Übersicht, Aktien, Watchlists, Vergleichen, Verlauf und Daten. Gleiche Struktur im mobilen Menü, direkte Hauptziele ohne überraschenden Sprung zur zuletzt besuchten Unteransicht. Ältere Modellansichten sind nicht mehr in der Navigation auswählbar; alte Hash-Lesezeichen führen zur passenden aktuellen Ansicht. Interne Legacy-Elemente bleiben inert, da Datenladefunktionen sie weiterhin referenzieren. Keine Löschung historischer Nachweise oder persönlicher Watchlists.
