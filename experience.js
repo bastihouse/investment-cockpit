@@ -229,7 +229,7 @@ function simplifyWorkspace(){
  for(const g of Object.keys(groups)){const b=document.createElement('button');b.type='button';b.dataset.group=g;b.textContent=titles[g];b.onclick=()=>show(NAV_DEFAULT[g]);primary.append(b);}
  for(const id of Object.keys(aliases)){const section=$(id);if(section){section.hidden=true;section.setAttribute('inert','');}}
  // One overview entry point, rather than multiple launch strips above the title.
- const overview=$('overview');overview.querySelectorAll('.wb-launch,.hub-launch').forEach(e=>e.remove());
+ const overview=$('overview');overview.querySelectorAll('.wb-launch,.hub-launch,:scope > .hub-actions').forEach(e=>e.remove());
  const universe=$('universeSelectionPanel');if(universe)$('validation').append(universe);
  const hero=overview.querySelector('.dashboard-hero');hero.querySelector('h2').textContent='Deine Aktien im Überblick.';hero.querySelector('p').textContent='Aktien finden, Scores prüfen und Entwicklungen vergleichen.';hero.querySelector('.dashboard-eyebrow').textContent='Dein Research-Arbeitsplatz';
  const find=document.createElement('button');find.type='button';find.id='uxFindStocks';find.textContent='Aktie suchen';find.onclick=()=>{$('overviewSearch').focus();$('overviewSearch').scrollIntoView({block:'center',behavior:'smooth'});};
