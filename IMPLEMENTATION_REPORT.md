@@ -1,5 +1,13 @@
 # Research-Erweiterung 19.10.2026
 
+## Vereinfachte Oberfläche (22.10.2026)
+
+Sechs aufgabenbezogene Einstiege: Übersicht, Aktien, Watchlists, Vergleichen, Verlauf und Daten. Gleiche Struktur im mobilen Menü, direkte Hauptziele ohne überraschenden Sprung zur zuletzt besuchten Unteransicht. Ältere Modellansichten sind nicht mehr in der Navigation auswählbar; alte Hash-Lesezeichen führen zur passenden aktuellen Ansicht. Interne Legacy-Elemente bleiben inert, da Datenladefunktionen sie weiterhin referenzieren. Keine Löschung historischer Nachweise oder persönlicher Watchlists.
+
+Die Übersicht zeigt Titel, kompakte Gesamtkennzahlen und die durchsuchbare Aktienliste zuerst. Doppelte Einstiegsleisten entfallen; Marktüberblick, Änderungsfeed und Berichtsprüfung sind gemeinsam aufklappbar. Such-/Universums-/Watchlist-/Sortierfelder sind beschriftet, Filter lassen sich gemeinsam zurücksetzen. Score-Erläuterung im Dialog. Sortierwahl und Watchlists bleiben browserlokal erhalten. Tägliche und rekonstruierte Score-Verläufe bleiben nutzbar, historische Stände alter Modelle sind in Modell- und Datumswahlen nicht mehr auswählbar. Keine Vermischung von Modellversionen.
+
+Geprüft: JavaScript-Syntax, bestehende Kernprüfungen sowie DOM-Integration mit echten Daten für Navigation, mobile Menübedienung, alte Lesezeichen, aktuelle Modellwahl, erhaltene Diagramme und Suchrücksetzung. Live-Abnahme folgt nach Veröffentlichung.
+
 ## Gespeicherte Sortierung und Watchlist-Filter (20.10.2026)
 
 Sortierspalte und Richtung werden je Tabelle lokal unter `cockpit-table-sorts-v1` gespeichert und nach Neuladen anhand des Spaltennamens wiederhergestellt. Getrennte Tabellen behalten getrennte Wahlen; verschwundene Spalten werden ignoriert. Desktop-Kopfzeilen, mobile Spaltenauswahl und der bisherige Übersichtsfilter verwenden dieselbe Speicherung. Änderungen lesen vor dem Speichern den aktuellen Präferenzstand, um andere Tabellenwahlen aus weiteren Tabs zu erhalten. Beschädigte Präferenzen verhindern die Bedienung nicht; bei einem Schreibfehler gilt die neue Reihenfolge nur im laufenden Aufruf und die Oberfläche meldet den Fehler.
