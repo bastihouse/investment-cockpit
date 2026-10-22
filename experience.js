@@ -209,4 +209,72 @@ function boot(){
  compact();show(document.querySelector('.view.active')?.id||'overview',false);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
+// A small task-based navigation; legacy calculations are kept out of the UI.
+function simplifyWorkspace(){
+ if(document.documentElement.dataset.cockpitUx)return;
+ document.documentElement.dataset.cockpitUx='current';
+ const groups={overview:['overview'],analyse:['company','liveScore','live','opportunityScanner'],watch:['watchlists'],compare:['compare','benchmarkCompare','comparisonWorkspace','sectorPeers'],zeit:['reconstruction','scoreHistory','scoreChanges','financialHistory','scoreEvaluation'],daten:['evidence','validation','reportMonitor','researchGaps','audit','profiles']};
+ const titles={overview:'Übersicht',analyse:'Aktien',watch:'Watchlists',compare:'Vergleichen',zeit:'Verlauf',daten:'Daten'};
+ const views={overview:'Übersicht',company:'Einzelaktie',liveScore:'Scores & Kategorien',live:'Kurse & Kennzahlen',opportunityScanner:'Chancen suchen',watchlists:'Meine Watchlists',compare:'Aktien vergleichen',benchmarkCompare:'Mit Index vergleichen',comparisonWorkspace:'Score-Verläufe vergleichen',sectorPeers:'Branchenvergleich',reconstruction:'Historischer Score · 5 Jahre',scoreHistory:'Täglich erfasste Scores',scoreChanges:'Score-Änderungen',financialHistory:'Historische Kennzahlen',scoreEvaluation:'Score-Auswertung',evidence:'Datenqualität',validation:'Konsistenzprüfung',reportMonitor:'Quartalsberichte',researchGaps:'Offene Datenprüfungen',audit:'Quellen & Aktualisierung',profiles:'Score-Methodik'};
+ const subtitles={analyse:'Eine Aktie untersuchen oder das gesamte Universum durchsuchen.',compare:'Aktuelle Kennzahlen, Kursrenditen oder historische Scores vergleichen.',zeit:'Historische Entwicklung im aktuellen Modell · Datenlücken bleiben sichtbar.',daten:'Quellen prüfen, Datenlücken verstehen und die aktuelle Methodik nachlesen.'};
+ const aliases={stocks:'liveScore',history:'financialHistory',fund:'financialHistory',quantum:'company',combined:'liveScore',partial:'liveScore',weights:'profiles',universe:'scoreEvaluation',backtest:'scoreEvaluation',integrity:'validation',pit:'validation'};
+ Object.keys(NAV_GROUPS).forEach(k=>delete NAV_GROUPS[k]);Object.assign(NAV_GROUPS,groups);
+ Object.keys(NAV_FOR_VIEW).forEach(k=>delete NAV_FOR_VIEW[k]);
+ for(const [g,ids] of Object.entries(groups)){ids.forEach(id=>NAV_FOR_VIEW[id]=g);NAV_DEFAULT[g]=ids[0];NAV_LAST[g]=ids[0];NAV_META[g]=[titles[g],subtitles[g]||''];}
+ const tabs=$('tabs');
+ tabs.querySelectorAll('button').forEach(b=>{if(!NAV_FOR_VIEW[b.dataset.v])b.remove();});
+ for(const ids of Object.values(groups))for(const id of ids){let b=tabs.querySelector('[data-v="'+id+'"]');if(!b){b=document.createElement('button');b.type='button';b.dataset.v=id;b.onclick=()=>show(id);tabs.append(b);}b.textContent=views[id];tabs.append(b);}
+ const primary=$('primaryNav');primary.replaceChildren();
+ for(const g of Object.keys(groups)){const b=document.createElement('button');b.type='button';b.dataset.group=g;b.textContent=titles[g];b.onclick=()=>show(NAV_DEFAULT[g]);primary.append(b);}
+ for(const id of Object.keys(aliases)){const section=$(id);if(section){section.hidden=true;section.setAttribute('inert','');}}
+ // One overview entry point, rather than multiple launch strips above the title.
+ const overview=$('overview');overview.querySelectorAll('.wb-launch,.hub-launch').forEach(e=>e.remove());
+ const universe=$('universeSelectionPanel');if(universe)$('validation').append(universe);
+ const hero=overview.querySelector('.dashboard-hero');hero.querySelector('h2').textContent='Deine Aktien im Überblick.';hero.querySelector('p').textContent='Aktien finden, Scores prüfen und Entwicklungen vergleichen.';hero.querySelector('.dashboard-eyebrow').textContent='Dein Research-Arbeitsplatz';
+ const find=document.createElement('button');find.type='button';find.id='uxFindStocks';find.textContent='Aktie suchen';find.onclick=()=>{$('overviewSearch').focus();$('overviewSearch').scrollIntoView({block:'center',behavior:'smooth'});};
+ hero.querySelector('.dashboard-actions').prepend(find);$('overviewHistory').textContent='Score-Verlauf ansehen';$('overviewHistory').classList.add('secondary');$('overviewValidation').hidden=true;if($('overviewChanges'))$('overviewChanges').hidden=true;
+ const stockPanel=$('overviewRows').closest('.panel');stockPanel.id='overviewStocksPanel';stockPanel.querySelector('h3').textContent='Aktien entdecken';$('overviewPrices').textContent='Aktien vergleichen →';
+ const controls=$('overviewSearch').closest('.dashboard-controls');controls.classList.add('ux-stock-filters');
+ function field(input,title){const label=document.createElement('label');label.textContent=title;input.before(label);label.append(input);return label;}
+ const searchLabel=field($('overviewSearch'),'Suche');searchLabel.className='ux-search';controls.prepend(searchLabel);field($('overviewSort'),'Sortierung');
+ const reset=document.createElement('button');reset.type='button';reset.id='overviewResetFilters';reset.className='dashboard-link';reset.textContent='Filter zurücksetzen';reset.onclick=()=>{$('overviewSearch').value='';controls.querySelector('[aria-label="Aktienuniversum overviewSearch"]').value='all';controls.querySelector('[aria-label="Aktienuniversum overviewSearch"]').dispatchEvent(new Event('change'));$('overviewWatchlist').value='all';$('overviewWatchlist').dispatchEvent(new Event('change'));$('overviewSearch').dispatchEvent(new Event('input'));$('overviewSearch').focus();};$('overviewWatchlistCount').after(reset);
+ const help=document.createElement('button');help.type='button';help.className='info-button';help.textContent='ⓘ Score & Datencheck';help.setAttribute('aria-haspopup','dialog');help.onclick=()=>{const content=document.createElement('div');content.innerHTML='<p><b>Score:</b> Heuristische Bewertung mit bis zu 100 Punkten. Ein Gesamtwert erscheint nur bei vollständiger Modellabdeckung. Teilpunkte werden nicht hochgerechnet.</p><p><b>Abdeckung:</b> Anteil der berechenbaren Modellkategorien. 100% bedeutet keine unabhängige Bestätigung der Daten.</p><p><b>Datencheck:</b> Zeigt Primärabgleich, offene Prüfungen oder Abweichungen. Vergleiche möglichst ähnliche Branchen und Profile.</p><p>YTD ist die Kursveränderung seit Jahresbeginn. Kurse in verschiedenen Währungen sind nicht direkt vergleichbar.</p>';openInfo('Scores richtig lesen',content,help);};reset.after(help);
+ const extras=document.createElement('details');extras.id='overviewInsights';extras.className='panel ux-insights';extras.dataset.infoReady='';const summary=document.createElement('summary');summary.textContent='Marktüberblick & aktuelle Änderungen';extras.append(summary);
+ const grid=overview.querySelector('.dashboard-grid'),feed=overview.querySelector('.change-feed'),monitor=$('monitorOverviewStrip');for(const node of [feed,grid,monitor])if(node)extras.append(node);
+ const footer=overview.querySelector('.dashboard-footer');overview.insertBefore(extras,footer);$('overviewStats').after(stockPanel);
+ // The model choice is fixed to the current model, dates remain selectable.
+ $('historyModel')?.closest('label')?.setAttribute('hidden','');
+ const style=document.createElement('style');style.id='taskNavigationStyle';style.textContent=`
+ html[data-theme] .primary-navigation{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;overflow:visible}
+ html[data-theme] .primary-navigation button{min-width:0;min-height:46px;justify-content:center;font-size:14px;padding:10px 12px}
+ html[data-theme] .navigation-panel{padding:6px;margin-bottom:22px;background:var(--surface);border:1px solid var(--line)}
+ html[data-theme] .subnav-shell{padding:0 0 16px;margin:0 0 20px;display:block}
+ html[data-theme] .subnav-description{max-width:none}.subnav-title{font-size:19px!important}
+ html[data-theme] #tabs{display:flex;flex-wrap:wrap;overflow:visible;gap:6px;margin-top:12px}
+ html[data-theme] #tabs button{min-height:42px;padding:9px 12px;white-space:normal}
+ #overview>.scope-info{display:none!important}#overview .overview-ring{display:none}
+ html[data-theme] #overview .dashboard-hero{margin:10px 0 16px}html[data-theme] #overview .dashboard-hero h2{font-size:clamp(26px,3.1vw,38px);max-width:none;margin:8px 0}
+ #overview .dashboard-hero p{margin:8px 0}#overview .dashboard-actions{margin-top:14px}
+ html[data-theme] #overview .dashboard-stat{padding:14px 16px}#overview .dashboard-stat strong{font-size:26px;margin:7px 0}
+ .ux-stock-filters{display:grid!important;grid-template-columns:minmax(200px,2fr) repeat(3,minmax(145px,1fr));align-items:end}
+ .ux-stock-filters label{display:flex;flex-direction:column;gap:6px;min-width:0;font-size:12px;color:var(--muted)}
+ .ux-stock-filters :is(input,select){width:100%;min-width:0;min-height:44px}
+ #overviewResetFilters{min-height:40px;margin:0 12px 8px 0}#overviewWatchlistCount{margin-bottom:4px}
+ .ux-insights{margin-top:20px}.ux-insights>summary{cursor:pointer;font-size:16px;font-weight:650;min-height:36px;padding:5px 0}.ux-insights[open]>summary{margin-bottom:20px}.ux-insights .change-feed{margin:0 0 20px}
+ .history-controls{grid-template-columns:1fr 1fr!important}#overview .dashboard-footer{margin:20px 0}
+ @media(max-width:1000px){.ux-stock-filters{grid-template-columns:1fr 1fr}}
+ @media(max-width:760px){html[data-theme] .primary-navigation{display:none}html[data-theme] .navigation-panel{display:none}html[data-theme] #secondaryNav{margin-top:4px}html[data-theme] #tabs{display:grid;grid-template-columns:1fr 1fr;width:100%}html[data-theme] #tabs button{font-size:12px;min-width:0}html[data-theme] .ux-stock-filters{grid-template-columns:1fr 1fr}html[data-theme] .ux-stock-filters .ux-search{grid-column:1/-1}html[data-theme] #overview .dashboard-hero h2{font-size:28px}html[data-theme] #overview .dashboard-hero{margin-top:0}html[data-theme] .menu-toggle{display:inline-flex!important}.menu-dialog #mobileMenuLinks{display:grid;grid-template-columns:1fr;gap:18px}.menu-dialog section{border-bottom:1px solid var(--line);padding-bottom:12px}.menu-dialog h3{margin:0 0 6px}.menu-dialog .menu-item{min-height:44px}}
+ `;document.head.append(style);
+ const quick=document.querySelector('.mobile-quicknav');if(quick){quick.innerHTML='<button data-quick="overview">Übersicht</button><button data-quick="watchlists">Watchlists</button><button data-quick="compare">Vergleichen</button><button data-menu-open>☰ Menü</button>';quick.querySelectorAll('[data-quick]').forEach(b=>b.onclick=()=>show(b.dataset.quick));quick.querySelector('[data-menu-open]').onclick=()=>$('menuToggle').click();}
+ const previousShow=show;
+ show=function(view,writeHash=true){const target=aliases[view]|| (NAV_FOR_VIEW[view]?view:'overview'),before=document.querySelector('.view.active')?.id;previousShow(target,writeHash);$('secondaryNav').hidden=groups[NAV_FOR_VIEW[target]].length===1;
+  if(target!==view)history.replaceState(null,'','#'+target);
+  quick?.querySelectorAll('[data-quick]').forEach(b=>b.setAttribute('aria-current',b.dataset.quick===target?'page':'false'));
+  if(before!==target){window.scrollTo({top:0,behavior:'instant'});const heading=$(target)?.querySelector('h2,h3');if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}}
+ };
+ window.addEventListener('hashchange',()=>{const route=location.hash.slice(1);if(!NAV_FOR_VIEW[route])show(route,false);});
+ show(location.hash.slice(1)||'overview',false);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(simplifyWorkspace,0),{once:true});else setTimeout(simplifyWorkspace,0);
+
 })();
