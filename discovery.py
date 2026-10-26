@@ -138,7 +138,7 @@ def build(root,today=None):
         alias='GOOGL' if ticker in ('GOOG','GOOGL') else ticker
         row={'ticker':ticker,'name':q['name'],'profile':q['sector'],'industry':f.get('industry'),'economicSector':f.get('sector'),
              'issuerKey':alias,'currency':q['currency'],'price':q.get('price'),'priceDate':q.get('marketDate'),'reportDate':f.get('reportDate'),
-             'originalUniverse':q.get('originalUniverse',True),'sp500Top100':q.get('sp500Top100'),
+             'exchange':q.get('fundamentals',{}).get('exchange'),'originalUniverse':q.get('originalUniverse',True),'sp500Top100':q.get('sp500Top100'),
              'modelVersion':r.get('modelVersion',model),'weights':r.get('weights',WEIGHTS),'parts':r.get('parts',{}),
              'componentSet':'|'.join(k for k in WEIGHTS if r.get('parts',{}).get(k) is not None),'coverage':r.get('coveragePoints',0),
              'total':r.get('total'),'partialPoints':r.get('partialPoints',0),'currentFresh':issue['currentFresh'],
