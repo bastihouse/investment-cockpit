@@ -20,3 +20,26 @@ const historical={stocks:[{ticker:'A',points:[point(20)]},{ticker:'B',points:[po
 console.log('Research hub: completed common dates, FX direction/carry, dividend basis, safe state and compatible ranks passed.');
 const q={marketDate:'2026-10-16',fundamentals:{status:'fresh',fetchedAt:'2026-10-19T10:00:00Z'},researchScore:{partialPoints:50}};
 assert(displayedScore(q,'2026-10-19T10:00:00Z',Date.parse('2026-10-19T12:00:00Z')));assert.equal(displayedScore(q,'2026-10-01T10:00:00Z',Date.parse('2026-10-19T12:00:00Z')),null);q.fundamentals.fetchedAt='2026-10-01T10:00:00Z';assert.equal(displayedScore(q,'2026-10-19T10:00:00Z',Date.parse('2026-10-19T12:00:00Z')),null);
+
+// Unified view: provenance, missing estimates and equal return baselines.
+const unified=require('../research_hub.js');
+const usnap={generatedAt:'2026-10-23T12:00:00Z',scoreModelVersion:'current',quotes:[{ticker:'A',currency:'USD',sector:'operating',price:12,forwardPE:17,researchScore:{parts:{valuation:20,risk:5},coveragePoints:40,partialPoints:25,total:null}}]};
+const urecon={modelVersion:'reconstruction',stocks:[{ticker:'A',points:[{date:'2026-09-30',profile:'operating',parts:{valuation:18,risk:4},coveragePoints:40,partialPoints:22,total:null,inputs:{peApprox:22}}]}]};
+const uarchive={snapshots:[{date:'2026-10-22',modelVersion:'old',quotes:[{ticker:'A',total:99,coveragePoints:100}]},{date:'2026-10-23',modelVersion:'current',quotes:[{ticker:'A',parts:{valuation:19,risk:5},coveragePoints:40,partialPoints:24,total:null}]}]};
+const ups=unified.unifiedPoints('A',{snapshot:usnap,reconstruction:urecon,archive:uarchive});
+assert.deepEqual(ups.map(p=>[p.source,p.value]),[['retrospective',22],['observed',24]]);
+assert.equal(unified.unifiedPoints('A',{snapshot:usnap,reconstruction:urecon,archive:uarchive,metric:'total'}).every(p=>p.value===null),true);
+assert.equal(unified.unifiedValue(urecon.stocks[0].points[0],'forwardPE'),null);
+assert.equal(unified.unifiedValue(urecon.stocks[0].points[0],'pe'),22);
+assert.equal(unified.unifiedValue({fundamentals:{revenueGrowth:.15}},'revenueGrowth'),15);
+assert.equal(unified.unifiedValue({fundamentals:{specialist:{raw:{navPerShare:20}}}},'specialist.navPerShare'),20);
+assert.equal(unified.lineSegments(ups).length,2);
+assert.equal(unified.lineSegments([{date:'2026-01-01',value:2,source:'observed',signature:'a'},{date:'2026-01-02',value:null,source:'observed',signature:'a'},{date:'2026-01-03',value:4,source:'observed',signature:'a'}]).length,2);
+assert.equal(unified.lineSegments([{date:'2026-01-01',value:2,source:'observed',signature:'a'},{date:'2026-01-02',value:3,source:'observed',signature:'b'}]).length,2);
+const returns=unified.commonReturns([{points:[{date:'2026-01-01',value:5},{date:'2026-01-02',value:10},{date:'2026-01-03',value:20}]},{points:[{date:'2026-01-02',value:4},{date:'2026-01-03',value:6}]}]);
+assert.deepEqual(returns.map(s=>s.points.map(p=>p.value)),[[0,100],[0,50]]);
+assert.equal(unified.median([1,8,null,3,5]),4);
+console.log('Unified comparisons: separate provenance, no invented full scores or historical estimates, category boundaries and common return baseline passed.');
+
+assert.equal(unified.unifiedPoints('A',{snapshot:usnap,prices:[{date:'2026-01-01',close:10}],metric:'adjustedReturn'})[0].value,null);
+assert.equal(unified.unifiedPoints('A',{snapshot:usnap,prices:[{date:'2026-01-01',close:10,adjustedClose:9}],metric:'adjustedReturn'})[0].value,9);
