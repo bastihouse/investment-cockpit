@@ -43,3 +43,11 @@ console.log('Unified comparisons: separate provenance, no invented full scores o
 
 assert.equal(unified.unifiedPoints('A',{snapshot:usnap,prices:[{date:'2026-01-01',close:10}],metric:'adjustedReturn'})[0].value,null);
 assert.equal(unified.unifiedPoints('A',{snapshot:usnap,prices:[{date:'2026-01-01',close:10,adjustedClose:9}],metric:'adjustedReturn'})[0].value,9);
+const {filterComparisonOptions}=require('../research_hub.js');
+const choices=[['SAN.MC','Banco Santander · Madrid'],['SAN.PA','Sanofi · Paris'],['MUV2.DE','Münchener Rück'],['MSFT','Microsoft']];
+assert.deepEqual(filterComparisonOptions(choices,'san').map(x=>x[0]),['SAN.MC','SAN.PA']);
+assert.equal(filterComparisonOptions(choices,'munchener ruck')[0][0],'MUV2.DE');
+assert.equal(filterComparisonOptions(choices,'san paris')[0][0],'SAN.PA');
+assert.deepEqual(filterComparisonOptions(choices,'<script>'),[]);assert.equal(filterComparisonOptions(choices,'').length,4);
+const extraFx={'GBPUSD=X':{data:[{date:'2026-10-23',close:1.3}]},'CHFUSD=X':{data:[{date:'2026-10-23',close:1.1}]}};
+assert.equal(fxRate('GBP','2026-10-26',extraFx).value,1.3);assert.equal(fxRate('CHF','2026-10-28',extraFx),null);
