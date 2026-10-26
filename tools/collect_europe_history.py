@@ -7,7 +7,14 @@ import datetime as dt,hashlib,json,re,sys,time
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0,str(Path(__file__).resolve().parent))
-from collect_reconstruction_sources import get,ROOT
+from urllib.request import Request,urlopen
+ROOT=Path(__file__).resolve().parents[1]
+CACHE=ROOT.parent/'tmp/reconstruction-sources'
+def get(url):
+ CACHE.mkdir(parents=True,exist_ok=True);p=CACHE/hashlib.sha256(url.encode()).hexdigest()
+ if p.exists():return p.read_bytes()
+ with urlopen(Request(url,headers={'User-Agent':'InvestmentCockpit public research; github.com/bastihouse/investment-cockpit'}),timeout=25) as response:body=response.read()
+ p.write_bytes(body);return body
 from scoring import SPECIAL
 # Local listing -> SEC reporting issuer ticker, reported functional currency.
 ISSUERS={'ASML.AS':('ASML','EUR'),'SAP.DE':('SAP','EUR'),'NOVN.SW':('NVS','USD'),'NOVO-B.CO':('NVO','DKK'),'AZN.L':('AZN','USD'),'TTE.PA':('TTE','USD'),'SHELL.AS':('SHEL','USD'),'ULVR.L':('UL','EUR'),'BP.L':('BP','USD'),'HSBA.L':('HSBC','USD'),'UBSG.SW':('UBS','USD'),'SAN.PA':('SNY','EUR'),'INGA.AS':('ING','EUR'),'DBK.DE':('DB','EUR'),'GSK.L':('GSK','GBP'),'BATS.L':('BTI','GBP'),'RIO.L':('RIO','USD'),'NG.L':('NGG','GBP'),'REL.L':('RELX','GBP'),'DGE.L':('DEO','USD'),'VOD.L':('VOD','EUR'),'NOKIA.HE':('NOK','EUR'),'RACE.MI':('RACE','EUR'),'ARGX.BR':('ARGX','USD')}
