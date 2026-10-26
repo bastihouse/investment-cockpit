@@ -1,5 +1,19 @@
 # Investment Cockpit V7.5
 
+## Gemeinsamer Vergleich und einfache Score-Erklärungen (26.10.2026)
+
+Ein einziger Vergleichsbereich ersetzt die vier bisherigen Vergleichs-Unteransichten und den separaten Verlaufseinstieg. Zwei Aktien als Start; weitere Aktien, Index-ETF-Benchmarks und Branchenmediane dynamisch per Plus ergänzen oder entfernen. Keine künstliche Vier-Aktien-Grenze. Kennzahlenwahl mit Score, Komponenten, Abdeckung, Kurs, Kurs-/dividendenbereinigter Renditenäherung, KGV, Forward-KGV, Geschäftszahlen und vorhandenen numerischen Spezialkennzahlen. Historischer Verlauf und aktueller Stand im selben Arbeitsbereich. Browserlokale Auswahl unter cockpit-unified-comparison-v1, CSV mit Herkunft und Berechnungsbasis; bisherige Watchlists bleiben erhalten.
+
+Historische Rückrechnungen sind gestrichelt, tatsächlich gespeicherte Beobachtungen durchgezogen; Farbe bezeichnet die Aktie. Gesamtwerte nur bei vollständiger Abdeckung, keine Hochrechnung von Teilpunkten und keine erfundenen historischen Analystenschätzungen. Basiswechsel, fehlende Werte und längere Datenlücken unterbrechen die Linien. Renditen verwenden gemeinsame Handelstage und historische FX-Kurse mit maximal vier Tagen Rückgriff. ETFs haben keine erfundenen Unternehmens-Scores. Branchenmediane verwenden mindestens drei geeignete heutige Universumsmitglieder; wechselnde Zusammensetzung und eingeschränkte Branchen-/Profilvergleichbarkeit bleiben ausdrücklich erklärt.
+
+Methodik im Header erklärt die fünf Gewichte, tatsächlichen Schwellen, lineare Zwischenwerte, Spezialprofile und Grenzen in Alltagssprache. Einzelaktien erklären Bedeutung und Berechnung je Kategorie; Zeitstempel sind lesbar in Wiener Zeit. Auch der Einzelaktien-Score-Chart zeigt beide historischen Herkünfte.
+
+Nasdaq: kein gesonderter vollständiger Nasdaq-100-Import im bisherigen Bestand. Neuer Filter für vorhandene Nasdaq-notierte Aktien anhand der vom Anbieter gelieferten Börsenmetadaten. QQQ ergänzt den Nasdaq-100 als ausdrücklich bezeichneten ETF-Proxy im Benchmark-Datenlauf. Die Provider-Metadaten und Quellen bleiben sichtbar. Datenqualität hat nur noch einen Einstieg; ausführliche Prüfungen und Quellen sind aufklappbar über eine Themenauswahl erreichbar.
+
+Offener Ausbauwunsch von Sebastian: später die Top 100 Aktien des STOXX Europe 600 nach Indexgewicht importieren. In dieser Änderung noch kein Europa-Import.
+
+Validierung: Kernprüfungen für Herkunft, Teil-/Gesamtwerte, fehlende historische Schätzungen, Segmentgrenzen und gemeinsame Renditebasis; Benchmark-Katalog einschließlich QQQ; vollständige Python-Prüfungen und DOM-Integration. Live-Abnahme folgt.
+
 ## Eigener Bereich für Datenqualität (22.10.2026)
 
 Universumsfilter enthalten nur noch Alle Aktien und S&P 500 Top 100; die bisherige 32er-Auswahl ist in allen aktuellen Ansichten entfernt. Der Header zeigt Investment Research ohne Aktienanzahl. Der Hauptbereich Daten heißt Datenqualität. Kursverfügbarkeit, Primärprüfung, Statusanzeige, Berichtsprüfung und Qualitätshinweise sind dort gebündelt. Die erste Übersicht beginnt direkt mit der Aktienliste. Datencheck-Spalte und Primärhinweise auf mobilen Übersichtskarten sind dort ausgeblendet; Prüfdetails bleiben im eigenen Bereich und in Einzelaktienansichten verfügbar. Such-/Watchlist-Filter und Sortierung bleiben bestehen.
