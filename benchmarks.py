@@ -6,7 +6,7 @@ from pathlib import Path
 from update_data import chart
 
 SPONSOR='https://www.ssga.com/us/en/individual/capabilities/equities/sector-investing/select-sector-etfs'
-CATALOG=[('SPY','S&P 500 · SPY-Proxy','USD',None),
+CATALOG=[('SPY','S&P 500 · SPY-Proxy','USD',None),('QQQ','Nasdaq-100 · QQQ-Proxy','USD',None),
  ('XLK','US-Technologie','USD','Technology'),('XLF','US-Finanzen','USD','Financial Services'),
  ('XLE','US-Energie','USD','Energy'),('XLV','US-Gesundheit','USD','Healthcare'),
  ('XLI','US-Industrie','USD','Industrials'),('XLY','US-zyklischer Konsum','USD','Consumer Cyclical'),
@@ -22,7 +22,7 @@ def build(root,today=None,fetcher=None):
     def collect(item):
         symbol,name,currency,sector=item
         row=dict(symbol=symbol,name=name,currency=currency,sector=sector,sourceUrl='https://finance.yahoo.com/quote/'+symbol+'/',
-                 metadataSourceUrl=('https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-500-etf-trust-spy' if symbol=='SPY' else SPONSOR) if sector!='fx' else None,attemptedAt=stamp)
+                 metadataSourceUrl=('https://www.invesco.com/us/en/financial-products/etfs/invesco-qqq-trust-series-1.html' if symbol=='QQQ' else 'https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-500-etf-trust-spy' if symbol=='SPY' else SPONSOR) if sector!='fx' else None,attemptedAt=stamp)
         try:
             history,actual=fetcher(symbol)
             if actual!=currency:raise ValueError('Unexpected quote currency')
