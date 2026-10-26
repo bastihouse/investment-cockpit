@@ -1196,7 +1196,7 @@ diInit();
 
 // V6.15 Data Foundation: modern market snapshots never overwrite historical score records.
 let universeGroup='all';
-function universeMatches(q,group=universeGroup){return group==='all'||(group==='original'?q.originalUniverse!==false:!!q.sp500Top100);}
+function universeMatches(q,group=universeGroup){return group==='all'||(group==='nasdaq'?/^(NMS|NGM|NCM|NASDAQ)$/i.test(q.fundamentals?.exchange||q.exchange||'')||/nasdaq/i.test(q.fundamentals?.fullExchangeName||''):group==='original'?q.originalUniverse!==false:!!q.sp500Top100);}
 const lm=id=>document.getElementById(id);
 const lmState={data:null,started:false,selected:'MSFT',timer:null};
 const lmEsc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
