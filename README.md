@@ -12,7 +12,7 @@ Nasdaq: kein gesonderter vollständiger Nasdaq-100-Import im bisherigen Bestand.
 
 Offener Ausbauwunsch von Sebastian: später die Top 100 Aktien des STOXX Europe 600 nach Indexgewicht importieren. In dieser Änderung noch kein Europa-Import.
 
-Validierung: Kernprüfungen für Herkunft, Teil-/Gesamtwerte, fehlende historische Schätzungen, Segmentgrenzen und gemeinsame Renditebasis; Benchmark-Katalog einschließlich QQQ; vollständige Python-Prüfungen und DOM-Integration. Live-Abnahme folgt.
+Validierung: Kernprüfungen für Herkunft, Teil-/Gesamtwerte, fehlende historische Schätzungen, Segmentgrenzen und gemeinsame Renditebasis; Benchmark-Katalog einschließlich QQQ; vollständige Python-Prüfungen und DOM-Integration. Live veröffentlicht und am 26.10.2026 geprüft: Workflow https://github.com/bastihouse/investment-cockpit/actions/runs/40312434981; Desktop sowie 390-/768-Pixel-Iframe-Ansichten. Details und Einschränkungen in DEPLOYMENT_STATUS.md.
 
 ## Eigener Bereich für Datenqualität (22.10.2026)
 

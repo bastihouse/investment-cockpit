@@ -1,5 +1,7 @@
 # Research-Erweiterung 19.10.2026
 
+Status am 26.10.2026: Vollständig auf GitHub veröffentlicht und auf GitHub Pages live. Die GitHub-Integration verweigert weiterhin Schreibzugriffe (HTTP 403); die Veröffentlichung gelang über den wieder verfügbaren GitHub-Browsereditor und Datei-Upload. Erfolgreicher Workflow: https://github.com/bastihouse/investment-cockpit/actions/runs/40312434981 (refresh 72 Sekunden, deploy 10 Sekunden). Alle sieben zuletzt ausstehenden Code-/Testdateien stimmen per Git-Blob-SHA mit dem geprüften lokalen Stand überein. Live geprüft: fünf Hauptbereiche ohne separaten Verlauf, gemeinsame Score-Linien (gestrichelt/durchgezogen), QQQ-Renditevergleich, Methodikerklärung und vereinfachte Datenqualität. Smartphone-/Tablet-Layouts in echten 390-/768-Pixel-Iframes visuell geprüft; kein Test auf physischen Geräten. Desktop ohne horizontale Seitenüberbreite. Einzelne Browser-Automationsabfragen in den Iframes liefen in Timeouts; die Navigation wurde anschließend visuell bestätigt. Keine kostenpflichtigen Dienste und keine Änderung der Score-Regeln oder privaten Watchlists.
+
 ## Gemeinsamer Vergleich und einfache Score-Erklärungen (26.10.2026)
 
 Ein einziger Vergleichsbereich ersetzt die vier bisherigen Vergleichs-Unteransichten und den separaten Verlaufseinstieg. Zwei Aktien als Start; weitere Aktien, Index-ETF-Benchmarks und Branchenmediane dynamisch per Plus ergänzen oder entfernen. Keine künstliche Vier-Aktien-Grenze. Kennzahlenwahl mit Score, Komponenten, Abdeckung, Kurs, Kurs-/dividendenbereinigter Renditenäherung, KGV, Forward-KGV, Geschäftszahlen und vorhandenen numerischen Spezialkennzahlen. Historischer Verlauf und aktueller Stand im selben Arbeitsbereich. Browserlokale Auswahl unter cockpit-unified-comparison-v1, CSV mit Herkunft und Berechnungsbasis; bisherige Watchlists bleiben erhalten.
@@ -12,7 +14,7 @@ Nasdaq: kein gesonderter vollständiger Nasdaq-100-Import im bisherigen Bestand.
 
 Offener Ausbauwunsch von Sebastian: später die Top 100 Aktien des STOXX Europe 600 nach Indexgewicht importieren. In dieser Änderung noch kein Europa-Import.
 
-Validierung: Kernprüfungen für Herkunft, Teil-/Gesamtwerte, fehlende historische Schätzungen, Segmentgrenzen und gemeinsame Renditebasis; Benchmark-Katalog einschließlich QQQ; vollständige Python-Prüfungen und DOM-Integration. Live-Abnahme folgt.
+Validierung: Kernprüfungen für Herkunft, Teil-/Gesamtwerte, fehlende historische Schätzungen, Segmentgrenzen und gemeinsame Renditebasis; Benchmark-Katalog einschließlich QQQ; vollständige Python-Prüfungen und DOM-Integration. Live-Abnahme am 26.10.2026 erfolgt; Details im Veröffentlichungsstatus.
 
 ## Eigener Bereich für Datenqualität (22.10.2026)
 
