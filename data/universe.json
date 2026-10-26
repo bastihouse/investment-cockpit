@@ -121,7 +121,14 @@
     "name": "Siemens Energy",
     "yahoo": "ENR.DE",
     "currency": "EUR",
-    "originalUniverse": true
+    "originalUniverse": true,
+    "stoxx600Top100": {
+      "rank": 29,
+      "weightProxyPct": 0.73,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Xetra",
+    "country": "Deutschland"
   },
   {
     "ticker": "MCK",
@@ -135,7 +142,14 @@
     "name": "Generali",
     "yahoo": "G.MI",
     "currency": "EUR",
-    "originalUniverse": true
+    "originalUniverse": true,
+    "stoxx600Top100": {
+      "rank": 70,
+      "weightProxyPct": 0.34,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Borsa Italiana",
+    "country": "Italien"
   },
   {
     "ticker": "V",
@@ -166,7 +180,14 @@
     "name": "Allianz",
     "yahoo": "ALV.DE",
     "currency": "EUR",
-    "originalUniverse": true
+    "originalUniverse": true,
+    "stoxx600Top100": {
+      "rank": 12,
+      "weightProxyPct": 1.23,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Xetra",
+    "country": "Deutschland"
   },
   {
     "ticker": "SHEL",
@@ -266,7 +287,14 @@
     "name": "LVMH",
     "yahoo": "MC.PA",
     "currency": "EUR",
-    "originalUniverse": true
+    "originalUniverse": true,
+    "stoxx600Top100": {
+      "rank": 31,
+      "weightProxyPct": 0.71,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Paris",
+    "country": "Frankreich"
   },
   {
     "ticker": "ACOMO",
@@ -1296,5 +1324,1349 @@
       "weightProxyPct": 0.178857,
       "asOf": "2026-10-16"
     }
+  },
+  {
+    "ticker": "ASML.AS",
+    "yahoo": "ASML.AS",
+    "name": "ASML HOLDING",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 1,
+      "weightProxyPct": 4.12,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Euronext Amsterdam",
+    "country": "Niederlande"
+  },
+  {
+    "ticker": "ROP.SW",
+    "yahoo": "ROP.SW",
+    "name": "ROCHE PS PAR AG",
+    "currency": "CHF",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 2,
+      "weightProxyPct": 2.24,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "SIX Swiss Exchange",
+    "country": "Schweiz"
+  },
+  {
+    "ticker": "HSBA.L",
+    "yahoo": "HSBA.L",
+    "name": "HSBC HOLDINGS PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 3,
+      "weightProxyPct": 2.09,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "SHELL.AS",
+    "yahoo": "SHELL.AS",
+    "name": "SHELL",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 4,
+      "weightProxyPct": 2.02,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Euronext Amsterdam",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "NOVN.SW",
+    "yahoo": "NOVN.SW",
+    "name": "NOVARTIS AG",
+    "currency": "CHF",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 5,
+      "weightProxyPct": 1.98,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "SIX Swiss Exchange",
+    "country": "Schweiz"
+  },
+  {
+    "ticker": "AZN.L",
+    "yahoo": "AZN.L",
+    "name": "ASTRAZENECA PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 6,
+      "weightProxyPct": 1.79,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "NESN.SW",
+    "yahoo": "NESN.SW",
+    "name": "NESTLE SA",
+    "currency": "CHF",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 7,
+      "weightProxyPct": 1.76,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "SIX Swiss Exchange",
+    "country": "Schweiz"
+  },
+  {
+    "ticker": "SAP.DE",
+    "yahoo": "SAP.DE",
+    "name": "SAP",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 8,
+      "weightProxyPct": 1.63,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Xetra",
+    "country": "Deutschland"
+  },
+  {
+    "ticker": "TTE.PA",
+    "yahoo": "TTE.PA",
+    "name": "TOTALENERGIES",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 9,
+      "weightProxyPct": 1.44,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Paris",
+    "country": "Frankreich"
+  },
+  {
+    "ticker": "SIE.DE",
+    "yahoo": "SIE.DE",
+    "name": "SIEMENS N AG",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 10,
+      "weightProxyPct": 1.42,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Xetra",
+    "country": "Deutschland"
+  },
+  {
+    "ticker": "SAN.MC",
+    "yahoo": "SAN.MC",
+    "name": "BANCO SANTANDER",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 11,
+      "weightProxyPct": 1.31,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Bolsa De Madrid",
+    "country": "Spanien"
+  },
+  {
+    "ticker": "IBE.MC",
+    "yahoo": "IBE.MC",
+    "name": "IBERDROLA",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 13,
+      "weightProxyPct": 1.03,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Bolsa De Madrid",
+    "country": "Spanien"
+  },
+  {
+    "ticker": "SU.PA",
+    "yahoo": "SU.PA",
+    "name": "SCHNEIDER ELECTRIC",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 14,
+      "weightProxyPct": 1.01,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Paris",
+    "country": "Frankreich"
+  },
+  {
+    "ticker": "ULVR.L",
+    "yahoo": "ULVR.L",
+    "name": "UNILEVER PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 15,
+      "weightProxyPct": 0.97,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "UBSG.SW",
+    "yahoo": "UBSG.SW",
+    "name": "UBS GROUP AG",
+    "currency": "CHF",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 16,
+      "weightProxyPct": 0.96,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "SIX Swiss Exchange",
+    "country": "Schweiz"
+  },
+  {
+    "ticker": "BP.L",
+    "yahoo": "BP.L",
+    "name": "BP PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 17,
+      "weightProxyPct": 0.95,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "BBVA.MC",
+    "yahoo": "BBVA.MC",
+    "name": "BANCO BILBAO VIZCAYA ARGENTARIA",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 18,
+      "weightProxyPct": 0.94,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Bolsa De Madrid",
+    "country": "Spanien"
+  },
+  {
+    "ticker": "RR.L",
+    "yahoo": "RR.L",
+    "name": "ROLLS-ROYCE HOLDINGS PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 19,
+      "weightProxyPct": 0.87,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "BATS.L",
+    "yahoo": "BATS.L",
+    "name": "BRITISH AMERICAN TOBACCO",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 20,
+      "weightProxyPct": 0.87,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "ABBN.SW",
+    "yahoo": "ABBN.SW",
+    "name": "ABB LTD",
+    "currency": "CHF",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 21,
+      "weightProxyPct": 0.86,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "SIX Swiss Exchange",
+    "country": "Schweiz"
+  },
+  {
+    "ticker": "AIR.PA",
+    "yahoo": "AIR.PA",
+    "name": "AIRBUS GROUP",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 22,
+      "weightProxyPct": 0.85,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Paris",
+    "country": "Frankreich"
+  },
+  {
+    "ticker": "NOVO-B.CO",
+    "yahoo": "NOVO-B.CO",
+    "name": "NOVO NORDISK CLASS B",
+    "currency": "DKK",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 23,
+      "weightProxyPct": 0.84,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Omx Nordic Exchange Copenhagen A/S",
+    "country": "Dänemark"
+  },
+  {
+    "ticker": "AI.PA",
+    "yahoo": "AI.PA",
+    "name": "LAIR LIQUIDE SOCIETE ANONYME POUR",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 24,
+      "weightProxyPct": 0.84,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Paris",
+    "country": "Frankreich"
+  },
+  {
+    "ticker": "UCG.MI",
+    "yahoo": "UCG.MI",
+    "name": "UNICREDIT",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 25,
+      "weightProxyPct": 0.82,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Borsa Italiana",
+    "country": "Italien"
+  },
+  {
+    "ticker": "OR.PA",
+    "yahoo": "OR.PA",
+    "name": "LOREAL SA",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 26,
+      "weightProxyPct": 0.79,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Paris",
+    "country": "Frankreich"
+  },
+  {
+    "ticker": "ZURN.SW",
+    "yahoo": "ZURN.SW",
+    "name": "ZURICH INSURANCE GROUP AG",
+    "currency": "CHF",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 27,
+      "weightProxyPct": 0.76,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "SIX Swiss Exchange",
+    "country": "Schweiz"
+  },
+  {
+    "ticker": "SAF.PA",
+    "yahoo": "SAF.PA",
+    "name": "SAFRAN SA",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 28,
+      "weightProxyPct": 0.76,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Paris",
+    "country": "Frankreich"
+  },
+  {
+    "ticker": "CFR.SW",
+    "yahoo": "CFR.SW",
+    "name": "COMPAGNIE FINANCIERE RICHEMONT SA",
+    "currency": "CHF",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 30,
+      "weightProxyPct": 0.71,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "SIX Swiss Exchange",
+    "country": "Schweiz"
+  },
+  {
+    "ticker": "GSK.L",
+    "yahoo": "GSK.L",
+    "name": "GLAXOSMITHKLINE",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 32,
+      "weightProxyPct": 0.69,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "ISP.MI",
+    "yahoo": "ISP.MI",
+    "name": "INTESA SANPAOLO",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 33,
+      "weightProxyPct": 0.69,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Borsa Italiana",
+    "country": "Italien"
+  },
+  {
+    "ticker": "DTE.DE",
+    "yahoo": "DTE.DE",
+    "name": "DEUTSCHE TELEKOM N AG",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 34,
+      "weightProxyPct": 0.66,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Xetra",
+    "country": "Deutschland"
+  },
+  {
+    "ticker": "BNP.PA",
+    "yahoo": "BNP.PA",
+    "name": "BNP PARIBAS SA",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 35,
+      "weightProxyPct": 0.66,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Paris",
+    "country": "Frankreich"
+  },
+  {
+    "ticker": "SAN.PA",
+    "yahoo": "SAN.PA",
+    "name": "SANOFI SA",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 36,
+      "weightProxyPct": 0.62,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Paris",
+    "country": "Frankreich"
+  },
+  {
+    "ticker": "INGA.AS",
+    "yahoo": "INGA.AS",
+    "name": "ING GROEP",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 37,
+      "weightProxyPct": 0.62,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Euronext Amsterdam",
+    "country": "Niederlande"
+  },
+  {
+    "ticker": "RIO.L",
+    "yahoo": "RIO.L",
+    "name": "RIO TINTO",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 38,
+      "weightProxyPct": 0.6,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "ABI.BR",
+    "yahoo": "ABI.BR",
+    "name": "ANHEUSER-BUSCH INBEV SA",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 39,
+      "weightProxyPct": 0.59,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Brussels",
+    "country": "Belgien"
+  },
+  {
+    "ticker": "NG.L",
+    "yahoo": "NG.L",
+    "name": "NATIONAL GRID PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 40,
+      "weightProxyPct": 0.58,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "CS.PA",
+    "yahoo": "CS.PA",
+    "name": "AXA SA",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 41,
+      "weightProxyPct": 0.55,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Paris",
+    "country": "Frankreich"
+  },
+  {
+    "ticker": "BA.L",
+    "yahoo": "BA.L",
+    "name": "BAE SYSTEMS PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 42,
+      "weightProxyPct": 0.55,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "ENEL.MI",
+    "yahoo": "ENEL.MI",
+    "name": "ENEL",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 43,
+      "weightProxyPct": 0.54,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Borsa Italiana",
+    "country": "Italien"
+  },
+  {
+    "ticker": "MUV2.DE",
+    "yahoo": "MUV2.DE",
+    "name": "MUENCHENER RUECKVERSICHERUNGS-GESE",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 44,
+      "weightProxyPct": 0.53,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Xetra",
+    "country": "Deutschland"
+  },
+  {
+    "ticker": "LLOY.L",
+    "yahoo": "LLOY.L",
+    "name": "LLOYDS BANKING GROUP PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 45,
+      "weightProxyPct": 0.52,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "INVE-B.ST",
+    "yahoo": "INVE-B.ST",
+    "name": "INVESTOR CLASS B",
+    "currency": "SEK",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 46,
+      "weightProxyPct": 0.51,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nasdaq Omx Nordic",
+    "country": "Schweden"
+  },
+  {
+    "ticker": "REL.L",
+    "yahoo": "REL.L",
+    "name": "RELX PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 47,
+      "weightProxyPct": 0.5,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "BARC.L",
+    "yahoo": "BARC.L",
+    "name": "BARCLAYS PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 48,
+      "weightProxyPct": 0.49,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "IFX.DE",
+    "yahoo": "IFX.DE",
+    "name": "INFINEON TECHNOLOGIES AG",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 49,
+      "weightProxyPct": 0.48,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Xetra",
+    "country": "Deutschland"
+  },
+  {
+    "ticker": "ITX.MC",
+    "yahoo": "ITX.MC",
+    "name": "INDUSTRIA DE DISENO TEXTIL SA",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 50,
+      "weightProxyPct": 0.48,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Bolsa De Madrid",
+    "country": "Spanien"
+  },
+  {
+    "ticker": "NWG.L",
+    "yahoo": "NWG.L",
+    "name": "NATWEST GROUP PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 51,
+      "weightProxyPct": 0.46,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "GLEN.L",
+    "yahoo": "GLEN.L",
+    "name": "GLENCORE PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 52,
+      "weightProxyPct": 0.46,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "DG.PA",
+    "yahoo": "DG.PA",
+    "name": "VINCI SA",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 53,
+      "weightProxyPct": 0.44,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Paris",
+    "country": "Frankreich"
+  },
+  {
+    "ticker": "DB1.DE",
+    "yahoo": "DB1.DE",
+    "name": "DEUTSCHE BOERSE AG",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 54,
+      "weightProxyPct": 0.44,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Xetra",
+    "country": "Deutschland"
+  },
+  {
+    "ticker": "EL.PA",
+    "yahoo": "EL.PA",
+    "name": "ESSILORLUXOTTICA SA",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 55,
+      "weightProxyPct": 0.43,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Paris",
+    "country": "Frankreich"
+  },
+  {
+    "ticker": "ENI.MI",
+    "yahoo": "ENI.MI",
+    "name": "ENI",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 56,
+      "weightProxyPct": 0.42,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Borsa Italiana",
+    "country": "Italien"
+  },
+  {
+    "ticker": "DHL.DE",
+    "yahoo": "DHL.DE",
+    "name": "DHL AG",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 57,
+      "weightProxyPct": 0.41,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Xetra",
+    "country": "Deutschland"
+  },
+  {
+    "ticker": "CPG.L",
+    "yahoo": "CPG.L",
+    "name": "COMPASS GROUP PLC",
+    "currency": "USD",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 58,
+      "weightProxyPct": 0.41,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "LSEG.L",
+    "yahoo": "LSEG.L",
+    "name": "LONDON STOCK EXCHANGE GROUP PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 59,
+      "weightProxyPct": 0.41,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "DBK.DE",
+    "yahoo": "DBK.DE",
+    "name": "DEUTSCHE BANK AG",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 60,
+      "weightProxyPct": 0.4,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Xetra",
+    "country": "Deutschland"
+  },
+  {
+    "ticker": "NDA-FI.HE",
+    "yahoo": "NDA-FI.HE",
+    "name": "NORDEA BANK",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 61,
+      "weightProxyPct": 0.39,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nasdaq Omx Helsinki Ltd.",
+    "country": "Finnland"
+  },
+  {
+    "ticker": "ARGX.BR",
+    "yahoo": "ARGX.BR",
+    "name": "ARGENX",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 62,
+      "weightProxyPct": 0.37,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Brussels",
+    "country": "Belgien"
+  },
+  {
+    "ticker": "SREN.SW",
+    "yahoo": "SREN.SW",
+    "name": "SWISS RE AG",
+    "currency": "CHF",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 63,
+      "weightProxyPct": 0.37,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "SIX Swiss Exchange",
+    "country": "Schweiz"
+  },
+  {
+    "ticker": "AAL.L",
+    "yahoo": "AAL.L",
+    "name": "ANGLO AMERICAN PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 64,
+      "weightProxyPct": 0.36,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "LONN.SW",
+    "yahoo": "LONN.SW",
+    "name": "LONZA GROUP AG",
+    "currency": "CHF",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 65,
+      "weightProxyPct": 0.36,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "SIX Swiss Exchange",
+    "country": "Schweiz"
+  },
+  {
+    "ticker": "DGE.L",
+    "yahoo": "DGE.L",
+    "name": "DIAGEO PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 66,
+      "weightProxyPct": 0.36,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "RHM.DE",
+    "yahoo": "RHM.DE",
+    "name": "RHEINMETALL AG",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 67,
+      "weightProxyPct": 0.36,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Xetra",
+    "country": "Deutschland"
+  },
+  {
+    "ticker": "BAS.DE",
+    "yahoo": "BAS.DE",
+    "name": "BASF N",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 68,
+      "weightProxyPct": 0.36,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Xetra",
+    "country": "Deutschland"
+  },
+  {
+    "ticker": "ENGI.PA",
+    "yahoo": "ENGI.PA",
+    "name": "ENGIE SA",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 69,
+      "weightProxyPct": 0.34,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Paris",
+    "country": "Frankreich"
+  },
+  {
+    "ticker": "GLE.PA",
+    "yahoo": "GLE.PA",
+    "name": "SOCIETE GENERALE SA",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 71,
+      "weightProxyPct": 0.34,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Paris",
+    "country": "Frankreich"
+  },
+  {
+    "ticker": "VOLV-B.ST",
+    "yahoo": "VOLV-B.ST",
+    "name": "VOLVO CLASS B",
+    "currency": "SEK",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 72,
+      "weightProxyPct": 0.33,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nasdaq Omx Nordic",
+    "country": "Schweden"
+  },
+  {
+    "ticker": "RMS.PA",
+    "yahoo": "RMS.PA",
+    "name": "HERMES INTERNATIONAL",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 73,
+      "weightProxyPct": 0.33,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Paris",
+    "country": "Frankreich"
+  },
+  {
+    "ticker": "PRX.AS",
+    "yahoo": "PRX.AS",
+    "name": "PROSUS NV CLASS N",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 74,
+      "weightProxyPct": 0.33,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Euronext Amsterdam",
+    "country": "Niederlande"
+  },
+  {
+    "ticker": "BAYN.DE",
+    "yahoo": "BAYN.DE",
+    "name": "BAYER AG",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 75,
+      "weightProxyPct": 0.32,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Xetra",
+    "country": "Deutschland"
+  },
+  {
+    "ticker": "RACE.MI",
+    "yahoo": "RACE.MI",
+    "name": "FERRARI",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 76,
+      "weightProxyPct": 0.32,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Borsa Italiana",
+    "country": "Italien"
+  },
+  {
+    "ticker": "RKT.L",
+    "yahoo": "RKT.L",
+    "name": "RECKITT BENCKISER GROUP PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 77,
+      "weightProxyPct": 0.32,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "EOAN.DE",
+    "yahoo": "EOAN.DE",
+    "name": "E.ON N",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 78,
+      "weightProxyPct": 0.31,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Xetra",
+    "country": "Deutschland"
+  },
+  {
+    "ticker": "STAN.L",
+    "yahoo": "STAN.L",
+    "name": "STANDARD CHARTERED PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 79,
+      "weightProxyPct": 0.31,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "ATCO-A.ST",
+    "yahoo": "ATCO-A.ST",
+    "name": "ATLAS COPCO CLASS A",
+    "currency": "SEK",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 80,
+      "weightProxyPct": 0.31,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nasdaq Omx Nordic",
+    "country": "Schweden"
+  },
+  {
+    "ticker": "TSCO.L",
+    "yahoo": "TSCO.L",
+    "name": "TESCO PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 81,
+      "weightProxyPct": 0.3,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "BN.PA",
+    "yahoo": "BN.PA",
+    "name": "DANONE SA",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 82,
+      "weightProxyPct": 0.3,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Paris",
+    "country": "Frankreich"
+  },
+  {
+    "ticker": "CABK.MC",
+    "yahoo": "CABK.MC",
+    "name": "CAIXABANK SA",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 83,
+      "weightProxyPct": 0.3,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Bolsa De Madrid",
+    "country": "Spanien"
+  },
+  {
+    "ticker": "NOKIA.HE",
+    "yahoo": "NOKIA.HE",
+    "name": "NOKIA",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 84,
+      "weightProxyPct": 0.3,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nasdaq Omx Helsinki Ltd.",
+    "country": "Finnland"
+  },
+  {
+    "ticker": "HLN.L",
+    "yahoo": "HLN.L",
+    "name": "HALEON PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 85,
+      "weightProxyPct": 0.3,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "GALD.SW",
+    "yahoo": "GALD.SW",
+    "name": "GALDERMA GROUP N AG",
+    "currency": "CHF",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 86,
+      "weightProxyPct": 0.3,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "SIX Swiss Exchange",
+    "country": "Schweiz"
+  },
+  {
+    "ticker": "RWE.DE",
+    "yahoo": "RWE.DE",
+    "name": "RWE AG",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 87,
+      "weightProxyPct": 0.29,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Xetra",
+    "country": "Deutschland"
+  },
+  {
+    "ticker": "SDZ.SW",
+    "yahoo": "SDZ.SW",
+    "name": "SANDOZ GROUP AG",
+    "currency": "CHF",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 88,
+      "weightProxyPct": 0.29,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "SIX Swiss Exchange",
+    "country": "Schweiz"
+  },
+  {
+    "ticker": "HOLN.SW",
+    "yahoo": "HOLN.SW",
+    "name": "HOLCIM LTD AG",
+    "currency": "CHF",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 89,
+      "weightProxyPct": 0.29,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "SIX Swiss Exchange",
+    "country": "Schweiz"
+  },
+  {
+    "ticker": "SSE.L",
+    "yahoo": "SSE.L",
+    "name": "SSE PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 90,
+      "weightProxyPct": 0.28,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "DSV.CO",
+    "yahoo": "DSV.CO",
+    "name": "DSV",
+    "currency": "DKK",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 91,
+      "weightProxyPct": 0.27,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Omx Nordic Exchange Copenhagen A/S",
+    "country": "Dänemark"
+  },
+  {
+    "ticker": "ASM.AS",
+    "yahoo": "ASM.AS",
+    "name": "ASM INTERNATIONAL NV",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 92,
+      "weightProxyPct": 0.26,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Euronext Amsterdam",
+    "country": "Niederlande"
+  },
+  {
+    "ticker": "UCB.BR",
+    "yahoo": "UCB.BR",
+    "name": "UCB SA",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 93,
+      "weightProxyPct": 0.25,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Brussels",
+    "country": "Belgien"
+  },
+  {
+    "ticker": "EXPN.L",
+    "yahoo": "EXPN.L",
+    "name": "EXPERIAN PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 94,
+      "weightProxyPct": 0.25,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
+  },
+  {
+    "ticker": "GIVN.SW",
+    "yahoo": "GIVN.SW",
+    "name": "GIVAUDAN SA",
+    "currency": "CHF",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 95,
+      "weightProxyPct": 0.25,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "SIX Swiss Exchange",
+    "country": "Schweiz"
+  },
+  {
+    "ticker": "ASSA-B.ST",
+    "yahoo": "ASSA-B.ST",
+    "name": "ASSA ABLOY B",
+    "currency": "SEK",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 96,
+      "weightProxyPct": 0.25,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nasdaq Omx Nordic",
+    "country": "Schweden"
+  },
+  {
+    "ticker": "SAND.ST",
+    "yahoo": "SAND.ST",
+    "name": "SANDVIK",
+    "currency": "SEK",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 97,
+      "weightProxyPct": 0.25,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nasdaq Omx Nordic",
+    "country": "Schweden"
+  },
+  {
+    "ticker": "SGO.PA",
+    "yahoo": "SGO.PA",
+    "name": "COMPAGNIE DE SAINT GOBAIN SA",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 98,
+      "weightProxyPct": 0.25,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Paris",
+    "country": "Frankreich"
+  },
+  {
+    "ticker": "LR.PA",
+    "yahoo": "LR.PA",
+    "name": "LEGRAND SA",
+    "currency": "EUR",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 99,
+      "weightProxyPct": 0.25,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "Nyse Euronext - Euronext Paris",
+    "country": "Frankreich"
+  },
+  {
+    "ticker": "VOD.L",
+    "yahoo": "VOD.L",
+    "name": "VODAFONE GROUP PLC",
+    "currency": "GBP",
+    "originalUniverse": false,
+    "stoxx600Top100": {
+      "rank": 100,
+      "weightProxyPct": 0.25,
+      "asOf": "2026-10-23"
+    },
+    "listingExchange": "London Stock Exchange",
+    "country": "Vereinigtes Königreich"
   }
 ]

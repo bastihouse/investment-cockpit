@@ -1,0 +1,1016 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-10-23",
+  "selectedAt": "2026-10-26T20:42:20.564194+00:00",
+  "sourceUrl": "https://www.ishares.com/de/privatanleger/de/produkte/251931/ishares-stoxx-europe-600-ucits-etf-de/latest-holdings.csv",
+  "sourcePage": "https://www.ishares.com/de/privatanleger/de/produkte/251931/ishares-stoxx-europe-600-ucits-etf-de-fu_2",
+  "sourceSha256": "9bb4b4494f6c4f5ef1981334dbfe457f059b834fda5b0c7190a83455b981c712",
+  "sourceFile": "stoxx600-holdings.csv",
+  "top100Count": 100,
+  "totalCount": 210,
+  "holdings": [
+    {
+      "ticker": "ASML.AS",
+      "yahoo": "ASML.AS",
+      "name": "ASML HOLDING",
+      "exchange": "Euronext Amsterdam",
+      "issuerTicker": "ASML",
+      "currency": "EUR",
+      "rank": 1,
+      "weightProxyPct": 4.12
+    },
+    {
+      "ticker": "ROP.SW",
+      "yahoo": "ROP.SW",
+      "name": "ROCHE PS PAR AG",
+      "exchange": "SIX Swiss Exchange",
+      "issuerTicker": "ROP",
+      "currency": "CHF",
+      "rank": 2,
+      "weightProxyPct": 2.24
+    },
+    {
+      "ticker": "HSBA.L",
+      "yahoo": "HSBA.L",
+      "name": "HSBC HOLDINGS PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "HSBA",
+      "currency": "GBP",
+      "rank": 3,
+      "weightProxyPct": 2.09
+    },
+    {
+      "ticker": "SHELL.AS",
+      "yahoo": "SHELL.AS",
+      "name": "SHELL",
+      "exchange": "Euronext Amsterdam",
+      "issuerTicker": "SHELL",
+      "currency": "EUR",
+      "rank": 4,
+      "weightProxyPct": 2.02
+    },
+    {
+      "ticker": "NOVN.SW",
+      "yahoo": "NOVN.SW",
+      "name": "NOVARTIS AG",
+      "exchange": "SIX Swiss Exchange",
+      "issuerTicker": "NOVN",
+      "currency": "CHF",
+      "rank": 5,
+      "weightProxyPct": 1.98
+    },
+    {
+      "ticker": "AZN.L",
+      "yahoo": "AZN.L",
+      "name": "ASTRAZENECA PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "AZN",
+      "currency": "GBP",
+      "rank": 6,
+      "weightProxyPct": 1.79
+    },
+    {
+      "ticker": "NESN.SW",
+      "yahoo": "NESN.SW",
+      "name": "NESTLE SA",
+      "exchange": "SIX Swiss Exchange",
+      "issuerTicker": "NESN",
+      "currency": "CHF",
+      "rank": 7,
+      "weightProxyPct": 1.76
+    },
+    {
+      "ticker": "SAP.DE",
+      "yahoo": "SAP.DE",
+      "name": "SAP",
+      "exchange": "Xetra",
+      "issuerTicker": "SAP",
+      "currency": "EUR",
+      "rank": 8,
+      "weightProxyPct": 1.63
+    },
+    {
+      "ticker": "TTE.PA",
+      "yahoo": "TTE.PA",
+      "name": "TOTALENERGIES",
+      "exchange": "Nyse Euronext - Euronext Paris",
+      "issuerTicker": "TTE",
+      "currency": "EUR",
+      "rank": 9,
+      "weightProxyPct": 1.44
+    },
+    {
+      "ticker": "SIE.DE",
+      "yahoo": "SIE.DE",
+      "name": "SIEMENS N AG",
+      "exchange": "Xetra",
+      "issuerTicker": "SIE",
+      "currency": "EUR",
+      "rank": 10,
+      "weightProxyPct": 1.42
+    },
+    {
+      "ticker": "SAN.MC",
+      "yahoo": "SAN.MC",
+      "name": "BANCO SANTANDER",
+      "exchange": "Bolsa De Madrid",
+      "issuerTicker": "SAN",
+      "currency": "EUR",
+      "rank": 11,
+      "weightProxyPct": 1.31
+    },
+    {
+      "ticker": "ALV",
+      "yahoo": "ALV.DE",
+      "name": "ALLIANZ",
+      "exchange": "Xetra",
+      "issuerTicker": "ALV",
+      "currency": "EUR",
+      "rank": 12,
+      "weightProxyPct": 1.23
+    },
+    {
+      "ticker": "IBE.MC",
+      "yahoo": "IBE.MC",
+      "name": "IBERDROLA",
+      "exchange": "Bolsa De Madrid",
+      "issuerTicker": "IBE",
+      "currency": "EUR",
+      "rank": 13,
+      "weightProxyPct": 1.03
+    },
+    {
+      "ticker": "SU.PA",
+      "yahoo": "SU.PA",
+      "name": "SCHNEIDER ELECTRIC",
+      "exchange": "Nyse Euronext - Euronext Paris",
+      "issuerTicker": "SU",
+      "currency": "EUR",
+      "rank": 14,
+      "weightProxyPct": 1.01
+    },
+    {
+      "ticker": "ULVR.L",
+      "yahoo": "ULVR.L",
+      "name": "UNILEVER PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "ULVR",
+      "currency": "GBP",
+      "rank": 15,
+      "weightProxyPct": 0.97
+    },
+    {
+      "ticker": "UBSG.SW",
+      "yahoo": "UBSG.SW",
+      "name": "UBS GROUP AG",
+      "exchange": "SIX Swiss Exchange",
+      "issuerTicker": "UBSG",
+      "currency": "CHF",
+      "rank": 16,
+      "weightProxyPct": 0.96
+    },
+    {
+      "ticker": "BP.L",
+      "yahoo": "BP.L",
+      "name": "BP PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "BP.",
+      "currency": "GBP",
+      "rank": 17,
+      "weightProxyPct": 0.95
+    },
+    {
+      "ticker": "BBVA.MC",
+      "yahoo": "BBVA.MC",
+      "name": "BANCO BILBAO VIZCAYA ARGENTARIA",
+      "exchange": "Bolsa De Madrid",
+      "issuerTicker": "BBVA",
+      "currency": "EUR",
+      "rank": 18,
+      "weightProxyPct": 0.94
+    },
+    {
+      "ticker": "RR.L",
+      "yahoo": "RR.L",
+      "name": "ROLLS-ROYCE HOLDINGS PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "RR.",
+      "currency": "GBP",
+      "rank": 19,
+      "weightProxyPct": 0.87
+    },
+    {
+      "ticker": "BATS.L",
+      "yahoo": "BATS.L",
+      "name": "BRITISH AMERICAN TOBACCO",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "BATS",
+      "currency": "GBP",
+      "rank": 20,
+      "weightProxyPct": 0.87
+    },
+    {
+      "ticker": "ABBN.SW",
+      "yahoo": "ABBN.SW",
+      "name": "ABB LTD",
+      "exchange": "SIX Swiss Exchange",
+      "issuerTicker": "ABBN",
+      "currency": "CHF",
+      "rank": 21,
+      "weightProxyPct": 0.86
+    },
+    {
+      "ticker": "AIR.PA",
+      "yahoo": "AIR.PA",
+      "name": "AIRBUS GROUP",
+      "exchange": "Nyse Euronext - Euronext Paris",
+      "issuerTicker": "AIR",
+      "currency": "EUR",
+      "rank": 22,
+      "weightProxyPct": 0.85
+    },
+    {
+      "ticker": "NOVO-B.CO",
+      "yahoo": "NOVO-B.CO",
+      "name": "NOVO NORDISK CLASS B",
+      "exchange": "Omx Nordic Exchange Copenhagen A/S",
+      "issuerTicker": "NOVO B",
+      "currency": "DKK",
+      "rank": 23,
+      "weightProxyPct": 0.84
+    },
+    {
+      "ticker": "AI.PA",
+      "yahoo": "AI.PA",
+      "name": "LAIR LIQUIDE SOCIETE ANONYME POUR",
+      "exchange": "Nyse Euronext - Euronext Paris",
+      "issuerTicker": "AI",
+      "currency": "EUR",
+      "rank": 24,
+      "weightProxyPct": 0.84
+    },
+    {
+      "ticker": "UCG.MI",
+      "yahoo": "UCG.MI",
+      "name": "UNICREDIT",
+      "exchange": "Borsa Italiana",
+      "issuerTicker": "UCG",
+      "currency": "EUR",
+      "rank": 25,
+      "weightProxyPct": 0.82
+    },
+    {
+      "ticker": "OR.PA",
+      "yahoo": "OR.PA",
+      "name": "LOREAL SA",
+      "exchange": "Nyse Euronext - Euronext Paris",
+      "issuerTicker": "OR",
+      "currency": "EUR",
+      "rank": 26,
+      "weightProxyPct": 0.79
+    },
+    {
+      "ticker": "ZURN.SW",
+      "yahoo": "ZURN.SW",
+      "name": "ZURICH INSURANCE GROUP AG",
+      "exchange": "SIX Swiss Exchange",
+      "issuerTicker": "ZURN",
+      "currency": "CHF",
+      "rank": 27,
+      "weightProxyPct": 0.76
+    },
+    {
+      "ticker": "SAF.PA",
+      "yahoo": "SAF.PA",
+      "name": "SAFRAN SA",
+      "exchange": "Nyse Euronext - Euronext Paris",
+      "issuerTicker": "SAF",
+      "currency": "EUR",
+      "rank": 28,
+      "weightProxyPct": 0.76
+    },
+    {
+      "ticker": "ENR",
+      "yahoo": "ENR.DE",
+      "name": "SIEMENS ENERGY N AG",
+      "exchange": "Xetra",
+      "issuerTicker": "ENR",
+      "currency": "EUR",
+      "rank": 29,
+      "weightProxyPct": 0.73
+    },
+    {
+      "ticker": "CFR.SW",
+      "yahoo": "CFR.SW",
+      "name": "COMPAGNIE FINANCIERE RICHEMONT SA",
+      "exchange": "SIX Swiss Exchange",
+      "issuerTicker": "CFR",
+      "currency": "CHF",
+      "rank": 30,
+      "weightProxyPct": 0.71
+    },
+    {
+      "ticker": "MC",
+      "yahoo": "MC.PA",
+      "name": "LVMH",
+      "exchange": "Nyse Euronext - Euronext Paris",
+      "issuerTicker": "MC",
+      "currency": "EUR",
+      "rank": 31,
+      "weightProxyPct": 0.71
+    },
+    {
+      "ticker": "GSK.L",
+      "yahoo": "GSK.L",
+      "name": "GLAXOSMITHKLINE",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "GSK",
+      "currency": "GBP",
+      "rank": 32,
+      "weightProxyPct": 0.69
+    },
+    {
+      "ticker": "ISP.MI",
+      "yahoo": "ISP.MI",
+      "name": "INTESA SANPAOLO",
+      "exchange": "Borsa Italiana",
+      "issuerTicker": "ISP",
+      "currency": "EUR",
+      "rank": 33,
+      "weightProxyPct": 0.69
+    },
+    {
+      "ticker": "DTE.DE",
+      "yahoo": "DTE.DE",
+      "name": "DEUTSCHE TELEKOM N AG",
+      "exchange": "Xetra",
+      "issuerTicker": "DTE",
+      "currency": "EUR",
+      "rank": 34,
+      "weightProxyPct": 0.66
+    },
+    {
+      "ticker": "BNP.PA",
+      "yahoo": "BNP.PA",
+      "name": "BNP PARIBAS SA",
+      "exchange": "Nyse Euronext - Euronext Paris",
+      "issuerTicker": "BNP",
+      "currency": "EUR",
+      "rank": 35,
+      "weightProxyPct": 0.66
+    },
+    {
+      "ticker": "SAN.PA",
+      "yahoo": "SAN.PA",
+      "name": "SANOFI SA",
+      "exchange": "Nyse Euronext - Euronext Paris",
+      "issuerTicker": "SAN",
+      "currency": "EUR",
+      "rank": 36,
+      "weightProxyPct": 0.62
+    },
+    {
+      "ticker": "INGA.AS",
+      "yahoo": "INGA.AS",
+      "name": "ING GROEP",
+      "exchange": "Euronext Amsterdam",
+      "issuerTicker": "INGA",
+      "currency": "EUR",
+      "rank": 37,
+      "weightProxyPct": 0.62
+    },
+    {
+      "ticker": "RIO.L",
+      "yahoo": "RIO.L",
+      "name": "RIO TINTO",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "RIO",
+      "currency": "GBP",
+      "rank": 38,
+      "weightProxyPct": 0.6
+    },
+    {
+      "ticker": "ABI.BR",
+      "yahoo": "ABI.BR",
+      "name": "ANHEUSER-BUSCH INBEV SA",
+      "exchange": "Nyse Euronext - Euronext Brussels",
+      "issuerTicker": "ABI",
+      "currency": "EUR",
+      "rank": 39,
+      "weightProxyPct": 0.59
+    },
+    {
+      "ticker": "NG.L",
+      "yahoo": "NG.L",
+      "name": "NATIONAL GRID PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "NG.",
+      "currency": "GBP",
+      "rank": 40,
+      "weightProxyPct": 0.58
+    },
+    {
+      "ticker": "CS.PA",
+      "yahoo": "CS.PA",
+      "name": "AXA SA",
+      "exchange": "Nyse Euronext - Euronext Paris",
+      "issuerTicker": "CS",
+      "currency": "EUR",
+      "rank": 41,
+      "weightProxyPct": 0.55
+    },
+    {
+      "ticker": "BA.L",
+      "yahoo": "BA.L",
+      "name": "BAE SYSTEMS PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "BA.",
+      "currency": "GBP",
+      "rank": 42,
+      "weightProxyPct": 0.55
+    },
+    {
+      "ticker": "ENEL.MI",
+      "yahoo": "ENEL.MI",
+      "name": "ENEL",
+      "exchange": "Borsa Italiana",
+      "issuerTicker": "ENEL",
+      "currency": "EUR",
+      "rank": 43,
+      "weightProxyPct": 0.54
+    },
+    {
+      "ticker": "MUV2.DE",
+      "yahoo": "MUV2.DE",
+      "name": "MUENCHENER RUECKVERSICHERUNGS-GESE",
+      "exchange": "Xetra",
+      "issuerTicker": "MUV2",
+      "currency": "EUR",
+      "rank": 44,
+      "weightProxyPct": 0.53
+    },
+    {
+      "ticker": "LLOY.L",
+      "yahoo": "LLOY.L",
+      "name": "LLOYDS BANKING GROUP PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "LLOY",
+      "currency": "GBP",
+      "rank": 45,
+      "weightProxyPct": 0.52
+    },
+    {
+      "ticker": "INVE-B.ST",
+      "yahoo": "INVE-B.ST",
+      "name": "INVESTOR CLASS B",
+      "exchange": "Nasdaq Omx Nordic",
+      "issuerTicker": "INVE B",
+      "currency": "SEK",
+      "rank": 46,
+      "weightProxyPct": 0.51
+    },
+    {
+      "ticker": "REL.L",
+      "yahoo": "REL.L",
+      "name": "RELX PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "REL",
+      "currency": "GBP",
+      "rank": 47,
+      "weightProxyPct": 0.5
+    },
+    {
+      "ticker": "BARC.L",
+      "yahoo": "BARC.L",
+      "name": "BARCLAYS PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "BARC",
+      "currency": "GBP",
+      "rank": 48,
+      "weightProxyPct": 0.49
+    },
+    {
+      "ticker": "IFX.DE",
+      "yahoo": "IFX.DE",
+      "name": "INFINEON TECHNOLOGIES AG",
+      "exchange": "Xetra",
+      "issuerTicker": "IFX",
+      "currency": "EUR",
+      "rank": 49,
+      "weightProxyPct": 0.48
+    },
+    {
+      "ticker": "ITX.MC",
+      "yahoo": "ITX.MC",
+      "name": "INDUSTRIA DE DISENO TEXTIL SA",
+      "exchange": "Bolsa De Madrid",
+      "issuerTicker": "ITX",
+      "currency": "EUR",
+      "rank": 50,
+      "weightProxyPct": 0.48
+    },
+    {
+      "ticker": "NWG.L",
+      "yahoo": "NWG.L",
+      "name": "NATWEST GROUP PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "NWG",
+      "currency": "GBP",
+      "rank": 51,
+      "weightProxyPct": 0.46
+    },
+    {
+      "ticker": "GLEN.L",
+      "yahoo": "GLEN.L",
+      "name": "GLENCORE PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "GLEN",
+      "currency": "GBP",
+      "rank": 52,
+      "weightProxyPct": 0.46
+    },
+    {
+      "ticker": "DG.PA",
+      "yahoo": "DG.PA",
+      "name": "VINCI SA",
+      "exchange": "Nyse Euronext - Euronext Paris",
+      "issuerTicker": "DG",
+      "currency": "EUR",
+      "rank": 53,
+      "weightProxyPct": 0.44
+    },
+    {
+      "ticker": "DB1.DE",
+      "yahoo": "DB1.DE",
+      "name": "DEUTSCHE BOERSE AG",
+      "exchange": "Xetra",
+      "issuerTicker": "DB1",
+      "currency": "EUR",
+      "rank": 54,
+      "weightProxyPct": 0.44
+    },
+    {
+      "ticker": "EL.PA",
+      "yahoo": "EL.PA",
+      "name": "ESSILORLUXOTTICA SA",
+      "exchange": "Nyse Euronext - Euronext Paris",
+      "issuerTicker": "EL",
+      "currency": "EUR",
+      "rank": 55,
+      "weightProxyPct": 0.43
+    },
+    {
+      "ticker": "ENI.MI",
+      "yahoo": "ENI.MI",
+      "name": "ENI",
+      "exchange": "Borsa Italiana",
+      "issuerTicker": "ENI",
+      "currency": "EUR",
+      "rank": 56,
+      "weightProxyPct": 0.42
+    },
+    {
+      "ticker": "DHL.DE",
+      "yahoo": "DHL.DE",
+      "name": "DHL AG",
+      "exchange": "Xetra",
+      "issuerTicker": "DHL",
+      "currency": "EUR",
+      "rank": 57,
+      "weightProxyPct": 0.41
+    },
+    {
+      "ticker": "CPG.L",
+      "yahoo": "CPG.L",
+      "name": "COMPASS GROUP PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "CPG",
+      "currency": "USD",
+      "rank": 58,
+      "weightProxyPct": 0.41
+    },
+    {
+      "ticker": "LSEG.L",
+      "yahoo": "LSEG.L",
+      "name": "LONDON STOCK EXCHANGE GROUP PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "LSEG",
+      "currency": "GBP",
+      "rank": 59,
+      "weightProxyPct": 0.41
+    },
+    {
+      "ticker": "DBK.DE",
+      "yahoo": "DBK.DE",
+      "name": "DEUTSCHE BANK AG",
+      "exchange": "Xetra",
+      "issuerTicker": "DBK",
+      "currency": "EUR",
+      "rank": 60,
+      "weightProxyPct": 0.4
+    },
+    {
+      "ticker": "NDA-FI.HE",
+      "yahoo": "NDA-FI.HE",
+      "name": "NORDEA BANK",
+      "exchange": "Nasdaq Omx Helsinki Ltd.",
+      "issuerTicker": "NDA FI",
+      "currency": "EUR",
+      "rank": 61,
+      "weightProxyPct": 0.39
+    },
+    {
+      "ticker": "ARGX.BR",
+      "yahoo": "ARGX.BR",
+      "name": "ARGENX",
+      "exchange": "Nyse Euronext - Euronext Brussels",
+      "issuerTicker": "ARGX",
+      "currency": "EUR",
+      "rank": 62,
+      "weightProxyPct": 0.37
+    },
+    {
+      "ticker": "SREN.SW",
+      "yahoo": "SREN.SW",
+      "name": "SWISS RE AG",
+      "exchange": "SIX Swiss Exchange",
+      "issuerTicker": "SREN",
+      "currency": "CHF",
+      "rank": 63,
+      "weightProxyPct": 0.37
+    },
+    {
+      "ticker": "AAL.L",
+      "yahoo": "AAL.L",
+      "name": "ANGLO AMERICAN PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "AAL",
+      "currency": "GBP",
+      "rank": 64,
+      "weightProxyPct": 0.36
+    },
+    {
+      "ticker": "LONN.SW",
+      "yahoo": "LONN.SW",
+      "name": "LONZA GROUP AG",
+      "exchange": "SIX Swiss Exchange",
+      "issuerTicker": "LONN",
+      "currency": "CHF",
+      "rank": 65,
+      "weightProxyPct": 0.36
+    },
+    {
+      "ticker": "DGE.L",
+      "yahoo": "DGE.L",
+      "name": "DIAGEO PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "DGE",
+      "currency": "GBP",
+      "rank": 66,
+      "weightProxyPct": 0.36
+    },
+    {
+      "ticker": "RHM.DE",
+      "yahoo": "RHM.DE",
+      "name": "RHEINMETALL AG",
+      "exchange": "Xetra",
+      "issuerTicker": "RHM",
+      "currency": "EUR",
+      "rank": 67,
+      "weightProxyPct": 0.36
+    },
+    {
+      "ticker": "BAS.DE",
+      "yahoo": "BAS.DE",
+      "name": "BASF N",
+      "exchange": "Xetra",
+      "issuerTicker": "BAS",
+      "currency": "EUR",
+      "rank": 68,
+      "weightProxyPct": 0.36
+    },
+    {
+      "ticker": "ENGI.PA",
+      "yahoo": "ENGI.PA",
+      "name": "ENGIE SA",
+      "exchange": "Nyse Euronext - Euronext Paris",
+      "issuerTicker": "ENGI",
+      "currency": "EUR",
+      "rank": 69,
+      "weightProxyPct": 0.34
+    },
+    {
+      "ticker": "G",
+      "yahoo": "G.MI",
+      "name": "ASSICURAZIONI GENERALI",
+      "exchange": "Borsa Italiana",
+      "issuerTicker": "G",
+      "currency": "EUR",
+      "rank": 70,
+      "weightProxyPct": 0.34
+    },
+    {
+      "ticker": "GLE.PA",
+      "yahoo": "GLE.PA",
+      "name": "SOCIETE GENERALE SA",
+      "exchange": "Nyse Euronext - Euronext Paris",
+      "issuerTicker": "GLE",
+      "currency": "EUR",
+      "rank": 71,
+      "weightProxyPct": 0.34
+    },
+    {
+      "ticker": "VOLV-B.ST",
+      "yahoo": "VOLV-B.ST",
+      "name": "VOLVO CLASS B",
+      "exchange": "Nasdaq Omx Nordic",
+      "issuerTicker": "VOLV B",
+      "currency": "SEK",
+      "rank": 72,
+      "weightProxyPct": 0.33
+    },
+    {
+      "ticker": "RMS.PA",
+      "yahoo": "RMS.PA",
+      "name": "HERMES INTERNATIONAL",
+      "exchange": "Nyse Euronext - Euronext Paris",
+      "issuerTicker": "RMS",
+      "currency": "EUR",
+      "rank": 73,
+      "weightProxyPct": 0.33
+    },
+    {
+      "ticker": "PRX.AS",
+      "yahoo": "PRX.AS",
+      "name": "PROSUS NV CLASS N",
+      "exchange": "Euronext Amsterdam",
+      "issuerTicker": "PRX",
+      "currency": "EUR",
+      "rank": 74,
+      "weightProxyPct": 0.33
+    },
+    {
+      "ticker": "BAYN.DE",
+      "yahoo": "BAYN.DE",
+      "name": "BAYER AG",
+      "exchange": "Xetra",
+      "issuerTicker": "BAYN",
+      "currency": "EUR",
+      "rank": 75,
+      "weightProxyPct": 0.32
+    },
+    {
+      "ticker": "RACE.MI",
+      "yahoo": "RACE.MI",
+      "name": "FERRARI",
+      "exchange": "Borsa Italiana",
+      "issuerTicker": "RACE",
+      "currency": "EUR",
+      "rank": 76,
+      "weightProxyPct": 0.32
+    },
+    {
+      "ticker": "RKT.L",
+      "yahoo": "RKT.L",
+      "name": "RECKITT BENCKISER GROUP PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "RKT",
+      "currency": "GBP",
+      "rank": 77,
+      "weightProxyPct": 0.32
+    },
+    {
+      "ticker": "EOAN.DE",
+      "yahoo": "EOAN.DE",
+      "name": "E.ON N",
+      "exchange": "Xetra",
+      "issuerTicker": "EOAN",
+      "currency": "EUR",
+      "rank": 78,
+      "weightProxyPct": 0.31
+    },
+    {
+      "ticker": "STAN.L",
+      "yahoo": "STAN.L",
+      "name": "STANDARD CHARTERED PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "STAN",
+      "currency": "GBP",
+      "rank": 79,
+      "weightProxyPct": 0.31
+    },
+    {
+      "ticker": "ATCO-A.ST",
+      "yahoo": "ATCO-A.ST",
+      "name": "ATLAS COPCO CLASS A",
+      "exchange": "Nasdaq Omx Nordic",
+      "issuerTicker": "ATCO A",
+      "currency": "SEK",
+      "rank": 80,
+      "weightProxyPct": 0.31
+    },
+    {
+      "ticker": "TSCO.L",
+      "yahoo": "TSCO.L",
+      "name": "TESCO PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "TSCO",
+      "currency": "GBP",
+      "rank": 81,
+      "weightProxyPct": 0.3
+    },
+    {
+      "ticker": "BN.PA",
+      "yahoo": "BN.PA",
+      "name": "DANONE SA",
+      "exchange": "Nyse Euronext - Euronext Paris",
+      "issuerTicker": "BN",
+      "currency": "EUR",
+      "rank": 82,
+      "weightProxyPct": 0.3
+    },
+    {
+      "ticker": "CABK.MC",
+      "yahoo": "CABK.MC",
+      "name": "CAIXABANK SA",
+      "exchange": "Bolsa De Madrid",
+      "issuerTicker": "CABK",
+      "currency": "EUR",
+      "rank": 83,
+      "weightProxyPct": 0.3
+    },
+    {
+      "ticker": "NOKIA.HE",
+      "yahoo": "NOKIA.HE",
+      "name": "NOKIA",
+      "exchange": "Nasdaq Omx Helsinki Ltd.",
+      "issuerTicker": "NOKIA",
+      "currency": "EUR",
+      "rank": 84,
+      "weightProxyPct": 0.3
+    },
+    {
+      "ticker": "HLN.L",
+      "yahoo": "HLN.L",
+      "name": "HALEON PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "HLN",
+      "currency": "GBP",
+      "rank": 85,
+      "weightProxyPct": 0.3
+    },
+    {
+      "ticker": "GALD.SW",
+      "yahoo": "GALD.SW",
+      "name": "GALDERMA GROUP N AG",
+      "exchange": "SIX Swiss Exchange",
+      "issuerTicker": "GALD",
+      "currency": "CHF",
+      "rank": 86,
+      "weightProxyPct": 0.3
+    },
+    {
+      "ticker": "RWE.DE",
+      "yahoo": "RWE.DE",
+      "name": "RWE AG",
+      "exchange": "Xetra",
+      "issuerTicker": "RWE",
+      "currency": "EUR",
+      "rank": 87,
+      "weightProxyPct": 0.29
+    },
+    {
+      "ticker": "SDZ.SW",
+      "yahoo": "SDZ.SW",
+      "name": "SANDOZ GROUP AG",
+      "exchange": "SIX Swiss Exchange",
+      "issuerTicker": "SDZ",
+      "currency": "CHF",
+      "rank": 88,
+      "weightProxyPct": 0.29
+    },
+    {
+      "ticker": "HOLN.SW",
+      "yahoo": "HOLN.SW",
+      "name": "HOLCIM LTD AG",
+      "exchange": "SIX Swiss Exchange",
+      "issuerTicker": "HOLN",
+      "currency": "CHF",
+      "rank": 89,
+      "weightProxyPct": 0.29
+    },
+    {
+      "ticker": "SSE.L",
+      "yahoo": "SSE.L",
+      "name": "SSE PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "SSE",
+      "currency": "GBP",
+      "rank": 90,
+      "weightProxyPct": 0.28
+    },
+    {
+      "ticker": "DSV.CO",
+      "yahoo": "DSV.CO",
+      "name": "DSV",
+      "exchange": "Omx Nordic Exchange Copenhagen A/S",
+      "issuerTicker": "DSV",
+      "currency": "DKK",
+      "rank": 91,
+      "weightProxyPct": 0.27
+    },
+    {
+      "ticker": "ASM.AS",
+      "yahoo": "ASM.AS",
+      "name": "ASM INTERNATIONAL NV",
+      "exchange": "Euronext Amsterdam",
+      "issuerTicker": "ASM",
+      "currency": "EUR",
+      "rank": 92,
+      "weightProxyPct": 0.26
+    },
+    {
+      "ticker": "UCB.BR",
+      "yahoo": "UCB.BR",
+      "name": "UCB SA",
+      "exchange": "Nyse Euronext - Euronext Brussels",
+      "issuerTicker": "UCB",
+      "currency": "EUR",
+      "rank": 93,
+      "weightProxyPct": 0.25
+    },
+    {
+      "ticker": "EXPN.L",
+      "yahoo": "EXPN.L",
+      "name": "EXPERIAN PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "EXPN",
+      "currency": "GBP",
+      "rank": 94,
+      "weightProxyPct": 0.25
+    },
+    {
+      "ticker": "GIVN.SW",
+      "yahoo": "GIVN.SW",
+      "name": "GIVAUDAN SA",
+      "exchange": "SIX Swiss Exchange",
+      "issuerTicker": "GIVN",
+      "currency": "CHF",
+      "rank": 95,
+      "weightProxyPct": 0.25
+    },
+    {
+      "ticker": "ASSA-B.ST",
+      "yahoo": "ASSA-B.ST",
+      "name": "ASSA ABLOY B",
+      "exchange": "Nasdaq Omx Nordic",
+      "issuerTicker": "ASSA B",
+      "currency": "SEK",
+      "rank": 96,
+      "weightProxyPct": 0.25
+    },
+    {
+      "ticker": "SAND.ST",
+      "yahoo": "SAND.ST",
+      "name": "SANDVIK",
+      "exchange": "Nasdaq Omx Nordic",
+      "issuerTicker": "SAND",
+      "currency": "SEK",
+      "rank": 97,
+      "weightProxyPct": 0.25
+    },
+    {
+      "ticker": "SGO.PA",
+      "yahoo": "SGO.PA",
+      "name": "COMPAGNIE DE SAINT GOBAIN SA",
+      "exchange": "Nyse Euronext - Euronext Paris",
+      "issuerTicker": "SGO",
+      "currency": "EUR",
+      "rank": 98,
+      "weightProxyPct": 0.25
+    },
+    {
+      "ticker": "LR.PA",
+      "yahoo": "LR.PA",
+      "name": "LEGRAND SA",
+      "exchange": "Nyse Euronext - Euronext Paris",
+      "issuerTicker": "LR",
+      "currency": "EUR",
+      "rank": 99,
+      "weightProxyPct": 0.25
+    },
+    {
+      "ticker": "VOD.L",
+      "yahoo": "VOD.L",
+      "name": "VODAFONE GROUP PLC",
+      "exchange": "London Stock Exchange",
+      "issuerTicker": "VOD",
+      "currency": "GBP",
+      "rank": 100,
+      "weightProxyPct": 0.25
+    }
+  ],
+  "weightBasis": "Physical iShares STOXX Europe 600 ETF holdings, an approximation of index weights; not independently verified original STOXX weights. Rounded equal weights retain issuer file order.",
+  "rotation": "Fixed selection; no automatic rotation. Current membership introduces selection/survivorship bias.",
+  "instrumentPolicy": "Exact listings deduplicated; existing US ADRs remain separate. UK GBp quotes are explicitly normalized to GBP (factor 0.01)."
+}

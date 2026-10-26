@@ -8,7 +8,7 @@
   "weightBasis": "SPY holdings proxy for S&P 500 float-adjusted index weight; not independently confirmed original S&P index weights.",
   "rotation": "Fixed selection; no automatic rotation. Historical performance of this current selection is subject to survivorship/selection bias.",
   "originalCount": 32,
-  "totalCount": 114,
+  "totalCount": 210,
   "top100Count": 100,
   "newCount": 82,
   "holdings": [
