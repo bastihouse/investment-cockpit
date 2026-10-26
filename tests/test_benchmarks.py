@@ -9,7 +9,8 @@ from benchmarks import build,CATALOG
 
 class BenchmarkTests(unittest.TestCase):
  def test_catalog_has_broad_sector_and_fx_series(self):
-  self.assertEqual(len(CATALOG),14);self.assertEqual(len({x[0] for x in CATALOG}),14)
+  self.assertEqual(len(CATALOG),15);self.assertEqual(len({x[0] for x in CATALOG}),15)
+  self.assertIn('QQQ',[x[0] for x in CATALOG])
   self.assertEqual(sum(x[3] not in (None,'fx') for x in CATALOG),11)
  def test_current_day_excluded_and_failed_cache_keeps_original_timestamp(self):
   with tempfile.TemporaryDirectory() as folder:
