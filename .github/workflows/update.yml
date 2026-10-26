@@ -2,7 +2,7 @@ name: Kostenlose Marktdaten aktualisieren
 on:
   push:
     branches: [main]
-    paths: [index.html, insights.js, research.js, dashboard.js, reconstruction.js, workspace.js, research_next.js, experience.js, discovery.js, research_hub.js, benchmarks.py, responsive-preview.html, evaluation.py, monitor_reports.py, reconstruct.py, discovery.py, historical_sources.py, tools/audit_historical_eps.py, update_data.py, scoring.py, validation.py, archive.py, requirements.txt, "data/**", "tests/**", ".github/workflows/update.yml"]
+    paths: [index.html, insights.js, research.js, dashboard.js, reconstruction.js, workspace.js, research_next.js, experience.js, discovery.js, research_hub.js, benchmarks.py, responsive-preview.html, evaluation.py, monitor_reports.py, reconstruct.py, discovery.py, historical_sources.py, tools/audit_historical_eps.py, tools/collect_europe_history.py, tools/collect_stoxx_universe.py, update_data.py, scoring.py, validation.py, archive.py, requirements.txt, "data/**", "tests/**", ".github/workflows/update.yml"]
   schedule:
     - cron: '35 21 * * 1-5'
   workflow_dispatch:
