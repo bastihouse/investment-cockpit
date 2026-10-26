@@ -83,7 +83,7 @@ def collect_fundamentals(symbol, price_date):
                  sourceUrl='https://finance.yahoo.com/quote/'+urllib.parse.quote(symbol, safe='')+'/key-statistics/',
                  forwardBasis='Anbieterwert; FY1/NTM nicht unabhängig bestätigt',
                  periodNote='Umsatzwachstum und operative Marge nach Anbieterdefinition; jüngstes Berichtsdatum separat ausgewiesen.')
-    facts.update(responseSymbol=info.get('symbol'),quoteType=info.get('quoteType'),sharesOutstanding=number(info.get('sharesOutstanding')),marketCap=number(info.get('marketCap')))
+    facts.update(exchange=info.get('exchange'),fullExchangeName=info.get('fullExchangeName'),responseSymbol=info.get('symbol'),quoteType=info.get('quoteType'),sharesOutstanding=number(info.get('sharesOutstanding')),marketCap=number(info.get('marketCap')))
     market_time=number(info.get('regularMarketTime'))
     facts['providerPrice']=number(info.get('regularMarketPrice'))
     facts['providerPriceDate']=dt.datetime.fromtimestamp(market_time,UTC).date().isoformat() if market_time else None
