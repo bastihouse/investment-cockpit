@@ -203,7 +203,7 @@ def main():
       'primaryEPSConfirmed':sum(q['validation']['independentEPSConfirmed'] for q in quotes),
       'warnings':sum(q['validation']['state']=='warning' for q in quotes),
       'consistent':sum(q['validation']['state']=='consistent' for q in quotes),
-      'primarySample':len(set(primaries)|{r['ticker'] for r in report_bundle.get('reports',[]) if r.get('epsDiluted') is not None}),
+      'primarySample':len(set(primaries)|{r['ticker'] for r in report_bundle.get('reports',[]) if r.get('epsDiluted') is not None or r.get('epsTtmApprox') is not None}),
       'secSample':len(primaries),
       'curatedPrimaryReports':sum(q['fundamentals'].get('specialist',{}).get('status')=='fresh' for q in quotes)}
     write(ROOT/'data/snapshot.json', snapshot)
