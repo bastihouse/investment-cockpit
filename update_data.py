@@ -25,6 +25,12 @@ def write(path, value):
     path.write_text(json.dumps(value, ensure_ascii=False, allow_nan=False, separators=(',', ':'))+'\n')
 
 
+def normalize_prices(history,currency):
+    if currency=='GBp':
+        return [{**p,**{k:round(p[k]/100,8) for k in ('close','adjustedClose') if p.get(k) is not None}} for p in history],'GBP'
+    return history,currency
+
+
 def chart(symbol):
     url = 'https://query1.finance.yahoo.com/v8/finance/chart/' + urllib.parse.quote(symbol, safe='') + f'?period1={int((NOW-dt.timedelta(days=6*366)).timestamp())}&period2={int(NOW.timestamp())}&interval=1d&events=div%2Csplits'
     req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (InvestmentCockpitFree/7.1)', 'Accept': 'application/json'})
@@ -59,7 +65,7 @@ def chart(symbol):
         if e.get('denominator') and e.get('numerator') and e.get('date')
         and '2020-01-01' <= dt.datetime.fromtimestamp(e['date'], UTC).date().isoformat() <= TODAY.isoformat()
     ], key=lambda e: e['tradingDate'])
-    return history, currency
+    return normalize_prices(history, currency)
 
 
 def collect_fundamentals(symbol, price_date):
@@ -97,6 +103,10 @@ def collect_fundamentals(symbol, price_date):
                             numberOfAnalysts=number(est.get('numberOfAnalysts')), status='fresh')
     except Exception as exc:
         revision['error'] = str(exc)[:200]
+    if facts.get('quoteCurrency')=='GBp':
+        facts['rawQuoteCurrency']='GBp';facts['quoteCurrency']='GBP';facts['quoteUnitFactor']=0.01
+        for field in ('providerPrice','regularMarketPrice'):
+            if facts.get(field) is not None:facts[field]/=100
     return facts, revision
 
 
@@ -106,7 +116,9 @@ def main():
     previous = {q['ticker']: q for q in old_snapshot['quotes']}
     record_snapshot(ROOT,old_snapshot)
     primaries=primary_checks(TODAY)
-    report_bundle=json.loads((ROOT/'data/historical-reports.json').read_text())
+    from historical_sources import load_reports
+    reports,source_hashes,_=load_reports(ROOT)
+    report_bundle={'reports':reports}
     sector_path=ROOT/'data/sector-inputs.json'
     specialist_inputs=json.loads(sector_path.read_text()) if sector_path.exists() else {}
     quotes, errors, successes = [], [], 0
@@ -181,10 +193,13 @@ def main():
     selection_path=ROOT/'data/sp500-selection.json'
     selection=json.loads(selection_path.read_text()) if selection_path.exists() else None
     snapshot = {'schemaVersion': 3, 'scoreModelVersion':'research-v7.5.0', 'generatedAt': STAMP, 'providerMode': 'GitHub Actions · Yahoo Chart + yfinance (kostenlos, inoffiziell)',
+                'universeSelections':{name:json.loads((ROOT/('data/'+name+'-selection.json')).read_text()) for name in ('sp500','stoxx600') if (ROOT/('data/'+name+'-selection.json')).exists()},
                 'universeCount':len(universe),'universeSelection':{k:v for k,v in selection.items() if k!='holdings'} if selection else None,
                 'fmpConfigured': False, 'refresh': {'running': False, 'finishedAt': dt.datetime.now(UTC).isoformat(),
                 'processed': len(quotes), 'total': len(universe), 'lastError': '; '.join(errors[:5]) if errors else None}, 'quotes': quotes}
     snapshot['validationSummary']={
+      'primaryFundamentalChecks':sum(q['validation'].get('independentFundamentalChecks',0) for q in quotes),
+      'primaryFundamentalStocks':sum(q['validation'].get('independentFundamentalChecks',0)>0 for q in quotes),
       'primaryEPSConfirmed':sum(q['validation']['independentEPSConfirmed'] for q in quotes),
       'warnings':sum(q['validation']['state']=='warning' for q in quotes),
       'consistent':sum(q['validation']['state']=='consistent' for q in quotes),

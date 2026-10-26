@@ -8,6 +8,7 @@ SPECIAL = {'JPM': 'bank', 'ALV': 'insurance', 'G': 'insurance', 'O': 'reit',
            'BAC':'bank','WFC':'bank','C':'bank','GS':'bank','MS':'bank',
            'AXP':'bank','COF':'bank','SCHW':'bank','PGR':'insurance','CB':'insurance',
            'WELL':'reit','PLD':'reit'}
+SPECIAL.update({**dict.fromkeys(['HSBA.L','SAN.MC','BBVA.MC','UCG.MI','UBSG.SW','ISP.MI','BNP.PA','INGA.AS','LLOY.L','BARC.L','NWG.L','DBK.DE','NDA-FI.HE','GLE.PA','STAN.L','CABK.MC'],'bank'),**dict.fromkeys(['ZURN.SW','CS.PA','MUV2.DE','SREN.SW'],'insurance'),**dict.fromkeys(['INVE-B.ST','PRX.AS'],'holding')})
 LABELS = {'operating': 'Operativ', 'bank': 'Bank', 'insurance': 'Versicherung',
           'reit': 'REIT', 'bdc': 'BDC', 'holding': 'Holding', 'royalty': 'Royalty'}
 

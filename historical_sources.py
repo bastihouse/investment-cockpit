@@ -7,7 +7,7 @@ def load_reports(root,apply_audit=True):
     root=Path(root);reports=[];hashes={};checks=[]
     paths=[root/'data/historical-reports.json',root/'data/historical-extensions.json']
     paths+=sorted((root/'data/historical-sec').glob('*.json'))
-    paths+=[root/'data/historical-international.json',root/'data/historical-predecessors.json']
+    paths+=[root/'data/historical-international.json',root/'data/historical-predecessors.json',root/'data/historical-europe.json']
     for path in paths:
         if not path.exists():continue
         body=path.read_bytes();bundle=json.loads(body)

@@ -13,7 +13,7 @@ CATALOG=[('SPY','S&P 500 · SPY-Proxy','USD',None),('QQQ','Nasdaq-100 · QQQ-Pro
  ('XLP','US-Basiskonsum','USD','Consumer Defensive'),('XLU','US-Versorger','USD','Utilities'),
  ('XLB','US-Grundstoffe','USD','Basic Materials'),('XLRE','US-Immobilien','USD','Real Estate'),
  ('XLC','US-Kommunikation','USD','Communication Services'),
- ('EURUSD=X','USD je EUR','USD','fx'),('KRW=X','KRW je USD','KRW','fx')]
+ ('GBPUSD=X','USD je GBP','USD','fx'),('CHFUSD=X','USD je CHF','USD','fx'),('DKKUSD=X','USD je DKK','USD','fx'),('SEKUSD=X','USD je SEK','USD','fx'),('EURUSD=X','USD je EUR','USD','fx'),('KRW=X','KRW je USD','KRW','fx')]
 
 def build(root,today=None,fetcher=None):
     root=Path(root);today=today or dt.datetime.now(dt.timezone.utc).date();fetcher=fetcher or chart

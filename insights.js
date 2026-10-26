@@ -15,14 +15,14 @@ function evidence(q,now=Date.now()){
  const priceFresh=priceAvailable&&q.status==='cached'&&pAge!==null&&pAge>=-1&&pAge<=7;
  const financialFresh=f.status==='fresh'&&fAge!==null&&fAge>=-1&&fAge<=7&&rAge!==null&&rAge>=-1&&rAge<=210;
  const specialized=!!s,sourceFresh=s?.status==='fresh'&&age(s.periodEnd)!==null&&age(s.periodEnd)>=-1&&age(s.periodEnd)<=210&&s.publishedAt&&s.publishedAt<=new Date(now).toISOString().slice(0,10);
- const checks=v.checks||[],passes=checks.filter(c=>c.state==='pass'),warnings=checks.filter(c=>c.state==='warning');
+ const checks=v.checks||[],passes=checks.filter(c=>c.state==='pass'),warnings=checks.filter(c=>c.state==='warning'),statementPasses=financialFresh?passes.filter(c=>c.source==='Filed financial statements').length:0;
  return {priceAvailable,priceFresh,financialFresh,specialized,sourceFresh,
   availability:priceAvailable?'Kurs verfügbar':'Kurs fehlt',
   freshness:priceFresh&&(specialized?sourceFresh:financialFresh)?'Eingaben innerhalb Altersgrenzen':priceFresh?'Kennzahlen offen / veraltet':'Kurs fehlt / veraltet',
   plausibility:warnings.length?'Abweichung':passes.length?'Konsistenz geprüft':'Nicht geprüft',
-  primary:v.independentEPSConfirmed?'EPS mit Primärmeldungen abgeglichen':sourceFresh?'Spezialkennzahlen aus Emittentenbericht':'Keine Primärbestätigung',
-  primaryScope:v.independentEPSConfirmed?'Nur EPS; weder Kurs noch Forward-P/E dadurch bestätigt.':sourceFresh?'Nur die verlinkten Spezialkennzahlen; übrige Anbieterwerte nicht unabhängig bestätigt.':'Erfolgreicher Abruf und hohe Modellabdeckung ersetzen keine unabhängige Prüfung.',
-  hasWarning:warnings.length>0,hasConsistency:passes.length>0,hasPrimary:!!v.independentEPSConfirmed||sourceFresh,
+  primary:statementPasses?statementPasses+' Kennzahlen mit Originalabschlüssen abgeglichen'+(v.independentEPSConfirmed?' · EPS separat bestätigt':''):v.independentEPSConfirmed?'EPS mit Primärmeldungen abgeglichen':sourceFresh?'Spezialkennzahlen aus Emittentenbericht':'Keine Primärbestätigung',
+  primaryScope:statementPasses?'Nur die im Prüfprotokoll genannten Wachstums-/Margenwerte; keine pauschale Bestätigung von Kurs, EPS oder Konsens.':v.independentEPSConfirmed?'Nur EPS; weder Kurs noch Forward-P/E dadurch bestätigt.':sourceFresh?'Nur die verlinkten Spezialkennzahlen; übrige Anbieterwerte nicht unabhängig bestätigt.':'Erfolgreicher Abruf und hohe Modellabdeckung ersetzen keine unabhängige Prüfung.',
+  hasWarning:warnings.length>0,hasConsistency:passes.length>0,hasPrimary:!!v.independentEPSConfirmed||sourceFresh||statementPasses>0,
   missingCategories:Object.keys(WEIGHTS).filter(k=>q.researchScore?.parts?.[k]==null)};
 }
 function sectorMetrics(q){

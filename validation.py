@@ -116,13 +116,29 @@ def check_quote(q, primary=None, issuer=None, history=None):
             dev=abs(eps/reference['value']-1)
             add('EPS ↔ Original-Emittentenmeldungen','pass' if dev<=.15 else 'warning',blocks=[] if dev<=.15 else ['valuation'],left=eps,right=reference['value'],deviationPct=round(dev*100,3),source='Issuer original releases',url=issuer['url'],period=reference['periodEnd'],independence='Primärquelle ausschließlich für die EPS-Näherung; Kurs und Konsens nicht bestätigt.',note='Vier gemeldete, auf die Kurs-Aktienbasis angepasste Quartals-EPS; Rundung und gewichtete Aktienzahlen können abweichen.',sourceReports=issuer['reports'])
         else:add('EPS ↔ Original-Emittentenmeldungen','unavailable',source='Issuer original releases',url=issuer.get('url'),note='Berichtsende, positive EPS-Summe, Währung oder Aktienbasis nicht vergleichbar; keine Bestätigung.')
+    # Limited primary statement comparisons: exact period/definition, independent of EPS.
+    statement_checks=[]
+    reference_facts=(issuer or {}).get('facts',{})
+    if profile=='operating' and issuer:
+        aligned=reference_facts.get('reportDate')==f.get('reportDate') and reference_facts.get('status')=='fresh' and f.get('status')=='fresh'
+        for field,title,threshold in [('revenueGrowth','Umsatzwachstum ↔ Originalabschluss',.03),('operatingMargins','TTM-Marge ↔ Originalabschluss',.03)]:
+            left,right=number(f.get(field)),number(reference_facts.get(field))
+            quarter_ok=field!='revenueGrowth' or reference_facts.get('growthPeriodMonths')==3
+            valid=aligned and quarter_ok and left is not None and right is not None and issuer.get('currency')==f.get('financialCurrency')
+            check={'name':title,'state':'pass' if valid and abs(left-right)<=threshold else 'warning' if valid else 'unavailable',
+                   'blocks':[],'source':'Filed financial statements','url':issuer.get('url'),'period':f.get('reportDate'),
+                   'independence':'Primärabgleich nur dieser Kennzahl; keine Bestätigung von Kurs, EPS oder Konsens.',
+                   'note':'Gleiche Berichtsperiode und Währung; Wachstum nur Quartal/Vorjahresquartal, Marge aus belegtem TTM-Abschluss. Toleranz 3 Prozentpunkte. Diagnose ohne automatische Score-Freigabe.' if valid else 'Gleiche Periode, Währung oder passende Kennzahlendefinition fehlt; kein Bestätigungsabgleich.',
+                   'sourceReports':issuer.get('reports',[])}
+            if valid:check.update(left=left,right=right,deviationPp=round(abs(left-right)*100,4))
+            checks.append(check);statement_checks.append(check)
     warnings=[c for c in checks if c['state']=='warning']
     independent=any(c['state']=='pass' and c.get('source') in ('SEC Companyfacts','Issuer original releases') for c in checks)
     blocked={}
     for c in checks:
         for key in c.get('blocks',['valuation'] if c['state']=='warning' else []):blocked.setdefault(key,[]).append(c['name'])
     return {'state':'warning' if warnings else 'primary-checked' if independent else 'consistent' if any(c['state']=='pass' for c in checks) else 'unverified',
-            'valuationBlocked':'valuation' in blocked, 'blockedCategories':blocked, 'independentEPSConfirmed':independent,'checks':checks,
+            'valuationBlocked':'valuation' in blocked, 'blockedCategories':blocked, 'independentEPSConfirmed':independent,'independentFundamentalChecks':sum(c['state']=='pass' for c in statement_checks),'checks':checks,
             'note':'Prüfungen bestätigen weder Fair Value noch den Zeitraum des Forward-P/E. Abweichungen sperren die Bewertungs-Komponente bis zur Klärung.'}
 
 
@@ -132,5 +148,5 @@ def issuer_reference(ticker,bundle,today):
     facts,eps,used=inputs_at(bundle.get('reports',[]),ticker,cutoff)
     if not used:return None
     return {'eps':{'value':eps,'periodEnd':facts.get('reportDate')} if eps is not None else None,
-            'currency':used[-1].get('currency'),'url':used[-1]['sourceUrl'],
+            'currency':used[-1].get('currency'),'url':used[-1]['sourceUrl'],'facts':facts,
             'reports':[{'periodEnd':r['periodEnd'],'publishedAt':r['publishedAt'],'url':r['sourceUrl'],'sha256':r['documentSha256']} for r in used]}
