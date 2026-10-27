@@ -51,3 +51,14 @@ assert.equal(filterComparisonOptions(choices,'san paris')[0][0],'SAN.PA');
 assert.deepEqual(filterComparisonOptions(choices,'<script>'),[]);assert.equal(filterComparisonOptions(choices,'').length,4);
 const extraFx={'GBPUSD=X':{data:[{date:'2026-10-23',close:1.3}]},'CHFUSD=X':{data:[{date:'2026-10-23',close:1.1}]}};
 assert.equal(fxRate('GBP','2026-10-26',extraFx).value,1.3);assert.equal(fxRate('CHF','2026-10-28',extraFx),null);
+
+// Append the original set only to the selected existing watchlist; preserve notes and other lists.
+const {appendOriginalUniverse}=require('../research_hub.js');
+const originalSet=Array.from({length:32},(_,i)=>({ticker:'O'+i,originalUniverse:true}));
+const portfolioState={version:1,lists:[{id:'portfolio',name:'Portfolio',items:[{ticker:'O0',note:'Persönliche Notiz'},{ticker:'EXTRA',note:'Behalten'}]},{id:'other',name:'Andere Liste',items:[{ticker:'O1',note:'Andere Notiz'}]}],presets:[]};
+const appended=appendOriginalUniverse(portfolioState,'portfolio',[...originalSet,{ticker:'NEW',originalUniverse:false}]);
+assert.equal(appended.added,31);assert.equal(appended.state.lists[0].items.length,33);assert.equal(appended.state.lists[0].items[0].note,'Persönliche Notiz');assert.equal(appended.state.lists[0].items[1].ticker,'EXTRA');assert.deepEqual(appended.state.lists[1],portfolioState.lists[1]);assert.equal(portfolioState.lists[0].items.length,2);
+assert.equal(appendOriginalUniverse(appended.state,'portfolio',originalSet).added,0);
+assert.throws(()=>appendOriginalUniverse(portfolioState,'missing',originalSet));assert.throws(()=>appendOriginalUniverse(portfolioState,'portfolio',originalSet.slice(1)));
+assert.throws(()=>appendOriginalUniverse(portfolioState,'portfolio',[...originalSet.slice(0,31),originalSet[0]]));
+assert.equal(validateState({...raw,presets:[{...raw.presets[0],benchmark:'EXSA.DE'}]}).presets[0].benchmark,'EXSA.DE');
