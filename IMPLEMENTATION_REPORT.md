@@ -1,5 +1,13 @@
 # Research-Erweiterung 19.10.2026
 
+## Europa-Benchmark und ursprüngliche Watchlist-Auswahl (27.10.2026)
+
+- STOXX Europe 600 als zusätzlicher Benchmark: iShares STOXX Europe 600 UCITS ETF (EXSA.DE, Xetra, EUR), ausdrücklich als ETF-Proxy gekennzeichnet. Kurs- und bereinigte Renditenäherung mit historischen Währungskursen im gemeinsamen Vergleich; keine Unternehmens-Scores für ETFs. Offizielle Produktquelle: https://www.ishares.com/de/privatanleger/de/produkte/251931/EXSA. Tageslauf umfasst jetzt 20 Benchmark-/FX-Reihen.
+- Watchlists: „Ursprüngliche 32 hinzufügen“ ergänzt ausschließlich fehlende Titel mit originalUniverse=true zur ausgewählten bestehenden Liste. Bestehende Titel, Notizen, andere Listen und Vergleiche bleiben erhalten; wiederholtes Klicken erzeugt keine Duplikate. Letzte Änderung rückgängig möglich. Unvollständige Auswahl oder Speicherfehler führen zu keiner Teiländerung.
+- ?watchlist=Portfolio#watchlists wählt nur eine eindeutig vorhandene gleichnamige Liste aus. Kein automatisches Anlegen oder Befüllen. Watchlists sind browserlokal: Im verfügbaren Prüf-Browser existiert keine Portfolio-Liste; die persönliche Liste auf dem Nutzergerät kann von hier nicht direkt verändert werden. Dort Liste öffnen und Sammelfunktion betätigen. Keine privaten Watchlist-Daten veröffentlicht.
+- Lokal geprüft: 66 Python-Tests, Research-Hub-Regressionen und DOM-Integration mit bestehender Portfolio-Testliste einschließlich Notizen, Zusatzaktie, zweiter Liste, Duplikatschutz, Rückgängig und fehlender Liste. Echte EXSA-Kursreihe: 1.529 EUR-Handelstage ab 22.10.2020 bis 23.10.2026, jeweils positiver bereinigter Kurs. Veröffentlichung und Live-Abnahme folgen separat.
+
+
 ## Europa, Aktiensuche und zusätzliche Primärprüfungen (26.10.2026)
 
 1. STOXX Europe 600: feste Top-100-Auswahl aus dem physischen iShares-ETF vom 23.10.2026, als Indexgewicht-Näherung bezeichnet. 96 neue lokale Instrumente, vier vorhandene Überschneidungen, insgesamt 210. Gleichlautende Kürzel (z. B. SAN.MC/SAN.PA) bleiben getrennt; vorhandene US-ADRs und lokale Aktien sind eigene Instrumente. CSV-Original, SHA256, Börsen, Auswahlrang und gerundete Fondsgewichte in data/stoxx600-selection.json. Alle 100 Symbole anhand der Yahoo-Chart-Metadaten geprüft. Keine automatische Rotation. Britische GBp-Schluss-/Anbieterpreise werden explizit durch 100 zu GBP normalisiert; GBP/CHF/DKK/SEK erhalten historische USD-FX-Reihen. Compass CPG.L wird tatsächlich in USD gehandelt. Banken, Versicherer und Holdings erhalten vorhandene passende Profile, ohne neue Schwellen/Gewichte. Nasdaq-Filter schließt nordische Nasdaq-Börsen aus.
